@@ -30,7 +30,6 @@ class ProteinTranslator {
 		List<String> proteins = new ArrayList<String>();
 		for (int i = 0; i < rnaSequence.length(); i += CODON_LENGTH) {
 			String codon = rnaSequence.substring(i, i + CODON_LENGTH);
-			System.out.println(codon);
 			String protein = CODON2PROTEIN.get(codon);
 			if (protein.equals("STOP")) {
 				break;
