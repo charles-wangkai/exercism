@@ -1,8 +1,12 @@
 class Garden(object):
+    DEFAULT_STUDENTS = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Fred', 'Ginny', 'Harriet', 'Ileana', 'Joseph', 'Kincaid', 'Larry']
     CODE2NAME = {'G': 'Grass', 'C': 'Clover', 'R': 'Radishes', 'V': 'Violets'}
 
-    def __init__(self, diagram, students=['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Fred', 'Ginny', 'Harriet', 'Ileana', 'Joseph', 'Kincaid', 'Larry']):
-        self.garden = diagram.split('\n')
+    def __init__(self, diagram, students=None):
+        if students is None:
+            students = self.DEFAULT_STUDENTS
+        
+        self.garden = diagram.splitlines()
         self.students = sorted(students)
 
     def plants(self, student):
