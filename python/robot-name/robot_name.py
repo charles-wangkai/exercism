@@ -7,8 +7,8 @@ class Robot(object):
 
     def __init__(self):
         while True:
-            self.name = '{0}{1}{2}{3}{4}'.format(self.generate_letter(), self.generate_letter(),
-                                                 self.generate_digit(), self.generate_digit(), self.generate_digit())
+            self.name = '{}{}{}{}{}'.format(self.generate_letter(), self.generate_letter(),
+                                            self.generate_digit(), self.generate_digit(), self.generate_digit())
             if self.name not in self.names:
                 self.names.add(self.name)
                 break
