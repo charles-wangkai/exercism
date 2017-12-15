@@ -28,7 +28,6 @@ class BeerTest(unittest.TestCase):
         )
 
     def test_verse_0(self):
-        print(verse(0))
         self.assertEqual(
             verse(0),
             "No more bottles of beer on the wall, no more bottles of beer.\n"
