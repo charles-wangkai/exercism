@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class HandshakeCalculatorTest {
+
 	private HandshakeCalculator handshakeCalculator;
 
 	@Before
@@ -69,11 +70,6 @@ public class HandshakeCalculatorTest {
 	@Test
 	public void testThatInput0YieldsNoActions() {
 		assertEquals(emptyList(), handshakeCalculator.calculateHandshake(0));
-	}
-
-	@Test
-	public void testThatInputWithLower5BitsNotSetYieldsNoActions() {
-		assertEquals(emptyList(), handshakeCalculator.calculateHandshake(32));
 	}
 
 }
