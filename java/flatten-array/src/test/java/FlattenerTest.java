@@ -6,9 +6,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/*
- * version: 1.1.0
- */
 public class FlattenerTest {
 
 	private Flattener flattener;
