@@ -14,7 +14,7 @@ class Gigasecond {
 	}
 
 	LocalDateTime getDate() {
-		return birthDateTime.plusSeconds(1000000000);
+		return birthDateTime.plusSeconds(1_000_000_000);
 	}
 
 }
