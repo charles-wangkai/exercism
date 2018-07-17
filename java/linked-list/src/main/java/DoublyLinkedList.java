@@ -3,15 +3,13 @@ public class DoublyLinkedList<T> {
 	Node<T> tail;
 
 	void push(T value) {
-		Node<T> node = new Node<T>(value);
+		Node<T> node = new Node<T>(value, tail, null);
 		if (tail == null) {
 			head = node;
-			tail = node;
 		} else {
 			tail.next = node;
-			node.prev = tail;
-			tail = node;
 		}
+		tail = node;
 	}
 
 	T pop() {
@@ -19,11 +17,10 @@ public class DoublyLinkedList<T> {
 		Node<T> newTail = tail.prev;
 		if (newTail == null) {
 			head = null;
-			tail = null;
 		} else {
 			newTail.next = null;
-			tail = newTail;
 		}
+		tail = newTail;
 		return result;
 	}
 
@@ -31,34 +28,33 @@ public class DoublyLinkedList<T> {
 		T result = head.value;
 		Node<T> newHead = head.next;
 		if (newHead == null) {
-			head = null;
 			tail = null;
 		} else {
 			newHead.prev = null;
-			head = newHead;
 		}
+		head = newHead;
 		return result;
 	}
 
 	void unshift(T value) {
-		Node<T> node = new Node<T>(value);
+		Node<T> node = new Node<T>(value, null, head);
 		if (head == null) {
-			head = node;
 			tail = node;
 		} else {
-			node.next = head;
 			head.prev = node;
-			head = node;
 		}
+		head = node;
 	}
 }
 
 class Node<T> {
+	T value;
 	Node<T> prev;
 	Node<T> next;
-	T value;
 
-	Node(T value) {
+	Node(T value, Node<T> prev, Node<T> next) {
 		this.value = value;
+		this.prev = prev;
+		this.next = next;
 	}
 }
