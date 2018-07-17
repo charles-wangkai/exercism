@@ -3,9 +3,9 @@ import unittest
 import bob
 
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.0.0
+# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 
-class BobTests(unittest.TestCase):
+class BobTest(unittest.TestCase):
     def test_stating_something(self):
         self.assertEqual(bob.hey("Tom-ay-to, tom-aaaah-to."), "Whatever.")
 
@@ -36,7 +36,9 @@ class BobTests(unittest.TestCase):
 
     def test_forceful_question(self):
         self.assertEqual(
-            bob.hey("WHAT THE HELL WERE YOU THINKING?"), "Whoa, chill out!")
+            bob.hey("WHAT THE HELL WERE YOU THINKING?"),
+            "Calm down, I know what I'm doing!"
+        )
 
     def test_shouting_numbers(self):
         self.assertEqual(bob.hey("1, 2, 3 GO!"), "Whoa, chill out!")
