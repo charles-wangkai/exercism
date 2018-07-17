@@ -35,12 +35,4 @@ public class TwoferTest {
 
 		assertEquals(expected, twofer.twofer(input));
 	}
-
-	@Test
-	public void emptyStringGiven() {
-		String input = "";
-		String expected = "One for , one for me.";
-
-		assertEquals(expected, twofer.twofer(input));
-	}
 }

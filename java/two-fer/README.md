@@ -2,7 +2,7 @@
 
 `Two-fer` or `2-fer` is short for two for one. One for you and one for me.
 
-```
+```text
 "One for X, one for me."
 ```
 
@@ -12,34 +12,7 @@ If the given name is "Alice", the result should be "One for Alice, one for me."
 If no name is given, the result should be "One for you, one for me."
 
 
-## Test-Driven Development
-
-As programmers mature, they eventually want to test their code.
-
-Here at Exercism we simulate [Test-Driven
-Development](http://en.wikipedia.org/wiki/Test-driven_development) (TDD), where
-you write your tests before writing any functionality. The simulation comes in
-the form of a pre-written test suite, which will signal that you have solved
-the problem.
-
-It will also provide you with a safety net to explore other solutions without
-breaking the functionality.
-
-### A typical TDD workflow on Exercism:
-
-1. Run the test file and pick one test that's failing.
-2. Write some code to fix the test you picked.
-3. Re-run the tests to confirm the test is now passing.
-4. Repeat from step 1.
-5. Submit your solution (`exercism submit /path/to/file`)
-
-## Instructions
-
-Submissions are encouraged to be general, within reason. Having said that, it's
-also important not to over-engineer a solution.
-
-It's important to remember that the goal is to make code as expressive and
-readable as we can.
+# Java Tips
 
 Most Java exercises include multiple test cases. These cases are structured to
 support a useful process known as
@@ -81,19 +54,20 @@ steps:
 5. Return to step 1 until no tests are skipped and all tests pass!
 
 
+# Running the tests
 
-To run the tests:
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
+in your terminal.
 
 ## Source
 
-This is an exercise to introduce users to basic programming constructs, just after hello World. [https://en.wikipedia.org/wiki/Two-fer](https://en.wikipedia.org/wiki/Two-fer)
+[https://en.wikipedia.org/wiki/Two-fer](https://en.wikipedia.org/wiki/Two-fer)
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
