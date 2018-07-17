@@ -4,9 +4,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/*
- * version: 1.1.0
- */
 public class HammingTest {
 
 	@Rule
@@ -54,12 +51,12 @@ public class HammingTest {
 
 	@Test
 	public void testNonUniqueCharacterInFirstStrand() {
-		assertEquals(1, new Hamming("AGA", "AGG").getHammingDistance());
+		assertEquals(1, new Hamming("AAG", "AAA").getHammingDistance());
 	}
 
 	@Test
 	public void testNonUniqueCharacterInSecondStrand() {
-		assertEquals(1, new Hamming("AGG", "AGA").getHammingDistance());
+		assertEquals(1, new Hamming("AAA", "AAG").getHammingDistance());
 	}
 
 	@Test
