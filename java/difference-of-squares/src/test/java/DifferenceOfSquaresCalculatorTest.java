@@ -3,9 +3,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/*
- * version: 1.1.0
- */
 public class DifferenceOfSquaresCalculatorTest {
 
 	private DifferenceOfSquaresCalculator calculator;
@@ -16,65 +13,65 @@ public class DifferenceOfSquaresCalculatorTest {
 	}
 
 	@Test
-	public void testSquareOfSum1() {
-		final int expected = 1;
-		final int actual = calculator.computeSquareOfSumTo(1);
+	public void testSquareOfSumUpToOne() {
+		int expected = 1;
+		int actual = calculator.computeSquareOfSumTo(1);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSquareOfSum5() {
-		final int expected = 225;
-		final int actual = calculator.computeSquareOfSumTo(5);
+	public void testSquareOfSumUpToFive() {
+		int expected = 225;
+		int actual = calculator.computeSquareOfSumTo(5);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSquareOfSum100() {
-		final int expected = 25502500;
-		final int actual = calculator.computeSquareOfSumTo(100);
+	public void testSquareOfSumUpToHundred() {
+		int expected = 25502500;
+		int actual = calculator.computeSquareOfSumTo(100);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSumOfSquares1() {
-		final int expected = 1;
-		final int actual = calculator.computeSumOfSquaresTo(1);
+	public void testSumOfSquaresUpToOne() {
+		int expected = 1;
+		int actual = calculator.computeSumOfSquaresTo(1);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSumOfSquares5() {
-		final int expected = 55;
-		final int actual = calculator.computeSumOfSquaresTo(5);
+	public void testSumOfSquaresUpToFive() {
+		int expected = 55;
+		int actual = calculator.computeSumOfSquaresTo(5);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSumOfSquares100() {
-		final int expected = 338350;
-		final int actual = calculator.computeSumOfSquaresTo(100);
+	public void testSumOfSquaresUpToHundred() {
+		int expected = 338350;
+		int actual = calculator.computeSumOfSquaresTo(100);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testDifferenceOfSquares1() {
-		final int expected = 0;
-		final int actual = calculator.computeDifferenceOfSquares(1);
+	public void testDifferenceOfSquaresUpToOne() {
+		int expected = 0;
+		int actual = calculator.computeDifferenceOfSquares(1);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testDifferenceOfSquares5() {
-		final int expected = 170;
-		final int actual = calculator.computeDifferenceOfSquares(5);
+	public void testDifferenceOfSquaresUpToFive() {
+		int expected = 170;
+		int actual = calculator.computeDifferenceOfSquares(5);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testDifferenceOfSquares100() {
-		final int expected = 25164150;
-		final int actual = calculator.computeDifferenceOfSquares(100);
+	public void testDifferenceOfSquaresUpToHundred() {
+		int expected = 25164150;
+		int actual = calculator.computeDifferenceOfSquares(100);
 		assertEquals(expected, actual);
 	}
 
