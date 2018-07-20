@@ -6,7 +6,7 @@ Given a word, compute the scrabble score for that word.
 
 You'll need these:
 
-```plain
+```text
 Letter                           Value
 A, E, I, O, U, L, N, R, S, T       1
 D, G                               2
@@ -18,6 +18,7 @@ Q, Z                               10
 ```
 
 ## Examples
+
 "cabbage" should be scored as worth 14 points:
 
 - 3 points for C
@@ -34,22 +35,24 @@ And to total:
 - = 14
 
 ## Extensions
+
 - You can play a double or a triple letter.
 - You can play a double or a triple word.
 
+# Running the tests
 
-To run the tests:
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
+in your terminal.
 
 ## Source
 
 Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
