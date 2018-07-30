@@ -4,9 +4,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-/*
- * version: 1.1.0
- */
 public class PangramCheckerTest {
 
 	private PangramChecker pangramChecker;
@@ -22,6 +19,11 @@ public class PangramCheckerTest {
 	}
 
 	@Test
+	public void recognizesPerfectLowerCasePangram() {
+		assertTrue(pangramChecker.isPangram("abcdefghijklmnopqrstuvwxyz"));
+	}
+
+	@Test
 	public void pangramWithOnlyLowerCaseLettersIsRecognizedAsPangram() {
 		assertTrue(pangramChecker.isPangram("the quick brown fox jumps over the lazy dog"));
 	}
@@ -32,8 +34,8 @@ public class PangramCheckerTest {
 	}
 
 	@Test
-	public void anotherPhraseMissingCharacterXIsNotPangram() {
-		assertFalse(pangramChecker.isPangram("the quick brown fish jumps over the lazy dog"));
+	public void phraseMissingAnotherCharacterIsNotPangram() {
+		assertFalse(pangramChecker.isPangram("five boxing wizards jump quickly at it"));
 	}
 
 	@Test
