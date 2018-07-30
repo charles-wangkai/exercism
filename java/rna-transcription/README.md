@@ -1,4 +1,4 @@
-# Rna Transcription
+# RNA Transcription
 
 Given a DNA strand, return its RNA complement (per RNA transcription).
 
@@ -18,19 +18,26 @@ each nucleotide with its complement:
 * `T` -> `A`
 * `A` -> `U`
 
+# Java Tips
 
-To run the tests:
+For more help on how to solve this exercise, please refer to the tutorial provided as part of the hello world exercise:
+[TUTORIAL.md](https://github.com/exercism/java/blob/master/exercises/hello-world/TUTORIAL.md)
+
+
+# Running the tests
+
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
+in your terminal.
 
 ## Source
 
-Rosalind [http://rosalind.info/problems/rna](http://rosalind.info/problems/rna)
+Hyperphysics [http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html](http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html)
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
