@@ -1,14 +1,16 @@
 class School(object):
 
-    def __init__(self, name):
-        self.name = name
-        self.student2grade = {}
+    def __init__(self):
+        self.name_to_grade = {}
 
-    def add(self, student, grade):
-        self.student2grade[student] = grade
+    def add_student(self, name, grade):
+        self.name_to_grade[name] = grade
 
     def grade(self, grade):
-        return tuple(student for student in self.student2grade if self.student2grade[student] == grade)
+        return sorted(filter(lambda name: self.name_to_grade[name] == grade,
+                             self.name_to_grade))
 
-    def sort(self):
-        return [(grade, tuple(sorted(self.grade(grade)))) for grade in sorted(set(self.student2grade.values()))]
+    def roster(self):
+        return [name
+                for grade in sorted(set(self.name_to_grade.values()))
+                for name in self.grade(grade)]
