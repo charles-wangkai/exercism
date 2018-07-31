@@ -9,9 +9,13 @@ def saddle_points(matrix):
     return {(r, c)
             for r in range(row)
             for c in range(col)
-            if matrix[r][c]
-            == find_max_in_row(matrix, r)
-            == find_min_in_colum(matrix, c)}
+            if is_saddle_point(matrix, r, c)}
+
+
+def is_saddle_point(matrix, r, c):
+    return matrix[r][c] \
+        == find_max_in_row(matrix, r) \
+        == find_min_in_colum(matrix, c)
 
 
 def find_max_in_row(matrix, r):
