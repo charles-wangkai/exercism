@@ -3,7 +3,20 @@ def saddle_points(matrix):
     if row == 0:
         return set()
     if len(set(map(len, matrix))) != 1:
-        raise ValueError
+        raise ValueError('Irregular Matrix!')
     col = len(matrix[0])
 
-    return set([(r, c) for r in range(row) for c in range(col) if matrix[r][c] == max(matrix[r]) == min([matrix[i][c] for i in range(row)])])
+    return {(r, c)
+            for r in range(row)
+            for c in range(col)
+            if matrix[r][c]
+            == find_max_in_row(matrix, r)
+            == find_min_in_colum(matrix, c)}
+
+
+def find_max_in_row(matrix, r):
+    return max(matrix[r])
+
+
+def find_min_in_colum(matrix, c):
+    return min([matrix[i][c] for i in range(len(matrix))])
