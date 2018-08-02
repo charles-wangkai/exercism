@@ -9,7 +9,7 @@ class Clock(object):
         return Clock(0, self.total_minutes - other)
 
     def __str__(self):
-        return '{:0>2}:{:0>2}'.format(self.total_minutes // 60, self.total_minutes % 60)
+        return '{:0>2}:{:0>2}'.format(*divmod(self.total_minutes, 60))
 
     def __eq__(self, other):
         return self.total_minutes == other.total_minutes
