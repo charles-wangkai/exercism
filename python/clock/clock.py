@@ -5,6 +5,9 @@ class Clock(object):
     def __add__(self, other):
         return Clock(0, self.total_minutes + other)
 
+    def __sub__(self, other):
+        return Clock(0, self.total_minutes - other)
+
     def __str__(self):
         return '{:0>2}:{:0>2}'.format(self.total_minutes // 60, self.total_minutes % 60)
 
