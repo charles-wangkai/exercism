@@ -3,9 +3,9 @@ import unittest
 from binary_search import binary_search
 
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.0.0
+# Tests adapted from `problem-specifications//canonical-data.json` @ v1.1.0
 
-class BinarySearchTests(unittest.TestCase):
+class BinarySearchTest(unittest.TestCase):
     def test_finds_value_in_array_with_one_element(self):
         self.assertEqual(binary_search([6], 6), 0)
 
@@ -47,9 +47,9 @@ class BinarySearchTests(unittest.TestCase):
     # Utility functions
     def setUp(self):
         try:
-            self.assertRaisesRegex = self.assertRaisesRegexp
+            self.assertRaisesRegex
         except AttributeError:
-            pass
+            self.assertRaisesRegex = self.assertRaisesRegexp
 
     def assertRaisesWithMessage(self, exception):
         return self.assertRaisesRegex(exception, r".+")
