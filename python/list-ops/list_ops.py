@@ -3,13 +3,9 @@ def append(xs, ys):
     ys_length = length(ys)
 
     result = [None] * (xs_length + ys_length)
-    i = 0
-    for x in xs:
-        result[i] = x
-        i += 1
-    for y in ys:
-        result[i] = y
-        i += 1
+    result[:xs_length] = xs
+    result[xs_length:] = ys
+
     return result
 
 
