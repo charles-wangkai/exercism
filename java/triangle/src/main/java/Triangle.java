@@ -1,7 +1,7 @@
 class Triangle {
-	double side1;
-	double side2;
-	double side3;
+	private double side1;
+	private double side2;
+	private double side3;
 
 	Triangle(double side1, double side2, double side3) throws TriangleException {
 		if (side1 <= 0 || side2 <= 0 || side3 <= 0 || side1 + side2 <= side3 || side2 + side3 <= side1
@@ -14,14 +14,15 @@ class Triangle {
 		this.side3 = side3;
 	}
 
-	TriangleKind getKind() {
-		if (side1 == side2 && side2 == side3) {
-			return TriangleKind.EQUILATERAL;
-		} else if (side1 == side2 || side2 == side3 || side3 == side1) {
-			return TriangleKind.ISOSCELES;
-		} else {
-			return TriangleKind.SCALENE;
-		}
+	boolean isEquilateral() {
+		return side1 == side2 && side2 == side3;
 	}
 
+	boolean isIsosceles() {
+		return side1 == side2 || side2 == side3 || side3 == side1;
+	}
+
+	boolean isScalene() {
+		return !isEquilateral() && !isIsosceles();
+	}
 }
