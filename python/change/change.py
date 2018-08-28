@@ -3,7 +3,7 @@ import collections
 
 def find_minimum_coins(total_change, coins):
     if total_change < 0:
-        return -1
+        raise ValueError('Negative total change!')
 
     value2coins = {0: []}
     queue = collections.deque()
@@ -23,4 +23,4 @@ def find_minimum_coins(total_change, coins):
                 value2coins[next_value] = next_coins
                 queue.append(next_value)
 
-    return -1
+    raise ValueError('Not found!')
