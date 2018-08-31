@@ -32,7 +32,7 @@ def is_list_item(line):
 
 
 def parse_list_item(line):
-    return '<li>{}</li>'.format(parse_some_symbols(line[2:]))
+    return tagger('li', parse_some_symbols(line[2:]))
 
 
 def is_header(line):
@@ -41,12 +41,16 @@ def is_header(line):
 
 def parse_header(line):
     count = line.count('#')
-    return '<h{}>{}</h{}>'.format(count, line[count + 1:], count)
+    return tagger(f'h{count}', line[count + 1:])
 
 
 def parse_paragraph(line):
-    return '<p>{}</p>'.format(parse_some_symbols(line))
+    return tagger('p', parse_some_symbols(line))
 
 
 def parse_some_symbols(line):
-    return re.sub(r'_(.+)_', r'<em>\1</em>', re.sub(r'__(.+)__', r'<strong>\1</strong>', line))
+    return re.sub(r'_(.+)_', tagger('em', r'\1'), re.sub(r'__(.+)__', tagger('strong', r'\1'), line))
+
+
+def tagger(tag, content):
+    return f'<{tag}>{content}</{tag}>'

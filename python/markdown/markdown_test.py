@@ -2,10 +2,9 @@ import unittest
 from markdown import parse_markdown
 
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.1.0
+# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 
-
-class TestMarkdown(unittest.TestCase):
+class MarkdownTest(unittest.TestCase):
 
     def test_paragraph(self):
         self.assertEqual(parse_markdown('This will be a paragraph'),
@@ -19,7 +18,7 @@ class TestMarkdown(unittest.TestCase):
         self.assertEqual(parse_markdown('__This will be bold__'),
                          '<p><strong>This will be bold</strong></p>')
 
-    def test_mixed(self):
+    def test_mixed_normal_italics_and_bold(self):
         self.assertEqual(parse_markdown('This will _be_ __mixed__'),
                          '<p>This will <em>be</em> <strong>mixed</strong></p>')
 
