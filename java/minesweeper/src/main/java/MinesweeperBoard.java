@@ -24,27 +24,39 @@ public class MinesweeperBoard {
 		char[][] board = new char[row][col];
 		for (int r = 0; r < row; r++) {
 			for (int c = 0; c < col; c++) {
-				if (inputBoard.get(r).charAt(c) == '*') {
-					board[r][c] = '*';
-				} else {
-					int count = 0;
-					for (int i = 0; i < R_OFFSETS.length; i++) {
-						int adjR = r + R_OFFSETS[i];
-						int adjC = c + C_OFFSETS[i];
-						if (adjR >= 0 && adjR < row && adjC >= 0 && adjC < col
-								&& inputBoard.get(adjR).charAt(adjC) == '*') {
-							count++;
-						}
-					}
-
-					if (count == 0) {
-						board[r][c] = ' ';
-					} else {
-						board[r][c] = (char) (count + '0');
-					}
-				}
+				board[r][c] = transform(inputBoard, r, c);
 			}
 		}
+
 		return Arrays.stream(board).map(String::new).collect(Collectors.toList());
+	}
+
+	char transform(List<String> inputBoard, int r, int c) {
+		if (inputBoard.get(r).charAt(c) == '*') {
+			return '*';
+		}
+
+		int count = 0;
+		for (int i = 0; i < R_OFFSETS.length; i++) {
+			int adjacentR = r + R_OFFSETS[i];
+			int adjacentC = c + C_OFFSETS[i];
+
+			if (isInbound(inputBoard, adjacentR, adjacentC) && inputBoard.get(adjacentR).charAt(adjacentC) == '*') {
+				count++;
+			}
+		}
+
+		if (count == 0) {
+			return ' ';
+		} else {
+			return (char) (count + '0');
+		}
+	}
+
+	boolean isInbound(List<String> inputBoard, int r, int c) {
+		int row = inputBoard.size();
+		int col = inputBoard.get(0).length();
+
+		return r >= 0 && r < row && c >= 0 && c < col;
 	}
 }
