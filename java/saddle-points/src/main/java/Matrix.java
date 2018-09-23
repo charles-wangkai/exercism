@@ -12,8 +12,8 @@ public class Matrix {
 
 	public Set<MatrixCoordinate> getSaddlePoints() {
 		Set<MatrixCoordinate> saddlePoints = new HashSet<MatrixCoordinate>();
-		for (int r = 0; r < getRowNum(); r++) {
-			for (int c = 0; c < getColumnNum(); c++) {
+		for (int r = 0; r < getNumberOfRows(); r++) {
+			for (int c = 0; c < getNumberOfColumns(); c++) {
 				if (isSaddlePoint(r, c)) {
 					saddlePoints.add(new MatrixCoordinate(r, c));
 				}
@@ -22,11 +22,11 @@ public class Matrix {
 		return saddlePoints;
 	}
 
-	private int getRowNum() {
+	private int getNumberOfRows() {
 		return elements.size();
 	}
 
-	private int getColumnNum() {
+	private int getNumberOfColumns() {
 		return elements.get(0).size();
 	}
 
@@ -35,10 +35,10 @@ public class Matrix {
 	}
 
 	private boolean isMaximumInRow(int r, int c) {
-		return IntStream.range(0, getColumnNum()).allMatch(y -> elements.get(r).get(y) <= elements.get(r).get(c));
+		return IntStream.range(0, getNumberOfColumns()).allMatch(y -> elements.get(r).get(y) <= elements.get(r).get(c));
 	}
 
 	private boolean isMinimumInColumn(int r, int c) {
-		return IntStream.range(0, getRowNum()).allMatch(x -> elements.get(x).get(c) >= elements.get(r).get(c));
+		return IntStream.range(0, getNumberOfRows()).allMatch(x -> elements.get(x).get(c) >= elements.get(r).get(c));
 	}
 }
