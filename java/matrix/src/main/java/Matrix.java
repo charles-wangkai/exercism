@@ -1,7 +1,7 @@
 public class Matrix {
-	int[][] matrix;
+	private final int[][] matrix;
 
-	Matrix(String s) {
+	public Matrix(String s) {
 		String[] lines = s.split("\n");
 		matrix = new int[lines.length][];
 		for (int r = 0; r < matrix.length; r++) {
@@ -13,19 +13,11 @@ public class Matrix {
 		}
 	}
 
-	int getRowsCount() {
-		return matrix.length;
-	}
-
-	int getColumnsCount() {
-		return matrix[0].length;
-	}
-
-	int[] getRow(int index) {
+	public int[] getRow(int index) {
 		return matrix[index];
 	}
 
-	int[] getColumn(int index) {
+	public int[] getColumn(int index) {
 		int[] column = new int[matrix.length];
 		for (int r = 0; r < column.length; r++) {
 			column[r] = matrix[r][index];
