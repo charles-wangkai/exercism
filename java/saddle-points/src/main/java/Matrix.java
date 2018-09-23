@@ -4,16 +4,16 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 public class Matrix {
-	List<List<Integer>> elements;
+	private List<List<Integer>> elements;
 
-	Matrix(List<List<Integer>> elements) {
+	public Matrix(List<List<Integer>> elements) {
 		this.elements = elements;
 	}
 
-	Set<MatrixCoordinate> getSaddlePoints() {
+	public Set<MatrixCoordinate> getSaddlePoints() {
 		Set<MatrixCoordinate> saddlePoints = new HashSet<MatrixCoordinate>();
 		for (int r = 0; r < getRowNum(); r++) {
-			for (int c = 0; c < getColNum(); c++) {
+			for (int c = 0; c < getColumnNum(); c++) {
 				if (isSaddlePoint(r, c)) {
 					saddlePoints.add(new MatrixCoordinate(r, c));
 				}
@@ -22,23 +22,23 @@ public class Matrix {
 		return saddlePoints;
 	}
 
-	int getRowNum() {
+	private int getRowNum() {
 		return elements.size();
 	}
 
-	int getColNum() {
+	private int getColumnNum() {
 		return elements.get(0).size();
 	}
 
-	boolean isSaddlePoint(int r, int c) {
-		return isMaxInRow(r, c) && isMinInCol(r, c);
+	private boolean isSaddlePoint(int r, int c) {
+		return isMaximumInRow(r, c) && isMinimumInColumn(r, c);
 	}
 
-	boolean isMaxInRow(int r, int c) {
-		return IntStream.range(0, getColNum()).allMatch(y -> elements.get(r).get(y) <= elements.get(r).get(c));
+	private boolean isMaximumInRow(int r, int c) {
+		return IntStream.range(0, getColumnNum()).allMatch(y -> elements.get(r).get(y) <= elements.get(r).get(c));
 	}
 
-	boolean isMinInCol(int r, int c) {
+	private boolean isMinimumInColumn(int r, int c) {
 		return IntStream.range(0, getRowNum()).allMatch(x -> elements.get(x).get(c) >= elements.get(r).get(c));
 	}
 }
