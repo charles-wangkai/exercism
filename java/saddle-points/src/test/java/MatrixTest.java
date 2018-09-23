@@ -8,9 +8,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-/*
- * version: 1.0.0
- */
 public class MatrixTest {
 
 	@Test
