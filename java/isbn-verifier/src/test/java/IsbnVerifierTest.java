@@ -34,7 +34,7 @@ public class IsbnVerifierTest {
 
 	@Test
 	public void invalidCharacterInIsbn() {
-		assertFalse(isbnVerifier.isValid("3-598-2K507-0"));
+		assertFalse(isbnVerifier.isValid("3-598-P1581-X"));
 	}
 
 	@Test
@@ -77,4 +77,18 @@ public class IsbnVerifierTest {
 		assertFalse(isbnVerifier.isValid("3-598-21515-X"));
 	}
 
+	@Test
+	public void emptyIsbn() {
+		assertFalse(isbnVerifier.isValid(""));
+	}
+
+	@Test
+	public void inputIsNineCharacters() {
+		assertFalse(isbnVerifier.isValid("134456729"));
+	}
+
+	@Test
+	public void invalidCharactersAreNotIgnored() {
+		assertFalse(isbnVerifier.isValid("3132P34035"));
+	}
 }
