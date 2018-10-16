@@ -8,9 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-/*
- * version: 1.0.0
- */
 public class DiamondPrinterTest {
 
 	private DiamondPrinter diamondPrinter;
@@ -39,10 +36,9 @@ public class DiamondPrinterTest {
 	}
 
 	@Test
-	public void testFiveByFiveDiamond() {
-		List<String> output = diamondPrinter.printToList('E');
-		assertThat(output, is(asList("    A    ", "   B B   ", "  C   C  ", " D     D ", "E       E", " D     D ",
-				"  C   C  ", "   B B   ", "    A    ")));
+	public void testFourByFourDiamond() {
+		List<String> output = diamondPrinter.printToList('D');
+		assertThat(output, is(asList("   A   ", "  B B  ", " C   C ", "D     D", " C   C ", "  B B  ", "   A   ")));
 	}
 
 	@Test
