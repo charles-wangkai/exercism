@@ -10,6 +10,7 @@ always reach 1 eventually.
 Given a number n, return the number of steps required to reach 1.
 
 ## Examples
+
 Starting with n = 12, the steps would be as follows:
 
 0. 12
@@ -25,20 +26,20 @@ Starting with n = 12, the steps would be as follows:
 
 Resulting in 9 steps. So for input n = 12, the return value would be 9.
 
+# Running the tests
 
-
-To run the tests:
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
+in your terminal.
 
 ## Source
 
 An unsolved problem in mathematics named after mathematician Lothar Collatz [https://en.wikipedia.org/wiki/3x_%2B_1_problem](https://en.wikipedia.org/wiki/3x_%2B_1_problem)
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
