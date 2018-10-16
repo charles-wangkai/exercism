@@ -88,43 +88,4 @@ public class KindergartenGardenTest {
 		assertEquals(expected, new KindergartenGarden(plants).getPlantsOfStudent(student));
 	}
 
-	@Test
-	public void customStudentGardenFirstStudentInAlphabeticalOrder() {
-		String[] studentArray = { "Samantha", "Patricia", "Xander", "Roger" };
-		String student = "Patricia";
-		String plants = "VCRRGVRG\nRVGCCGCV";
-		List<Plant> expected = Arrays.asList(Plant.VIOLETS, Plant.CLOVER, Plant.RADISHES, Plant.VIOLETS);
-
-		assertEquals(expected, new KindergartenGarden(plants, studentArray).getPlantsOfStudent(student));
-	}
-
-	@Test
-	public void customStudentGardenSecondStudentInAlphabeticalOrder() {
-		String[] studentArray = { "Samantha", "Patricia", "Xander", "Roger" };
-		String student = "Roger";
-		String plants = "VCRRGVRG\nRVGCCGCV";
-		List<Plant> expected = Arrays.asList(Plant.RADISHES, Plant.RADISHES, Plant.GRASS, Plant.CLOVER);
-
-		assertEquals(expected, new KindergartenGarden(plants, studentArray).getPlantsOfStudent(student));
-	}
-
-	@Test
-	public void customStudentGardenThirdStudentInAlphabeticalOrder() {
-		String[] studentArray = { "Samantha", "Patricia", "Xander", "Roger" };
-		String student = "Samantha";
-		String plants = "VCRRGVRG\nRVGCCGCV";
-		List<Plant> expected = Arrays.asList(Plant.GRASS, Plant.VIOLETS, Plant.CLOVER, Plant.GRASS);
-
-		assertEquals(expected, new KindergartenGarden(plants, studentArray).getPlantsOfStudent(student));
-	}
-
-	@Test
-	public void customStudentGardenFourthStudentInAlphabeticalOrder() {
-		String[] studentArray = { "Samantha", "Patricia", "Xander", "Roger" };
-		String student = "Xander";
-		String plants = "VCRRGVRG\nRVGCCGCV";
-		List<Plant> expected = Arrays.asList(Plant.RADISHES, Plant.GRASS, Plant.CLOVER, Plant.VIOLETS);
-
-		assertEquals(expected, new KindergartenGarden(plants, studentArray).getPlantsOfStudent(student));
-	}
 }
