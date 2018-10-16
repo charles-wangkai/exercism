@@ -6,15 +6,27 @@ import org.junit.Test;
 public class IsogramCheckerTest {
 
 	@Test
-	public void testIsogram() {
+	public void testEmptyString() {
 		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("duplicates"));
+		assertTrue(iso.isIsogram(""));
+	}
+
+	@Test
+	public void testLowercaseIsogram() {
+		IsogramChecker iso = new IsogramChecker();
+		assertTrue(iso.isIsogram("isogram"));
 	}
 
 	@Test
 	public void testNotIsogram() {
 		IsogramChecker iso = new IsogramChecker();
 		assertFalse(iso.isIsogram("eleven"));
+	}
+
+	@Test
+	public void testDuplicateEndAlphabet() {
+		IsogramChecker iso = new IsogramChecker();
+		assertFalse(iso.isIsogram("zzyzx"));
 	}
 
 	@Test
@@ -30,39 +42,39 @@ public class IsogramCheckerTest {
 	}
 
 	@Test
+	public void testDuplicatMixedCase() {
+		IsogramChecker iso = new IsogramChecker();
+		assertFalse(iso.isIsogram("alphAbet"));
+	}
+
+	@Test
 	public void testIsogramWithHyphen() {
 		IsogramChecker iso = new IsogramChecker();
 		assertTrue(iso.isIsogram("thumbscrew-japingly"));
 	}
 
 	@Test
-	public void testIgnoresMultipleHyphens() {
+	public void testIsogramWithDuplicatedHyphen() {
 		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("Hjelmqvist-Gryb-Zock-Pfund-Wax"));
+		assertTrue(iso.isIsogram("six-year-old"));
 	}
 
 	@Test
-	public void testWorksWithGermanLetters() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("Heizölrückstoßabdämpfung"));
-	}
-
-	@Test
-	public void testIgnoresSpaces() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("the quick brown fox"));
-	}
-
-	@Test
-	public void testIgnoresSpaces2() {
+	public void testMadeUpNameThatIsAnIsogram() {
 		IsogramChecker iso = new IsogramChecker();
 		assertTrue(iso.isIsogram("Emily Jung Schwartzkopf"));
 	}
 
 	@Test
-	public void testDuplicateAccentedLetters() {
+	public void testDuplicatedCharacterInTheMiddleIsNotIsogram() {
 		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("éléphant"));
+		assertFalse(iso.isIsogram("accentor"));
+	}
+
+	@Test
+	public void testSameFirstAndLast() {
+		IsogramChecker iso = new IsogramChecker();
+		assertFalse(iso.isIsogram("angola"));
 	}
 
 }
