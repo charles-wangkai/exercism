@@ -7,7 +7,20 @@ public class NucleotideCounter {
 	String dna;
 
 	NucleotideCounter(String dna) {
+		if (!dna.chars().allMatch(this::isValidSymbol)) {
+			throw new IllegalArgumentException();
+		}
+
 		this.dna = dna;
+	}
+
+	boolean isValidSymbol(int ch) {
+		for (char symbol : SYMBOLS) {
+			if (ch == symbol) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	Map<Character, Integer> nucleotideCounts() {
