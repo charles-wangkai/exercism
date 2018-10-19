@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -10,18 +9,15 @@ public class Series {
 		this.s = s;
 	}
 
-	List<Integer> getDigits() {
-		return s.chars().map(ch -> ch - '0').collect(ArrayList<Integer>::new, List::add, List::addAll);
-	}
-
-	List<List<Integer>> slices(int length) {
-		List<Integer> digits = getDigits();
-
-		if (length > digits.size()) {
-			throw new IllegalArgumentException();
+	List<String> slices(int length) {
+		if (length <= 0) {
+			throw new IllegalArgumentException("Slice size is too small.");
+		}
+		if (length > s.length()) {
+			throw new IllegalArgumentException("Slice size is too big.");
 		}
 
-		return IntStream.rangeClosed(0, digits.size() - length).mapToObj(i -> digits.subList(i, i + length))
+		return IntStream.rangeClosed(0, s.length() - length).mapToObj(i -> s.substring(i, i + length))
 				.collect(Collectors.toList());
 	}
 }
