@@ -17,12 +17,12 @@ public class BeerSong {
 		}
 	}
 
-	String sing(int startVerse, int endVerse) {
-		return String.join("", IntStream.rangeClosed(0, startVerse - endVerse).map(i -> startVerse - i)
-				.mapToObj(this::verse).collect(Collectors.toList()));
+	String sing(int startVerse, int verseNum) {
+		return String.join("", IntStream.range(0, verseNum).map(i -> startVerse - i).mapToObj(this::verse)
+				.collect(Collectors.toList()));
 	}
 
 	String singSong() {
-		return sing(99, 0);
+		return sing(99, 100);
 	}
 }
