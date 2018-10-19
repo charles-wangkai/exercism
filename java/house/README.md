@@ -1,6 +1,6 @@
 # House
 
-Output the nursery rhyme 'This is the House that Jack Built'.
+Recite the nursery rhyme 'This is the House that Jack Built'.
 
 > [The] process of placing a phrase of clause within another phrase of
 > clause is called embedding. It is through the processes of recursion
@@ -11,10 +11,9 @@ Output the nursery rhyme 'This is the House that Jack Built'.
 
 - [papyr.com](http://papyr.com/hypertextbooks/grammar/ph_noun.htm)
 
-
 The nursery rhyme reads as follows:
 
-```plain
+```text
 This is the house that Jack built.
 
 This is the malt
@@ -106,19 +105,20 @@ that ate the malt
 that lay in the house that Jack built.
 ```
 
+# Running the tests
 
-To run the tests:
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
+in your terminal.
 
 ## Source
 
 British nursery rhyme [http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built](http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built)
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
