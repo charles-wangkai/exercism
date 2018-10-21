@@ -11,107 +11,105 @@ public class QueenAttackCalculatorTest {
 	public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
-	public void testQueensThatDoNotShareRankFileOrDiagonalCannotAttack() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 4),
-				new BoardCoordinate(6, 6));
+	public void testCreateQueenWithAValidPosition() {
+		new Queen(2, 2);
+	}
+
+	@Test
+	public void testCreateQueenMustHavePositiveRow() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("Queen position must have positive row.");
+
+		new Queen(-2, 2);
+	}
+
+	@Test
+	public void testCreateQueenMustHaveRowOnBoard() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("Queen position must have row <= 7.");
+
+		new Queen(8, 4);
+	}
+
+	@Test
+	public void testCreateQueenMustHavePositiveColumn() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("Queen position must have positive column.");
+
+		new Queen(2, -2);
+	}
+
+	@Test
+	public void testCreateQueenMustHaveColumnOnBoard() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("Queen position must have column <= 7.");
+
+		new Queen(4, 8);
+	}
+
+	@Test
+	public void testQueensCannotAttack() {
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 4), new Queen(6, 6));
 
 		assertFalse(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
-	public void testQueensCanAttackOnTheSameRank() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 4),
-				new BoardCoordinate(2, 6));
+	public void testQueensCanAttackOnTheSameRow() {
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 4), new Queen(2, 6));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
-	public void testQueensCanAttackOnTheSameFile() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(4, 5),
-				new BoardCoordinate(2, 5));
+	public void testQueensCanAttackOnTheSameColumn() {
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(4, 5), new Queen(2, 5));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
 	public void testQueensCanAttackOnFirstDiagonal() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 2),
-				new BoardCoordinate(0, 4));
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 2), new Queen(0, 4));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
 	public void testQueensCanAttackOnSecondDiagonal() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 2),
-				new BoardCoordinate(3, 1));
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 2), new Queen(3, 1));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
 	public void testQueensCanAttackOnThirdDiagonal() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 2),
-				new BoardCoordinate(1, 1));
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 2), new Queen(1, 1));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
 	public void testQueensCanAttackOnFourthDiagonal() {
-		final QueenAttackCalculator calculator = new QueenAttackCalculator(new BoardCoordinate(2, 2),
-				new BoardCoordinate(5, 5));
+		QueenAttackCalculator calculator = new QueenAttackCalculator(new Queen(2, 2), new Queen(5, 5));
 
 		assertTrue(calculator.canQueensAttackOneAnother());
 	}
 
 	@Test
-	public void testCoordinateWithNegativeRankNotAllowed() {
+	public void testNullPositionsNotAllowed() {
 		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Coordinate must have positive rank.");
+		expectedException.expectMessage("You must supply valid positions for both Queens.");
 
-		new BoardCoordinate(-2, 2);
-	}
-
-	@Test
-	public void testCoordinateWithRankGreaterThan7NotAllowed() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Coordinate must have rank <= 7.");
-
-		new BoardCoordinate(8, 4);
-	}
-
-	@Test
-	public void testCoordinateWithNegativeFileNotAllowed() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Coordinate must have positive file.");
-
-		new BoardCoordinate(2, -2);
-	}
-
-	@Test
-	public void testCoordinateWithFileGreaterThan7NotAllowed() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Coordinate must have file <= 7.");
-
-		new BoardCoordinate(4, 8);
-	}
-
-	@Test
-	public void testNullCoordinateNotAllowed() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("You must supply valid board coordinates for both Queens.");
-
-		new QueenAttackCalculator(null, new BoardCoordinate(0, 7));
+		new QueenAttackCalculator(null, new Queen(0, 7));
 	}
 
 	@Test
 	public void testQueensMustNotOccupyTheSameSquare() {
 		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Queens may not occupy the same board coordinate.");
+		expectedException.expectMessage("Queens cannot occupy the same position.");
 
-		new QueenAttackCalculator(new BoardCoordinate(2, 2), new BoardCoordinate(2, 2));
+		new QueenAttackCalculator(new Queen(2, 2), new Queen(2, 2));
 	}
 
 }

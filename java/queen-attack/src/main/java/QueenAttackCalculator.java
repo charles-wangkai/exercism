@@ -1,13 +1,13 @@
 public class QueenAttackCalculator {
-	BoardCoordinate pos1;
-	BoardCoordinate pos2;
+	Queen pos1;
+	Queen pos2;
 
-	QueenAttackCalculator(BoardCoordinate pos1, BoardCoordinate pos2) {
+	QueenAttackCalculator(Queen pos1, Queen pos2) {
 		if (pos1 == null || pos2 == null) {
-			throw new IllegalArgumentException("You must supply valid board coordinates for both Queens.");
+			throw new IllegalArgumentException("You must supply valid positions for both Queens.");
 		}
 		if (pos1.equals(pos2)) {
-			throw new IllegalArgumentException("Queens may not occupy the same board coordinate.");
+			throw new IllegalArgumentException("Queens cannot occupy the same position.");
 		}
 
 		this.pos1 = pos1;
