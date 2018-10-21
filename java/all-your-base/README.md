@@ -6,6 +6,7 @@ Implement general base conversion. Given a number in base **a**,
 represented as a sequence of digits, convert it to base **b**.
 
 ## Note
+
 - Try to implement the conversion yourself.
   Do not use something else to perform the conversion for you.
 
@@ -28,19 +29,18 @@ The number 1120, *in base 3*, means:
 
 I think you got the idea!
 
-
 *Yes. Those three numbers above are exactly the same. Congratulations!*
 
+# Running the tests
 
-To run the tests:
+You can run all the tests for an exercise by entering
 
 ```sh
 $ gradle test
 ```
 
-For more detailed info about the Java track see the [help page](http://exercism.io/languages/java).
-
-
+in your terminal.
 
 ## Submitting Incomplete Solutions
+
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

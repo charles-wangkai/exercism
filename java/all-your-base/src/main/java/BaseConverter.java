@@ -8,12 +8,6 @@ public class BaseConverter {
 	BaseConverter(int base, int[] digits) {
 		checkBase(base);
 
-		if (digits.length == 0) {
-			throw new IllegalArgumentException("You must supply at least one digit.");
-		}
-		if (digits.length > 1 && digits[0] == 0) {
-			throw new IllegalArgumentException("Digits may not contain leading zeros.");
-		}
 		if (Arrays.stream(digits).anyMatch(digit -> digit >= base)) {
 			throw new IllegalArgumentException("All digits must be strictly less than the base.");
 		}
