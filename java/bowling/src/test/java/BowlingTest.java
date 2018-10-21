@@ -135,7 +135,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void rollsCanNotScoreNegativePoints() throws IllegalStateException {
+	public void rollsCanNotScoreNegativePoints() {
 		int[] rolls = { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		playGame(rolls);
@@ -147,7 +147,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void aRollCanNotScoreMoreThan10Points() throws IllegalStateException {
+	public void aRollCanNotScoreMoreThan10Points() {
 		int[] rolls = { 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		playGame(rolls);
@@ -159,7 +159,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void twoRollsInAFrameCanNotScoreMoreThan10Points() throws IllegalStateException {
+	public void twoRollsInAFrameCanNotScoreMoreThan10Points() {
 		int[] rolls = { 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		playGame(rolls);
@@ -171,7 +171,19 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void twoBonusRollsAfterAStrikeInTheLastFrameCanNotScoreMoreThan10Points() throws IllegalStateException {
+	public void bonusRollAfterAStrikeInTheLastFrameCanNotScoreMoreThan10Points() {
+		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 0 };
+
+		playGame(rolls);
+
+		expectedException.expect(IllegalStateException.class);
+		expectedException.expectMessage("Pin count exceeds pins on the lane");
+
+		game.score();
+	}
+
+	@Test
+	public void twoBonusRollsAfterAStrikeInTheLastFrameCanNotScoreMoreThan10Points() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5, 6 };
 
 		playGame(rolls);
@@ -183,8 +195,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void twoBonusRollsAfterAStrikeInTheLastFrameCanScoreMoreThan10PointsIfOneIsAStrike()
-			throws IllegalStateException {
+	public void twoBonusRollsAfterAStrikeInTheLastFrameCanScoreMoreThan10PointsIfOneIsAStrike() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 6 };
 
 		playGame(rolls);
@@ -193,7 +204,31 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void anUnstartedGameCanNotBeScored() throws IllegalStateException {
+	public void theSecondBonusRollsAfterAStrikeInTheLastFrameCanNotBeAStrikeIfTheFirstOneIsNotAStrike() {
+		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 6, 10 };
+
+		playGame(rolls);
+
+		expectedException.expect(IllegalStateException.class);
+		expectedException.expectMessage("Pin count exceeds pins on the lane");
+
+		game.score();
+	}
+
+	@Test
+	public void secondBonusRollAfterAStrikeInTheLastFrameCanNotScoreMoreThan10Points() {
+		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 11 };
+
+		playGame(rolls);
+
+		expectedException.expect(IllegalStateException.class);
+		expectedException.expectMessage("Pin count exceeds pins on the lane");
+
+		game.score();
+	}
+
+	@Test
+	public void anUnstartedGameCanNotBeScored() {
 		int[] rolls = new int[0];
 
 		playGame(rolls);
@@ -205,7 +240,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void anIncompleteGameCanNotBeScored() throws IllegalStateException {
+	public void anIncompleteGameCanNotBeScored() {
 		int[] rolls = { 0, 0 };
 
 		playGame(rolls);
@@ -217,7 +252,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void aGameWithMoreThanTenFramesCanNotBeScored() throws IllegalStateException {
+	public void canNotRollIfGameAlreadyHasTenFrames() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		playGame(rolls);
@@ -229,8 +264,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void bonusRollsForAStrikeInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated()
-			throws IllegalStateException {
+	public void bonusRollsForAStrikeInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10 };
 
 		playGame(rolls);
@@ -242,8 +276,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void bothBonusRollsForAStrikeInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated()
-			throws IllegalStateException {
+	public void bothBonusRollsForAStrikeInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10 };
 
 		playGame(rolls);
@@ -255,7 +288,7 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void bonusRollForASpareInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated() throws IllegalStateException {
+	public void bonusRollForASpareInTheLastFrameMustBeRolledBeforeScoreCanBeCalculated() {
 		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3 };
 
 		playGame(rolls);
@@ -266,4 +299,27 @@ public class BowlingTest {
 		game.score();
 	}
 
+	@Test
+	public void canNotRollAfterBonusRollForSpare() {
+		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 2, 2 };
+
+		playGame(rolls);
+
+		expectedException.expect(IllegalStateException.class);
+		expectedException.expectMessage("Cannot roll after game is over");
+
+		game.score();
+	}
+
+	@Test
+	public void canNotRollAfterBonusRollForStrike() {
+		int[] rolls = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 3, 2, 2 };
+
+		playGame(rolls);
+
+		expectedException.expect(IllegalStateException.class);
+		expectedException.expectMessage("Cannot roll after game is over");
+
+		game.score();
+	}
 }
