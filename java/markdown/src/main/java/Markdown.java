@@ -44,7 +44,11 @@ class Markdown {
 	}
 
 	private String parseHeader(String line) {
-		int count = (int) line.chars().filter(ch -> ch == '#').count();
+		int count = 0;
+		while (line.charAt(count) == '#') {
+			count++;
+		}
+
 		return String.format("<h%d>%s</h%d>", count, line.substring(count + 1), count);
 	}
 
