@@ -7,9 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/*
- * version: 1.1.0
- */
 public class ChangeCalculatorTest {
 
 	@Rule
