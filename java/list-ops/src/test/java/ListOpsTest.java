@@ -6,9 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-/*
- * version: 1.0.0
- */
 public class ListOpsTest {
 
 	@Test
@@ -39,6 +36,20 @@ public class ListOpsTest {
 				Collections.emptyList(), Arrays.asList('4', '5', '6'));
 
 		assertEquals(Arrays.asList('1', '2', '3', '4', '5', '6'), ListOps.concat(listOfLists));
+	}
+
+	@Test
+	public void testConcatOnNonEmptyListOfNestedLists() {
+		List<List<List<Character>>> listOfNestedLists = Arrays.asList(
+				Arrays.asList(Collections.singletonList('1'), Collections.singletonList('2')),
+				Collections.singletonList(Collections.singletonList('3')),
+				Collections.singletonList(Collections.emptyList()),
+				Collections.singletonList(Arrays.asList('4', '5', '6')));
+
+		assertEquals(
+				Arrays.asList(Collections.singletonList('1'), Collections.singletonList('2'),
+						Collections.singletonList('3'), Collections.emptyList(), Arrays.asList('4', '5', '6')),
+				ListOps.concat(listOfNestedLists));
 	}
 
 	@Test
