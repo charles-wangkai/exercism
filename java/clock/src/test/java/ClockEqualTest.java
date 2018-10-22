@@ -3,9 +3,6 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-/*
- * version: 1.0.1
- */
 public class ClockEqualTest {
 
 	@Test
@@ -81,6 +78,11 @@ public class ClockEqualTest {
 	@Test
 	public void clocksWithNegativeHoursAndMinutesThatWrap() {
 		assertEquals(new Clock(18, 7), new Clock(-54, -11513));
+	}
+
+	@Test
+	public void clocksWithFullClockAndZeroedClockAreEqual() {
+		assertEquals(new Clock(24, 0), new Clock(0, 0));
 	}
 
 }

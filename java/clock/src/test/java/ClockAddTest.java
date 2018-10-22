@@ -2,9 +2,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-/*
- * version: 1.0.1
- */
 public class ClockAddTest {
 
 	@Test
