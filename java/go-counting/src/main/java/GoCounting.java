@@ -70,11 +70,11 @@ public class GoCounting {
 		return spread(x, y).territory;
 	}
 
-	Map<String, Set<Point>> getTerritories() {
+	Map<Player, Set<Point>> getTerritories() {
 		int row = board.length;
 		int col = board[0].length();
 
-		Map<String, Set<Point>> territories = new HashMap<String, Set<Point>>();
+		Map<Player, Set<Point>> territories = new HashMap<>();
 		for (Player owner : Player.values()) {
 			Set<Point> territory = new HashSet<Point>();
 			for (int x = 0; x < col; x++) {
@@ -85,7 +85,7 @@ public class GoCounting {
 				}
 			}
 
-			territories.put(owner.toString(), territory);
+			territories.put(owner, territory);
 		}
 		return territories;
 	}
