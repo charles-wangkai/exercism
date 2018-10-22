@@ -20,7 +20,7 @@ public class ForthEvaluator {
 					throw new IllegalArgumentException("Cannot redefine numbers");
 				}
 
-				String definition = String.join(" ", tokens.subList(1, tokens.size()));
+				String definition = replace(String.join(" ", tokens.subList(1, tokens.size())), name2definition);
 				name2definition.put(name, definition);
 			} else {
 				for (String token : tokenize(replace(command, name2definition))) {

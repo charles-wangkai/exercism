@@ -8,9 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/*
- * version: 1.2.0
- */
 public class ForthEvaluatorTest {
 
 	@Rule
@@ -21,11 +18,6 @@ public class ForthEvaluatorTest {
 	@Before
 	public void setUp() {
 		forthEvaluator = new ForthEvaluator();
-	}
-
-	@Test
-	public void testEmptyProgramResultsInEmptyStack() {
-		assertEquals(Collections.emptyList(), forthEvaluator.evaluateProgram(Collections.emptyList()));
 	}
 
 	@Test
@@ -144,13 +136,13 @@ public class ForthEvaluatorTest {
 	}
 
 	@Test
-	public void testDupCopiesTheTopValueOnTheStack() {
-		assertEquals(Arrays.asList(1, 1), forthEvaluator.evaluateProgram(Collections.singletonList("1 DUP")));
+	public void testDupCopiesAValueOnTheStack() {
+		assertEquals(Arrays.asList(1, 1), forthEvaluator.evaluateProgram(Collections.singletonList("1 dup")));
 	}
 
 	@Test
-	public void testDupParsingIsCaseInsensitive() {
-		assertEquals(Arrays.asList(1, 2, 2), forthEvaluator.evaluateProgram(Collections.singletonList("1 2 Dup")));
+	public void testDupCopiesTopValueOnTheStack() {
+		assertEquals(Arrays.asList(1, 2, 2), forthEvaluator.evaluateProgram(Collections.singletonList("1 2 dup")));
 	}
 
 	@Test
@@ -262,6 +254,18 @@ public class ForthEvaluatorTest {
 	}
 
 	@Test
+	public void testCanUseDifferentWordsWithTheSameName() {
+		assertEquals(Arrays.asList(5, 6),
+				forthEvaluator.evaluateProgram(Arrays.asList(": foo 5 ;", ": bar foo ;", ": foo 6 ;", "bar foo")));
+	}
+
+	@Test
+	public void testCanDefineWordThatUsesWordWithTheSameName() {
+		assertEquals(Collections.singletonList(11),
+				forthEvaluator.evaluateProgram(Arrays.asList(": foo 10 ;", ": foo foo 1 + ;", "foo")));
+	}
+
+	@Test
 	public void testCannotRedefineNumbers() {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("Cannot redefine numbers");
@@ -275,6 +279,42 @@ public class ForthEvaluatorTest {
 		expectedException.expectMessage("No definition available for operator \"foo\"");
 
 		forthEvaluator.evaluateProgram(Collections.singletonList("foo"));
+	}
+
+	@Test
+	public void testDupIsCaseInsensitive() {
+		assertEquals(Arrays.asList(1, 1, 1, 1),
+				forthEvaluator.evaluateProgram(Collections.singletonList("1 DUP Dup dup")));
+	}
+
+	@Test
+	public void testDropIsCaseInsensitive() {
+		assertEquals(Arrays.asList(1),
+				forthEvaluator.evaluateProgram(Collections.singletonList("1 2 3 4 DROP Drop drop")));
+	}
+
+	@Test
+	public void testSwapIsCaseInsensitive() {
+		assertEquals(Arrays.asList(2, 3, 4, 1),
+				forthEvaluator.evaluateProgram(Collections.singletonList("1 2 SWAP 3 Swap 4 swap")));
+	}
+
+	@Test
+	public void testOverIsCaseInsensitive() {
+		assertEquals(Arrays.asList(1, 2, 1, 2, 1),
+				forthEvaluator.evaluateProgram(Collections.singletonList("1 2 OVER Over over")));
+	}
+
+	@Test
+	public void testUserDefinedWordsAreCaseInsensitive() {
+		assertEquals(Arrays.asList(1, 1, 1, 1),
+				forthEvaluator.evaluateProgram(Arrays.asList(": foo dup ;", "1 FOO Foo foo")));
+	}
+
+	@Test
+	public void testDefinitionsAreCaseInsensitive() {
+		assertEquals(Arrays.asList(1, 1, 1, 1),
+				forthEvaluator.evaluateProgram(Arrays.asList(": SWAP DUP Dup dup ;", "1 swap")));
 	}
 
 }
