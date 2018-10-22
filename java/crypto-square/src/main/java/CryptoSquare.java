@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crypto {
+public class CryptoSquare {
 	String s;
 
-	Crypto(String s) {
+	CryptoSquare(String s) {
 		this.s = s;
 	}
 
@@ -27,14 +27,20 @@ public class Crypto {
 		return segments;
 	}
 
-	String getCipherText() {
+	String getCiphertext() {
 		StringBuilder cipherText = new StringBuilder();
 		int squareSize = getSquareSize();
 		List<String> segments = getPlaintextSegments();
 		for (int i = 0; i < squareSize; i++) {
+			if (i != 0) {
+				cipherText.append(" ");
+			}
+
 			for (String segment : segments) {
 				if (i < segment.length()) {
 					cipherText.append(segment.charAt(i));
+				} else {
+					cipherText.append(" ");
 				}
 			}
 		}
