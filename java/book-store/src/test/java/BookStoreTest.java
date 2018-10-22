@@ -23,19 +23,19 @@ public class BookStoreTest {
 	@Test
 	public void onlyASingleBook() {
 		List<Integer> books = Collections.singletonList(1);
-		assertEquals(8, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(8.00, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
 	public void twoOfSameBook() {
-		List<Integer> books = Arrays.asList(1, 1);
-		assertEquals(16, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		List<Integer> books = Arrays.asList(2, 2);
+		assertEquals(16.00, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
 	public void emptyBasket() {
 		List<Integer> books = Collections.emptyList();
-		assertEquals(0, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(0.00, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
@@ -47,19 +47,19 @@ public class BookStoreTest {
 	@Test
 	public void threeDifferentBooks() {
 		List<Integer> books = Arrays.asList(1, 2, 3);
-		assertEquals(21.6, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(21.60, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
 	public void fourDifferentBooks() {
 		List<Integer> books = Arrays.asList(1, 2, 3, 4);
-		assertEquals(25.6, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(25.60, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
 	public void fiveDifferentBooks() {
 		List<Integer> books = Arrays.asList(1, 2, 3, 4, 5);
-		assertEquals(30, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(30.00, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
@@ -69,9 +69,15 @@ public class BookStoreTest {
 	}
 
 	@Test
+	public void twoGroupsOfFourIsCheaperThanGroupsOfFiveAndThree() {
+		List<Integer> books = Arrays.asList(1, 1, 2, 3, 4, 4, 5, 5);
+		assertEquals(51.20, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+	}
+
+	@Test
 	public void groupOfFourPlusGroupOfTwoIsCheaperThanTwoGroupsOfThree() {
 		List<Integer> books = Arrays.asList(1, 1, 2, 2, 3, 4);
-		assertEquals(40.8, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+		assertEquals(40.80, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 	@Test
@@ -96,6 +102,12 @@ public class BookStoreTest {
 	public void threeEachOFirst2BooksAnd2EachOfRemainingBooks() {
 		List<Integer> books = Arrays.asList(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1, 2);
 		assertEquals(75.20, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
+	}
+
+	@Test
+	public void fourGroupsOfFourAreCheaperThanTwoGroupsEachOfFiveAndThree() {
+		List<Integer> books = Arrays.asList(1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5);
+		assertEquals(102.4, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
 
 }
