@@ -183,12 +183,12 @@ class Card {
 	int value;
 
 	Card(String s) {
-		suit = s.charAt(1);
+		suit = s.charAt(s.length() - 1);
 
-		char ch = s.charAt(0);
+		char ch = s.charAt(s.length() - 2);
 		if (ch >= '2' && ch <= '9') {
 			value = ch - '0';
-		} else if (ch == 'T') {
+		} else if (ch == '0') {
 			value = 10;
 		} else if (ch == 'J') {
 			value = 11;
