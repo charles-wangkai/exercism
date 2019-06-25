@@ -1,5 +1,6 @@
 import collections
 import re
 
-def word_count(phrase):
-    return dict(collections.Counter(filter(lambda word: len(word) > 0, re.split(r'[^a-zA-Z0-9]+', phrase.lower()))))
+
+def count_words(phrase):
+    return dict(collections.Counter(re.findall(r"[a-zA-Z0-9]+(?:'+[a-zA-Z0-9]+)*", phrase.lower())))
