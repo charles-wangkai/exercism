@@ -1,36 +1,46 @@
 def tally(tournament_results):
-    name2team = {}
+    name_to_team = {}
 
-    for result in tournament_results.splitlines():
+    for result in tournament_results:
         name1, name2, outcome = result.split(';')
 
-        if name1 not in name2team:
-            name2team[name1] = Team(name1)
-        if name2 not in name2team:
-            name2team[name2] = Team(name2)
+        if name1 not in name_to_team:
+            name_to_team[name1] = Team(name1)
+        if name2 not in name_to_team:
+            name_to_team[name2] = Team(name2)
 
         if outcome == 'win':
-            name2team[name1].w += 1
-            name2team[name2].l += 1
+            name_to_team[name1].win_count += 1
+            name_to_team[name2].loss_count += 1
         elif outcome == 'draw':
-            name2team[name1].d += 1
-            name2team[name2].d += 1
+            name_to_team[name1].draw_count += 1
+            name_to_team[name2].draw_count += 1
         elif outcome == 'loss':
-            name2team[name1].l += 1
-            name2team[name2].w += 1
+            name_to_team[name1].loss_count += 1
+            name_to_team[name2].win_count += 1
 
-    return '\n'.join(['Team                           | MP |  W |  D |  L |  P']
-                     + ['{:<30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}'.format(team.name, team.get_mp(), team.w, team.d, team.l, team.get_p())
-                        for team in sorted(name2team.values(), key=lambda t: (-t.get_p(), t.name))])
+    return build_table(name_to_team)
+
+
+def build_table(name_to_team):
+    return ['Team                           | MP |  W |  D |  L |  P'] + \
+        [f'{team.name:<30} | {team.matches_played:>2} | {team.win_count:>2} | {team.draw_count:>2} | {team.loss_count:>2} | {team.point:>2}'
+         for team in build_sorted_teams(name_to_team)]
+
+
+def build_sorted_teams(name_to_team):
+    return sorted(name_to_team.values(), key=lambda team: (-team.point, team.name))
 
 
 class Team:
     def __init__(self, name):
         self.name = name
-        self.w = self.d = self.l = 0
+        self.win_count = self.draw_count = self.loss_count = 0
 
-    def get_mp(self):
-        return self.w + self.d + self.l
+    @property
+    def matches_played(self):
+        return self.win_count + self.draw_count + self.loss_count
 
-    def get_p(self):
-        return self.w * 3 + self.d
+    @property
+    def point(self):
+        return self.win_count * 3 + self.draw_count
