@@ -1,4 +1,4 @@
-class Garden(object):
+class Garden:
     DEFAULT_STUDENTS = [
         'Alice',
         'Bob',
@@ -21,20 +21,15 @@ class Garden(object):
     }
 
     def __init__(self, diagram, students=None):
-        if students is None:
-            students = self.DEFAULT_STUDENTS
+        students = sorted(students if students is not None
+                          else self.DEFAULT_STUDENTS)
 
-        students = sorted(students)
         garden = diagram.splitlines()
+        codes_list = [[self.CODE_TO_NAME[code] for code in codes]
+                      for codes in zip(garden[0][::2], garden[0][1::2], garden[1][::2], garden[1][1::2])]
 
-        self.student_to_plants = {}
-        for i in range(len(garden[0]) // 2):
-            self.student_to_plants[students[i]] = [self.CODE_TO_NAME[code] for code in [
-                garden[0][i * 2],
-                garden[0][i * 2 + 1],
-                garden[1][i * 2],
-                garden[1][i * 2 + 1]
-            ]]
+        self.student_to_plants = {student: codes
+                                  for student, codes in zip(students, codes_list)}
 
     def plants(self, student):
         return self.student_to_plants[student]
