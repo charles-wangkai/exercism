@@ -24,12 +24,11 @@ class Garden:
         students = sorted(students if students is not None
                           else self.DEFAULT_STUDENTS)
 
-        garden = diagram.splitlines()
-        codes_list = [[self.CODE_TO_NAME[code] for code in codes]
-                      for codes in zip(garden[0][::2], garden[0][1::2], garden[1][::2], garden[1][1::2])]
+        front, back = diagram.splitlines()
+        codes = zip(front[::2], front[1::2], back[::2], back[1::2])
 
-        self.student_to_plants = {student: codes
-                                  for student, codes in zip(students, codes_list)}
+        self.student_to_plants = {student: [self.CODE_TO_NAME[code] for code in codes]
+                                  for student, codes in zip(students, codes)}
 
     def plants(self, student):
         return self.student_to_plants[student]
