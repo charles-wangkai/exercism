@@ -55,7 +55,7 @@ public class CryptoSquareTest {
 	@Test
 	public void fiftyFourCharacterPlaintextResultsInSevenChunksWithTrailingSpaces() {
 		CryptoSquare cryptoSquare = new CryptoSquare(
-				"If man was meant to stay on the ground, god would have given us roots.");
+				"If man was meant to stay on the ground, god would have " + "given us roots.");
 		String expectedOutput = "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau ";
 
 		assertEquals(expectedOutput, cryptoSquare.getCiphertext());
