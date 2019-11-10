@@ -11,7 +11,8 @@ class SumOfMultiples {
 	}
 
 	int getSum() {
-		return IntStream.range(1, number).filter(x -> Arrays.stream(set).anyMatch(divisor -> x % divisor == 0)).sum();
+		return IntStream.range(1, number)
+				.filter(x -> Arrays.stream(set).anyMatch(divisor -> divisor != 0 && x % divisor == 0)).sum();
 	}
 
 }
