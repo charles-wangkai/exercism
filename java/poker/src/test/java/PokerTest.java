@@ -115,7 +115,7 @@ public class PokerTest {
 	}
 
 	@Test
-	public void AcesCanEndAStraight() {
+	public void acesCanEndAStraight() {
 		String hand = "4S 5H 4C 8D 4H";
 		String straightEndsA = "10D JH QS KD AC";
 		assertEquals(Collections.singletonList(straightEndsA),
@@ -123,7 +123,7 @@ public class PokerTest {
 	}
 
 	@Test
-	public void AcesCanStartAStraight() {
+	public void acesCanStartAStraight() {
 		String hand = "4S 5H 4C 8D 4H";
 		String straightStartA = "4D AH 3S 2D 5C";
 		assertEquals(Collections.singletonList(straightStartA),
