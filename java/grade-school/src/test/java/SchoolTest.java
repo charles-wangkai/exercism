@@ -16,6 +16,7 @@ public class SchoolTest {
 
 	@Test
 	public void addingAStudentAddsThemToTheSortedRoster() {
+		school = new School();
 		school.add("Aimee", 2);
 		List<String> expected = Arrays.asList("Aimee");
 		assertEquals(expected, school.roster());
@@ -23,6 +24,7 @@ public class SchoolTest {
 
 	@Test
 	public void addingMoreStudentsAddsThemToTheSameSortedRoster() {
+		school = new School();
 		int grade = 2;
 		school.add("Blair", grade);
 		school.add("James", grade);
@@ -33,6 +35,7 @@ public class SchoolTest {
 
 	@Test
 	public void addingStudentsToDifferentGradesAddsThemToTheSameSortedRoster() {
+		school = new School();
 		school.add("Chelsea", 3);
 		school.add("Logan", 7);
 		List<String> expected = Arrays.asList("Chelsea", "Logan");
@@ -41,12 +44,14 @@ public class SchoolTest {
 
 	@Test
 	public void rosterReturnsAnEmptyListIfThereAreNoStudentsEnrolled() {
+		school = new School();
 		List<String> expected = Arrays.asList();
 		assertEquals(expected, school.roster());
 	}
 
 	@Test
 	public void studentNamesWithGradesAreDisplayedInTheSameSortedRoster() {
+		school = new School();
 		school.add("Peter", 2);
 		school.add("Anna", 1);
 		school.add("Barb", 1);
@@ -60,6 +65,7 @@ public class SchoolTest {
 
 	@Test
 	public void gradeReturnsTheStudentsInThatGradeInAlphabeticalOrder() {
+		school = new School();
 		school.add("Franklin", 5);
 		school.add("Bradley", 5);
 		school.add("Jeff", 1);
@@ -69,6 +75,7 @@ public class SchoolTest {
 
 	@Test
 	public void gradeReturnsAnEmptyListIfThereAreNoStudentsInThatGrade() {
+		school = new School();
 		List<String> expected = Arrays.asList();
 		assertEquals(expected, school.grade(1));
 	}
