@@ -15,7 +15,7 @@ public class Matrix {
 		for (int r = 0; r < getNumberOfRows(); r++) {
 			for (int c = 0; c < getNumberOfColumns(); c++) {
 				if (isSaddlePoint(r, c)) {
-					saddlePoints.add(new MatrixCoordinate(r, c));
+					saddlePoints.add(new MatrixCoordinate(r + 1, c + 1));
 				}
 			}
 		}
