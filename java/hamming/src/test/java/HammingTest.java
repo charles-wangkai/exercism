@@ -20,57 +20,17 @@ public class HammingTest {
 	}
 
 	@Test
-	public void testNoDistanceBetweenLongIdenticalStrands() {
-		assertEquals(0, new Hamming("GGACTGA", "GGACTGA").getHammingDistance());
+	public void testCompleteDistanceInSingleLetterDifferentStrands() {
+		assertEquals(1, new Hamming("G", "T").getHammingDistance());
 	}
 
 	@Test
-	public void testCompleteDistanceInSingleNucleotideStrand() {
-		assertEquals(1, new Hamming("A", "G").getHammingDistance());
+	public void testDistanceInLongIdenticalStrands() {
+		assertEquals(0, new Hamming("GGACTGAAATCTG", "GGACTGAAATCTG").getHammingDistance());
 	}
 
 	@Test
-	public void testCompleteDistanceInSmallStrand() {
-		assertEquals(2, new Hamming("AG", "CT").getHammingDistance());
-	}
-
-	@Test
-	public void testSmallDistanceInSmallStrand() {
-		assertEquals(1, new Hamming("AT", "CT").getHammingDistance());
-	}
-
-	@Test
-	public void testSmallDistanceInMediumStrand() {
-		assertEquals(1, new Hamming("GGACG", "GGTCG").getHammingDistance());
-	}
-
-	@Test
-	public void testSmallDistanceInLongStrand() {
-		assertEquals(2, new Hamming("ACCAGGG", "ACTATGG").getHammingDistance());
-	}
-
-	@Test
-	public void testNonUniqueCharacterInFirstStrand() {
-		assertEquals(1, new Hamming("AAG", "AAA").getHammingDistance());
-	}
-
-	@Test
-	public void testNonUniqueCharacterInSecondStrand() {
-		assertEquals(1, new Hamming("AAA", "AAG").getHammingDistance());
-	}
-
-	@Test
-	public void testSameNucleotidesInDifferentPositions() {
-		assertEquals(2, new Hamming("TAG", "GAT").getHammingDistance());
-	}
-
-	@Test
-	public void testLargeDistanceInPermutedStrand() {
-		assertEquals(4, new Hamming("GATACA", "GCATAA").getHammingDistance());
-	}
-
-	@Test
-	public void testLargeDistanceInOffByOneStrand() {
+	public void testDistanceInLongDifferentStrands() {
 		assertEquals(9, new Hamming("GGACGGATTCTG", "AGGACGGATTCT").getHammingDistance());
 	}
 
@@ -88,6 +48,22 @@ public class HammingTest {
 		expectedException.expectMessage("leftStrand and rightStrand must be of equal length.");
 
 		new Hamming("ATA", "AGTG");
+	}
+
+	@Test
+	public void testDisallowLeftEmptyStrand() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("left strand must not be empty.");
+
+		new Hamming("", "G");
+	}
+
+	@Test
+	public void testDisallowRightEmptyStrand() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("right strand must not be empty.");
+
+		new Hamming("G", "");
 	}
 
 }
