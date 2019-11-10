@@ -4,8 +4,10 @@ import org.junit.Test;
 
 public class RobotTest {
 
+	/* Create robot */
+
 	@Test
-	public void robotsAreCreatedWithAPositionAndOrientation() {
+	public void atOriginFacingNorth() {
 		Orientation initialOrientation = Orientation.NORTH;
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, initialOrientation);
@@ -15,7 +17,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void negativePositionsAreAllowed() {
+	public void atNegativePositionFacingSouth() {
 		GridPosition initialGridPosition = new GridPosition(-1, -1);
 		Orientation initialOrientation = Orientation.SOUTH;
 		Robot robot = new Robot(initialGridPosition, initialOrientation);
@@ -24,8 +26,10 @@ public class RobotTest {
 		assertEquals(initialGridPosition, robot.getGridPosition());
 	}
 
+	/* Rotating clockwise */
+
 	@Test
-	public void changesTheDirectionFromNorthToEast() {
+	public void changesNorthToEast() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.NORTH);
 
@@ -37,7 +41,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromEastToSouth() {
+	public void changesEastToSouth() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.EAST);
 
@@ -49,7 +53,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromSouthToWest() {
+	public void changesSouthToWest() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.SOUTH);
 
@@ -61,7 +65,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromWestToNorth() {
+	public void changesWestToNorth() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.WEST);
 
@@ -72,8 +76,10 @@ public class RobotTest {
 		assertEquals(expectedOrientation, robot.getOrientation());
 	}
 
+	/* Rotating counter-clockwise */
+
 	@Test
-	public void changesTheDirectionFromNorthToWest() {
+	public void changesNorthToWest() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.NORTH);
 
@@ -85,7 +91,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromWestToSouth() {
+	public void changesWestToSouth() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.WEST);
 
@@ -97,7 +103,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromSouthToEast() {
+	public void changesSouthToEast() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.SOUTH);
 
@@ -109,7 +115,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void changesTheDirectionFromEastToNorth() {
+	public void changesEastToNorth() {
 		GridPosition initialGridPosition = new GridPosition(0, 0);
 		Robot robot = new Robot(initialGridPosition, Orientation.EAST);
 
@@ -120,8 +126,10 @@ public class RobotTest {
 		assertEquals(expectedOrientation, robot.getOrientation());
 	}
 
+	/* Moving forward one */
+
 	@Test
-	public void increasesTheYCoordinateOneWhenFacingNorth() {
+	public void facingNorthIncrementsY() {
 		Orientation initialOrientation = Orientation.NORTH;
 		Robot robot = new Robot(new GridPosition(0, 0), initialOrientation);
 
@@ -133,7 +141,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void decreasesTheYCoordinateByOneWhenFacingSouth() {
+	public void facingSouthDecrementsY() {
 		Orientation initialOrientation = Orientation.SOUTH;
 		Robot robot = new Robot(new GridPosition(0, 0), initialOrientation);
 
@@ -145,7 +153,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void increasesTheXCoordinateByOneWhenFacingEast() {
+	public void facingEastIncrementsX() {
 		Orientation initialOrientation = Orientation.EAST;
 		Robot robot = new Robot(new GridPosition(0, 0), initialOrientation);
 
@@ -157,7 +165,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void decreasesTheXCoordinateByOneWhenFacingWest() {
+	public void facingWestDecrementsX() {
 		Orientation initialOrientation = Orientation.WEST;
 		Robot robot = new Robot(new GridPosition(0, 0), initialOrientation);
 
@@ -168,8 +176,10 @@ public class RobotTest {
 		assertEquals(initialOrientation, robot.getOrientation());
 	}
 
+	/* Follow series of instructions */
+
 	@Test
-	public void instructionsStartingNorthAndMoveEastAndNorth() {
+	public void movingEastAndNorthFromReadme() {
 		Robot robot = new Robot(new GridPosition(7, 3), Orientation.NORTH);
 
 		robot.simulate("RAALAL");
@@ -182,7 +192,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void instructionsToMoveWestAndNorth() {
+	public void movingWestAndNorth() {
 		Robot robot = new Robot(new GridPosition(0, 0), Orientation.NORTH);
 
 		robot.simulate("LAAARALA");
@@ -195,7 +205,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void instructionsToMoveWestAndSouth() {
+	public void movingWestAndSouth() {
 		Robot robot = new Robot(new GridPosition(2, -7), Orientation.EAST);
 
 		robot.simulate("RRAAAAALA");
@@ -208,7 +218,7 @@ public class RobotTest {
 	}
 
 	@Test
-	public void instructionsStartingSouthAndMoveEastAndNorth() {
+	public void movingEastAndNorth() {
 		Robot robot = new Robot(new GridPosition(8, 4), Orientation.SOUTH);
 
 		robot.simulate("LAAARRRALLLL");
