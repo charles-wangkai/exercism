@@ -8,7 +8,7 @@ class Acronym {
 	}
 
 	String get() {
-		return Arrays.stream(phrase.split(" |-")).map(word -> word.charAt(0)).map(Character::toUpperCase)
+		return Arrays.stream(phrase.split("( |-|_)+")).map(word -> word.charAt(0)).map(Character::toUpperCase)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
 	}
 
