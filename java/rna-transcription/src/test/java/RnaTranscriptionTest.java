@@ -13,6 +13,11 @@ public class RnaTranscriptionTest {
 	}
 
 	@Test
+	public void testEmptyRnaSequence() {
+		assertEquals("", rnaTranscription.transcribe(""));
+	}
+
+	@Test
 	public void testRnaTranscriptionOfCytosineIsGuanine() {
 		assertEquals("G", rnaTranscription.transcribe("C"));
 	}
