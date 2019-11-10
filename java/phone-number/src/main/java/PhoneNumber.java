@@ -2,31 +2,45 @@ public class PhoneNumber {
 	String number;
 
 	PhoneNumber(String s) {
-		if (!s.chars().allMatch(ch -> Character.isDigit(ch) || " ()-.+".indexOf(ch) >= 0)) {
-			throw new IllegalArgumentException(
-					"Illegal character in phone number. Only digits, spaces, parentheses, hyphens or dots accepted.");
+		for (char ch : s.toCharArray()) {
+			if (!Character.isDigit(ch) && " ()-.+".indexOf(ch) == -1) {
+				if (Character.isLetter(ch)) {
+					throw new IllegalArgumentException("letters not permitted");
+				} else {
+					throw new IllegalArgumentException("punctuations not permitted");
+				}
+			}
 		}
 
 		StringBuilder digits = s.chars().filter(Character::isDigit).mapToObj(ch -> (char) ch)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
 
 		int length = digits.length();
+		if (length > 11) {
+			throw new IllegalArgumentException("more than 11 digits");
+		}
 		if (length != 10 && length != 11) {
-			throw new IllegalArgumentException("Number must be 10 or 11 digits");
+			throw new IllegalArgumentException("incorrect number of digits");
 		}
 
 		if (length == 11 && digits.charAt(0) != '1') {
-			throw new IllegalArgumentException("Can only have 11 digits if number starts with '1'");
+			throw new IllegalArgumentException("11 digits must start with 1");
 		}
 
 		number = digits.substring(length - 10, length);
 
-		for (int index : new int[] { 0, 3 }) {
-			char ch = number.charAt(index);
+		if (number.charAt(0) == '0') {
+			throw new IllegalArgumentException("area code cannot start with zero");
+		}
+		if (number.charAt(0) == '1') {
+			throw new IllegalArgumentException("area code cannot start with one");
+		}
 
-			if (!(ch >= '2' && ch <= '9')) {
-				throw new IllegalArgumentException("Illegal Area Or Exchange Code. Only 2-9 are valid digits");
-			}
+		if (number.charAt(3) == '0') {
+			throw new IllegalArgumentException("exchange code cannot start with zero");
+		}
+		if (number.charAt(3) == '1') {
+			throw new IllegalArgumentException("exchange code cannot start with one");
 		}
 	}
 
