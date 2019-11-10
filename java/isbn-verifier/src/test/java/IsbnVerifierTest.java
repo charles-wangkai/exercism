@@ -63,13 +63,13 @@ public class IsbnVerifierTest {
 	}
 
 	@Test
-	public void isbnWithoutCheckDigit() {
-		assertFalse(isbnVerifier.isValid("3-598-21507"));
+	public void tooShortIsbn() {
+		assertFalse(isbnVerifier.isValid("00"));
 	}
 
 	@Test
-	public void tooLongIsbn() {
-		assertFalse(isbnVerifier.isValid("3-598-21507-XX"));
+	public void isbnWithoutCheckDigit() {
+		assertFalse(isbnVerifier.isValid("3-598-21507"));
 	}
 
 	@Test
@@ -90,5 +90,10 @@ public class IsbnVerifierTest {
 	@Test
 	public void invalidCharactersAreNotIgnored() {
 		assertFalse(isbnVerifier.isValid("3132P34035"));
+	}
+
+	@Test
+	public void inputIsTooLongButContainsAValidIsbn() {
+		assertFalse(isbnVerifier.isValid("98245726788"));
 	}
 }
