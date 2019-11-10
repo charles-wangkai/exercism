@@ -7,7 +7,7 @@ public class BinarySearch<T extends Comparable<? super T>> {
 		this.elements = elements;
 	}
 
-	int indexOf(T target) {
+	int indexOf(T target) throws ValueNotFoundException {
 		int lowerIndex = 0;
 		int upperIndex = elements.size() - 1;
 		while (lowerIndex <= upperIndex) {
@@ -21,6 +21,7 @@ public class BinarySearch<T extends Comparable<? super T>> {
 				upperIndex = middleIndex - 1;
 			}
 		}
-		return -1;
+
+		throw new ValueNotFoundException("Value not in array");
 	}
 }
