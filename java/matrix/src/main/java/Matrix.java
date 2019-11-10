@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 public class Matrix {
 	private final int[][] matrix;
 
@@ -14,14 +16,10 @@ public class Matrix {
 	}
 
 	public int[] getRow(int index) {
-		return matrix[index];
+		return matrix[index - 1];
 	}
 
 	public int[] getColumn(int index) {
-		int[] column = new int[matrix.length];
-		for (int r = 0; r < column.length; r++) {
-			column[r] = matrix[r][index];
-		}
-		return column;
+		return IntStream.range(0, matrix.length).map(r -> matrix[r][index - 1]).toArray();
 	}
 }
