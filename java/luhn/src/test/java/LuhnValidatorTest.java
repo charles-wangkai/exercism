@@ -48,8 +48,18 @@ public class LuhnValidatorTest {
 	}
 
 	@Test
-	public void testStringsContainingNonDigitInvalid() {
-		assertFalse(luhnValidator.isValid("055a 444 285"));
+	public void testValidNumberWithAnEvenNumberOfDigits() {
+		assertTrue(luhnValidator.isValid("095 245 88"));
+	}
+
+	@Test
+	public void testValidNumberWithAnOddNumberOfSpaces() {
+		assertTrue(luhnValidator.isValid("234 567 891 234"));
+	}
+
+	@Test
+	public void testValidStringsWithANonDigitAtEndInvalid() {
+		assertFalse(luhnValidator.isValid("059a"));
 	}
 
 	@Test
@@ -59,7 +69,7 @@ public class LuhnValidatorTest {
 
 	@Test
 	public void testStringContainingSymbolsInvalid() {
-		assertFalse(luhnValidator.isValid("055£ 444$ 285"));
+		assertFalse(luhnValidator.isValid("055# 444$ 285"));
 	}
 
 	@Test
@@ -78,7 +88,12 @@ public class LuhnValidatorTest {
 	}
 
 	@Test
-	public void testStringsWithNonDigitsInvalid() {
+	public void testUsingASCIIValueForNonDoubledNonDigitNotAllowed() {
+		assertFalse(luhnValidator.isValid("055b 444 285"));
+	}
+
+	@Test
+	public void testUsingASCIIValueForDoubledNonDigitNotAllowed() {
 		assertFalse(luhnValidator.isValid(":9"));
 	}
 
