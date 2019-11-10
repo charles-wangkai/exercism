@@ -93,12 +93,12 @@ public class PigLatinTranslatorTest {
 	}
 
 	@Test
-	public void testYtTreatedLikeAConsonantAtTheBeginningOfAWord() {
+	public void testYtTreatedLikeAVowelAtTheBeginningOfAWord() {
 		assertEquals("yttriaay", pigLatinTranslator.translate("yttria"));
 	}
 
 	@Test
-	public void testXrTreatedLikeAConsonantAtTheBeginningOfAWord() {
+	public void testXrTreatedLikeAVowelAtTheBeginningOfAWord() {
 		assertEquals("xrayay", pigLatinTranslator.translate("xray"));
 	}
 
@@ -121,5 +121,4 @@ public class PigLatinTranslatorTest {
 	public void testAWholePhrase() {
 		assertEquals("ickquay astfay unray", pigLatinTranslator.translate("quick fast run"));
 	}
-
 }
