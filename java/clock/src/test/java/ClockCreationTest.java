@@ -90,6 +90,11 @@ public class ClockCreationTest {
 	}
 
 	@Test
+	public void negativeSixtyMinutesIsPreviousHour() {
+		assertEquals("01:00", new Clock(2, -60).toString());
+	}
+
+	@Test
 	public void negativeHourAndMinutesBothRollOver() {
 		assertEquals("20:20", new Clock(-25, -160).toString());
 	}
