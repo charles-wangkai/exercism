@@ -155,6 +155,12 @@ public class YachtTest {
 	}
 
 	@Test
+	public void noPairsButNotABigStraight() {
+		Yacht yacht = new Yacht(new int[] { 6, 5, 4, 3, 1 }, YachtCategory.BIG_STRAIGHT);
+		assertEquals(0, yacht.score());
+	}
+
+	@Test
 	public void choice() {
 		Yacht yacht = new Yacht(new int[] { 3, 3, 5, 6, 6 }, YachtCategory.CHOICE);
 		assertEquals(23, yacht.score());
