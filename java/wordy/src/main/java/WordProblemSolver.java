@@ -1,34 +1,43 @@
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class WordProblemSolver {
-	int solve(String problem) {
-		int[] values = Arrays.stream(problem.split("[^0-9+-]+")).filter(field -> field.length() > 0)
-				.mapToInt(Integer::parseInt).toArray();
+	static final String EXCEPTION_MESSAGE = "I'm sorry, I don't understand the question!";
 
-		if (values.length != 2 && values.length != 3) {
-			throw new IllegalArgumentException("I'm sorry, I don't understand the question!");
+	int solve(String problem) {
+		String[] fields = Arrays.stream(problem.split("What is|by|\\?| ")).filter(field -> !field.isEmpty())
+				.toArray(String[]::new);
+
+		if (fields.length % 2 == 0) {
+			throw new IllegalArgumentException(EXCEPTION_MESSAGE);
 		}
 
-		List<String> parts = Arrays.stream(problem.split("[0-9+-]+")).collect(Collectors.toList());
+		int result = parseValue(fields[0]);
+		for (int i = 1; i < fields.length; i += 2) {
+			result = compute(result, fields[i], parseValue(fields[i + 1]));
+		}
 
-		if (values.length == 2) {
-			return compute(values[0], parts.get(1), values[1]);
-		} else {
-			return compute(compute(values[0], parts.get(1), values[1]), parts.get(2), values[2]);
+		return result;
+	}
+
+	int parseValue(String s) {
+		try {
+			return Integer.parseInt(s);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(EXCEPTION_MESSAGE);
 		}
 	}
 
 	int compute(int x, String operation, int y) {
-		if (operation.contains("plus")) {
+		if (operation.equals("plus")) {
 			return x + y;
-		} else if (operation.contains("minus")) {
+		} else if (operation.equals("minus")) {
 			return x - y;
-		} else if (operation.contains("multiplied")) {
+		} else if (operation.equals("multiplied")) {
 			return x * y;
-		} else {
+		} else if (operation.equals("divided")) {
 			return x / y;
 		}
+
+		throw new IllegalArgumentException(EXCEPTION_MESSAGE);
 	}
 }
