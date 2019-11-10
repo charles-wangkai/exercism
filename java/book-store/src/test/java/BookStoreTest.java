@@ -10,7 +10,8 @@ import org.junit.Test;
 public class BookStoreTest {
 
 	// This is sufficient accuracy since we're handling currency values, which
-	// should be equal to within 2 decimal places.
+	// should be equal
+	// to within 2 decimal places.
 	private static final double EQUALITY_TOLERANCE = 0.001;
 
 	private BookStore bookStore;
@@ -109,5 +110,4 @@ public class BookStoreTest {
 		List<Integer> books = Arrays.asList(1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5);
 		assertEquals(102.4, bookStore.calculateBasketCost(books), EQUALITY_TOLERANCE);
 	}
-
 }
