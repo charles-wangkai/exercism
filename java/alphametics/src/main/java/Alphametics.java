@@ -1,41 +1,41 @@
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Alphametics {
-	String puzzle;
+	List<Character> letters;
+	String[] items;
 
 	Alphametics(String puzzle) {
-		this.puzzle = puzzle;
+		letters = puzzle.chars().filter(Character::isAlphabetic).mapToObj(ch -> (char) ch).distinct()
+				.collect(Collectors.toList());
+		items = puzzle.split("\\W+");
 	}
 
 	Map<Character, Integer> solve() throws UnsolvablePuzzleException {
-		List<Character> letters = puzzle.chars().filter(Character::isAlphabetic).mapToObj(ch -> (char) ch).distinct()
-				.collect(Collectors.toList());
 		int[] digits = IntStream.range(0, 10).toArray();
 
-		Map<Character, Integer> letter2digit = search(letters, digits, 0);
-		if (letter2digit == null) {
+		Map<Character, Integer> letterToDigit = search(letters, digits, 0);
+		if (letterToDigit == null) {
 			throw new UnsolvablePuzzleException();
 		}
-		return letter2digit;
+		return letterToDigit;
 	}
 
 	Map<Character, Integer> search(List<Character> letters, int[] digits, int index) {
 		if (index == letters.size()) {
-			Map<Character, Integer> letter2digit = IntStream.range(0, letters.size()).boxed()
+			Map<Character, Integer> letterToDigit = IntStream.range(0, letters.size()).boxed()
 					.collect(Collectors.toMap(i -> letters.get(i), i -> digits[i]));
-			return check(letter2digit) ? letter2digit : null;
+			return check(letterToDigit) ? letterToDigit : null;
 		}
 
 		for (int i = index; i < digits.length; i++) {
 			swap(digits, i, index);
 
-			Map<Character, Integer> letter2digit = search(letters, digits, index + 1);
-			if (letter2digit != null) {
-				return letter2digit;
+			Map<Character, Integer> letterToDigit = search(letters, digits, index + 1);
+			if (letterToDigit != null) {
+				return letterToDigit;
 			}
 
 			swap(digits, i, index);
@@ -50,19 +50,23 @@ public class Alphametics {
 		a[index2] = temp;
 	}
 
-	boolean check(Map<Character, Integer> letter2digit) {
-		String translated = puzzle;
-		for (Character letter : letter2digit.keySet()) {
-			translated = translated.replace(letter, (char) (letter2digit.get(letter) + '0'));
+	boolean check(Map<Character, Integer> letterToDigit) {
+		long[] values = new long[items.length];
+		for (int i = 0; i < values.length; i++) {
+			if (items[i].length() > 1 && letterToDigit.get(items[i].charAt(0)) == 0) {
+				return false;
+			}
+
+			for (char ch : items[i].toCharArray()) {
+				values[i] = values[i] * 10 + letterToDigit.get(ch);
+			}
 		}
 
-		String[] items = translated.split("\\W+");
-
-		if (Arrays.stream(items).anyMatch(item -> item.length() > 1 && item.startsWith("0"))) {
-			return false;
+		long sum = 0;
+		for (int i = 0; i < values.length - 1; i++) {
+			sum += values[i];
 		}
 
-		return Arrays.stream(items, 0, items.length - 1).mapToLong(Long::parseLong).sum() == Long
-				.parseLong(items[items.length - 1]);
+		return sum == values[values.length - 1];
 	}
 }
