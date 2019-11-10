@@ -13,7 +13,7 @@ class Gigasecond {
 		this.birthDateTime = birthDateTime;
 	}
 
-	LocalDateTime getDate() {
+	LocalDateTime getDateTime() {
 		return birthDateTime.plusSeconds(1_000_000_000);
 	}
 
