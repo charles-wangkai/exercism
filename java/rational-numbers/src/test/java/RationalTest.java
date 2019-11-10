@@ -148,9 +148,23 @@ public class RationalTest {
 	}
 
 	@Test
+	public void testAbsoluteValueOfAPositiveRationalNumberWithNegativeNumeratorAndDenominator() {
+		Rational expected = new Rational(1, 2);
+		Rational actual = new Rational(-1, -2).abs();
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void testAbsoluteValueOfANegativeRationalNumber() {
 		Rational expected = new Rational(1, 2);
 		Rational actual = new Rational(-1, 2).abs();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testAbsoluteValueOfANegativeRationalNumberWithNegativeDenominator() {
+		Rational expected = new Rational(1, 2);
+		Rational actual = new Rational(1, -2).abs();
 		assertEquals(expected, actual);
 	}
 
