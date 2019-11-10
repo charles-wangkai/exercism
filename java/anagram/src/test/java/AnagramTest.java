@@ -46,6 +46,13 @@ public class AnagramTest {
 	}
 
 	@Test
+	public void testDetectsMultipleAnagramsWithDifferentCase() {
+		Anagram detector = new Anagram("nose");
+		List<String> anagrams = detector.match(Arrays.asList("Eons", "ONES"));
+		assertThat(anagrams, allOf(hasItem("Eons"), hasItem("ONES")));
+	}
+
+	@Test
 	public void testEliminateAnagramsWithSameChecksum() {
 		Anagram detector = new Anagram("mass");
 		assertTrue(detector.match(Collections.singletonList("last")).isEmpty());
@@ -85,9 +92,16 @@ public class AnagramTest {
 	}
 
 	@Test
-	public void testCapitalWordIsNotOwnAnagram() {
+	public void testWordsAreNotAnagramsOfThemselvesCaseInsensitive() {
 		Anagram detector = new Anagram("BANANA");
-		assertTrue(detector.match(Collections.singletonList("Banana")).isEmpty());
+		assertTrue(detector.match(Arrays.asList("BANANA", "Banana", "banana")).isEmpty());
+	}
+
+	@Test
+	public void testWordsOtherThanThemselvesCanBeAnagrams() {
+		Anagram detector = new Anagram("LISTEN");
+		List<String> anagrams = detector.match(Arrays.asList("Listen", "Silent", "LISTEN"));
+		assertThat(anagrams, hasItem("Silent"));
 	}
 
 }
