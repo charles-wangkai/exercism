@@ -66,23 +66,35 @@ public class TriangleTest {
 	}
 
 	@Test
-	public void isoscelesTrianglesCanHaveAllSidesEqual() throws TriangleException {
+	public void equilateralTrianglesAreAlsoIsosceles() throws TriangleException {
 		Triangle triangle = new Triangle(4, 4, 4);
 
 		assertTrue(triangle.isIsosceles());
 	}
 
 	@Test
-	public void isoscelesTrianglesMustHaveAtLeastTwoEqualSides() throws TriangleException {
+	public void noSidesAreEqualCantBeIsoceles() throws TriangleException {
 		Triangle triangle = new Triangle(2, 3, 4);
 
 		assertFalse(triangle.isIsosceles());
 	}
 
 	@Test
-	public void testSidesThatViolateTriangleInequalityAreNotIsoscelesEvenIfTwoAreEqual() throws TriangleException {
+	public void firstTriangleInequalityViolation() throws TriangleException {
 		expectedException.expect(TriangleException.class);
 		new Triangle(1, 1, 3);
+	}
+
+	@Test
+	public void secondTriangleInequalityViolation() throws TriangleException {
+		expectedException.expect(TriangleException.class);
+		new Triangle(1, 3, 1);
+	}
+
+	@Test
+	public void thirdTriangleInequalityViolation() throws TriangleException {
+		expectedException.expect(TriangleException.class);
+		new Triangle(3, 1, 1);
 	}
 
 	@Test
@@ -100,22 +112,21 @@ public class TriangleTest {
 	}
 
 	@Test
-	public void trianglesWithAllSidesEqualAreNotScalene() throws TriangleException {
+	public void allSidesEqualAreNotScalene() throws TriangleException {
 		Triangle triangle = new Triangle(4, 4, 4);
 
 		assertFalse(triangle.isScalene());
 	}
 
 	@Test
-	public void trianglesWithOneUnequalSideAreNotScalene() throws TriangleException {
+	public void twoSidesEqualAreNotScalene() throws TriangleException {
 		Triangle triangle = new Triangle(4, 4, 3);
 
 		assertFalse(triangle.isScalene());
 	}
 
 	@Test
-	public void testSidesThatViolateTriangleInequalityAreNotScaleneEvenIfTheyAreAllDifferent()
-			throws TriangleException {
+	public void mayNotViolateTriangleInequality() throws TriangleException {
 		expectedException.expect(TriangleException.class);
 		new Triangle(7, 3, 2);
 	}
