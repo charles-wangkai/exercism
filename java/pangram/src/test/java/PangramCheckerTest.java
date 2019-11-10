@@ -19,12 +19,12 @@ public class PangramCheckerTest {
 	}
 
 	@Test
-	public void recognizesPerfectLowerCasePangram() {
+	public void perfectLowerCasePhraseIsPangram() {
 		assertTrue(pangramChecker.isPangram("abcdefghijklmnopqrstuvwxyz"));
 	}
 
 	@Test
-	public void pangramWithOnlyLowerCaseLettersIsRecognizedAsPangram() {
+	public void phraseWithOnlyLowerCaseIsPangram() {
 		assertTrue(pangramChecker.isPangram("the quick brown fox jumps over the lazy dog"));
 	}
 
@@ -34,17 +34,17 @@ public class PangramCheckerTest {
 	}
 
 	@Test
-	public void phraseMissingAnotherCharacterIsNotPangram() {
+	public void phraseMissingCharacterHIsNotPangram() {
 		assertFalse(pangramChecker.isPangram("five boxing wizards jump quickly at it"));
 	}
 
 	@Test
-	public void pangramWithUnderscoresIsRecognizedAsPangram() {
+	public void phraseWithUnderscoresIsPangram() {
 		assertTrue(pangramChecker.isPangram("the_quick_brown_fox_jumps_over_the_lazy_dog"));
 	}
 
 	@Test
-	public void pangramWithNumbersIsRecognizedAsPangram() {
+	public void phraseWithNumbersIsPangram() {
 		assertTrue(pangramChecker.isPangram("the 1 quick brown fox jumps over the 2 lazy dogs"));
 	}
 
@@ -54,12 +54,12 @@ public class PangramCheckerTest {
 	}
 
 	@Test
-	public void pangramWithMixedCaseAndPunctuationIsRecognizedAsPangram() {
+	public void phraseWithMixedCaseAndPunctuationIsPangram() {
 		assertTrue(pangramChecker.isPangram("\"Five quacking Zephyrs jolt my wax bed.\""));
 	}
 
 	@Test
-	public void upperAndLowerCaseVersionsOfTheSameCharacterShouldNotBeCountedSeparately() {
+	public void caseInsensitivePhraseIsNotPangram() {
 		assertFalse(pangramChecker.isPangram("the quick brown fox jumps over with lazy FX"));
 	}
 }
