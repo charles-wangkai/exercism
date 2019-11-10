@@ -24,19 +24,19 @@ public class BracketCheckerTest {
 	}
 
 	@Test
-	public void testIncorrectlyOrderedBrackets() {
+	public void testWrongOrderedBrackets() {
 		BracketChecker bracketChecker = new BracketChecker("}{");
 		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testSingleOpenBracketWithIncorrectClosingBracket() {
+	public void testWrongClosingBracket() {
 		BracketChecker bracketChecker = new BracketChecker("{]");
 		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testPairedBracketsWithWhitespace() {
+	public void testPairedWithWhitespace() {
 		BracketChecker bracketChecker = new BracketChecker("{ }");
 		assertTrue(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
@@ -72,31 +72,37 @@ public class BracketCheckerTest {
 	}
 
 	@Test
-	public void testUnpairedAndNestedBracket() {
+	public void testUnpairedAndNestedBrackets() {
 		BracketChecker bracketChecker = new BracketChecker("([{])");
 		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testPairedAndIncorrectlyNestedBrackets() {
+	public void testPairedAndWrongNestedBrackets() {
 		BracketChecker bracketChecker = new BracketChecker("[({]})");
 		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testPairedAndIncompleteOpeningBrackets() {
+	public void testPairedAndIncompleteBrackets() {
 		BracketChecker bracketChecker = new BracketChecker("{}[");
 		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testValidMathExpression() {
+	public void testTooManyClosingBrackets() {
+		BracketChecker bracketChecker = new BracketChecker("[]]");
+		assertFalse(bracketChecker.areBracketsMatchedAndNestedCorrectly());
+	}
+
+	@Test
+	public void testMathExpression() {
 		BracketChecker bracketChecker = new BracketChecker("(((185 + 223.85) * 15) - 543)/2");
 		assertTrue(bracketChecker.areBracketsMatchedAndNestedCorrectly());
 	}
 
 	@Test
-	public void testValidComplexLaTeXExpression() {
+	public void testComplexLatexExpression() {
 		BracketChecker bracketChecker = new BracketChecker(
 				"\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)");
 
