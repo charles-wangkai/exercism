@@ -25,13 +25,13 @@ public class Cipher {
 
 	String encode(String plainText) {
 		return IntStream.range(0, plainText.length())
-				.mapToObj(i -> (char) ((plainText.charAt(i) - 'a' + key.charAt(i) - 'a') % 26 + 'a'))
+				.mapToObj(i -> (char) ((plainText.charAt(i) - 'a' + key.charAt(i % key.length()) - 'a') % 26 + 'a'))
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
 	}
 
 	String decode(String cipherText) {
 		return IntStream.range(0, cipherText.length())
-				.mapToObj(i -> (char) ((cipherText.charAt(i) - key.charAt(i) + 26) % 26 + 'a'))
+				.mapToObj(i -> (char) ((cipherText.charAt(i) - key.charAt(i % key.length()) + 26) % 26 + 'a'))
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
 	}
 }

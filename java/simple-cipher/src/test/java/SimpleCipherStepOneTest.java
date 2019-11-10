@@ -1,4 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.regex.Pattern;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +24,9 @@ public class SimpleCipherStepOneTest {
 	 */
 	@Test
 	public void cipherCanEncode() {
+		String plainText = "aaaaaaaaaa";
 		String cipherText = cipherWithDefaultKey.getKey().substring(0, 10);
-		assertEquals(cipherText, cipherWithDefaultKey.encode("aaaaaaaaaa"));
+		assertEquals(cipherText, cipherWithDefaultKey.encode(plainText));
 	}
 
 	@Test
@@ -35,5 +39,11 @@ public class SimpleCipherStepOneTest {
 	public void cipherIsReversible() {
 		String plainText = "abcdefghij";
 		assertEquals(plainText, cipherWithDefaultKey.decode(cipherWithDefaultKey.encode(plainText)));
+	}
+
+	@Test
+	public void keyIsLowercaseLetters() {
+		String key = cipherWithDefaultKey.getKey();
+		assertTrue(Pattern.matches("^[a-z]+$", key));
 	}
 }
