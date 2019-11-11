@@ -13,7 +13,7 @@ class CircularBuffer(object):
 
     def read(self):
         if self.is_empty():
-            raise BufferEmptyException
+            raise BufferEmptyException('Buffer is empty!')
 
         result = self.buffer[self.head_index]
         self.head_index = (self.head_index + 1) % len(self.buffer)
@@ -22,7 +22,7 @@ class CircularBuffer(object):
 
     def write(self, element):
         if self.is_full():
-            raise BufferFullException
+            raise BufferFullException('Buffer is full!')
 
         self.buffer[self.tail_index] = element
         self.tail_index = (self.tail_index + 1) % len(self.buffer)
