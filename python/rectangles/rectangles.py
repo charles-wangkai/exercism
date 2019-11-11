@@ -1,4 +1,4 @@
-def count(ascii_diagram):
+def rectangles(ascii_diagram):
     row = len(ascii_diagram)
     if row == 0:
         return 0
