@@ -1,4 +1,4 @@
-def hey(phrase):
+def response(phrase):
     if not phrase or phrase.isspace():
         return 'Fine. Be that way!'
 
