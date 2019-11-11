@@ -1,4 +1,4 @@
-def detect_anagrams(word, candidates):
+def find_anagrams(word, candidates):
     return list(filter(lambda candidate: candidate.lower() != word.lower() and generate_key(candidate) == generate_key(word), candidates))
 
 
