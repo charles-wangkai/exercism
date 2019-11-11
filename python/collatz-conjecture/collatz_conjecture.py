@@ -1,6 +1,6 @@
-def collatz_steps(number):
+def steps(number):
     if number <= 0:
-        return None
+        raise ValueError('Number should be positive!')
 
     step = 0
     while number != 1:
