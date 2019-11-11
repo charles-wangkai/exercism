@@ -1,13 +1,17 @@
-def board(white_position, black_position):
-    check(white_position, black_position)
-    return [''.join(['W' if (r, c) == white_position else ('B' if (r, c) == black_position else '_') for c in range(8)]) for r in range(8)]
+class Queen:
+    def __init__(self, r, c):
+        if not (0 <= r < 8 and 0 <= c < 8):
+            raise ValueError('Invalid position!')
 
+        self.r = r
+        self.c = c
 
-def can_attack(white_position, black_position):
-    check(white_position, black_position)
-    return white_position[0] == black_position[0] or white_position[1] == black_position[1] or white_position[0] + white_position[1] == black_position[0] + black_position[1] or white_position[0] - white_position[1] == black_position[0] - black_position[1]
+    def can_attack(self, other):
+        if self.r == other.r and self.c == other.c:
+            raise ValueError(
+                'Another queen can not be at the same position as mine!')
 
-
-def check(white_position, black_position):
-    if white_position == black_position or any(map(lambda x: not 0 <= x < 8, white_position + black_position)):
-        raise ValueError
+        return self.r == other.r \
+            or self.c == other.c \
+            or self.r + self.c == other.r + other.c \
+            or self.r - self.c == other.r - other.c
