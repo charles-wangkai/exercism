@@ -11,9 +11,9 @@ import unittest
 from ocr_numbers import convert
 
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.0.0
+# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 
-class OcrTest(unittest.TestCase):
+class OcrNumbersTest(unittest.TestCase):
     def test_recognizes_0(self):
         self.assertEqual(convert([" _ ",
                                   "| |",
@@ -26,20 +26,20 @@ class OcrTest(unittest.TestCase):
                                   "  |",
                                   "   "]), '1')
 
-    def test_unreadable(self):
+    def test_unreadable_but_correctly_sized(self):
         self.assertEqual(convert(["   ",
                                   "  _",
                                   "  |",
                                   "   "]), '?')
 
     def test_line_number_not_multiple_of_four(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaisesWithMessage(ValueError):
             convert([" _ ",
                      "| |",
                      "   "])
 
     def test_col_number_not_multiple_of_three(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaisesWithMessage(ValueError):
             convert(["    ",
                      "   |",
                      "   |",
@@ -136,6 +136,10 @@ class OcrTest(unittest.TestCase):
             "         "
         ]
         self.assertEqual(convert(input_grid), "123,456,789")
+
+    # Utility functions
+    def assertRaisesWithMessage(self, exception):
+        return self.assertRaisesRegex(exception, r".+")
 
 
 if __name__ == '__main__':
