@@ -1,4 +1,4 @@
-def check_brackets(input_string):
+def is_paired(input_string):
     stack = []
     for ch in filter(lambda ch: ch in '()[]{}', input_string):
         if ch in '([{':
