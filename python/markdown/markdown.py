@@ -1,7 +1,7 @@
 import re
 
 
-def parse_markdown(markdown):
+def parse(markdown):
     res = ''
     in_list = False
     for line in markdown.splitlines():
@@ -40,7 +40,13 @@ def is_header(line):
 
 
 def parse_header(line):
-    count = line.count('#')
+    count = 0
+    for i in range(len(line)):
+        if line[i] != '#':
+            break
+
+        count += 1
+
     return tagger(f'h{count}', line[count + 1:])
 
 
