@@ -13,6 +13,9 @@ class BankAccount(object):
         return self.balance
 
     def open(self):
+        if self.enabled:
+            raise ValueError('Account is already opened!')
+
         self.enabled = True
 
     def deposit(self, amount):
@@ -28,17 +31,21 @@ class BankAccount(object):
             self.check_amount(amount)
 
             if amount > self.balance:
-                raise ValueError
+                raise ValueError('Amount can not exceed balance!')
 
             self.balance -= amount
 
     def close(self):
+        if not self.enabled:
+            raise ValueError('Account is already closed!')
+
+        self.balance = 0
         self.enabled = False
 
     def check_enabled(self):
         if not self.enabled:
-            raise ValueError
+            raise ValueError('Account is closed!')
 
     def check_amount(self, amount):
         if amount < 0:
-            raise ValueError
+            raise ValueError('Amount can not be negative!')
