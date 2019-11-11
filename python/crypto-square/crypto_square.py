@@ -1,7 +1,7 @@
 import math
 
 
-def encode(plain_text):
+def cipher_text(plain_text):
     return ' '.join([''.join([segment[i] if i < len(segment) else ' ' for segment in get_plain_text_segments(plain_text)]) for i in range(get_square_size(plain_text))])
 
 
