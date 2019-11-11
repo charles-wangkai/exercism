@@ -21,13 +21,13 @@ class Point(object):
 
 class WordSearch(object):
     def __init__(self, puzzle):
-        self.square = puzzle.splitlines()
+        self.puzzle = puzzle
 
     def search(self, word):
-        row = len(self.square)
+        row = len(self.puzzle)
         if row == 0:
             return None
-        col = len(self.square[0])
+        col = len(self.puzzle[0])
 
         for x in range(0, col):
             for y in range(0, row):
@@ -39,12 +39,12 @@ class WordSearch(object):
                             return start, start + Point(offset.x * (len(word) - 1), offset.y * (len(word) - 1))
 
     def check(self, word, start, offset):
-        row = len(self.square)
-        col = len(self.square[0])
+        row = len(self.puzzle)
+        col = len(self.puzzle[0])
 
         pos = start
         for i in range(len(word)):
-            if not (0 <= pos.x < col and 0 <= pos.y < row and self.square[pos.y][pos.x] == word[i]):
+            if not (0 <= pos.x < col and 0 <= pos.y < row and self.puzzle[pos.y][pos.x] == word[i]):
                 return False
             pos += offset
         return True
