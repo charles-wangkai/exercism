@@ -1,17 +1,10 @@
-import math
+def triplets_with_sum(target_sum):
+    result = []
+    for a in range(1, target_sum // 3 + 1):
+        for b in range(a, (target_sum - a) // 2 + 1):
+            c = target_sum - a - b
 
+            if a * a + b * b == c * c:
+                result.append([a, b, c])
 
-def primitive_triplets(number_in_triplet):
-    if number_in_triplet % 4 != 0:
-        raise ValueError
-
-    return set([tuple(sorted([m * m - n * n, 2 * m * n, m * m + n * n])) for (m, n) in map(lambda n:(number_in_triplet // 2 // n, n), range(1, number_in_triplet // 2)) if 2 * m * n == number_in_triplet and m > n and (m - n) % 2 != 0 and math.gcd(m, n) == 1])
-
-
-def triplets_in_range(range_start, range_end):
-    return set([(a, b, c) for a in range(range_start, range_end + 1) for b in range(a, range_end + 1) for c in range(b, range_end + 1) if is_triplet((a, b, c))])
-
-
-def is_triplet(triplet):
-    a, b, c = sorted(triplet)
-    return a * a + b * b == c * c
+    return result
