@@ -1,10 +1,22 @@
-PARTS = ['the house that Jack built.', 'the malt\nthat lay in ', 'the rat\nthat ate ', 'the cat\nthat killed ', 'the dog\nthat worried ', 'the cow with the crumpled horn\nthat tossed ', 'the maiden all forlorn\nthat milked ',
-         'the man all tattered and torn\nthat kissed ', 'the priest all shaven and shorn\nthat married ', 'the rooster that crowed in the morn\nthat woke ', 'the farmer sowing his corn\nthat kept ', 'the horse and the hound and the horn\nthat belonged to ']
+PARTS = [
+    'the house that Jack built.',
+    'the malt that lay in ',
+    'the rat that ate ',
+    'the cat that killed ',
+    'the dog that worried ',
+    'the cow with the crumpled horn that tossed ',
+    'the maiden all forlorn that milked ',
+    'the man all tattered and torn that kissed ',
+    'the priest all shaven and shorn that married ',
+    'the rooster that crowed in the morn that woke ',
+    'the farmer sowing his corn that kept ',
+    'the horse and the hound and the horn that belonged to '
+]
 
 
 def verse(n):
-    return 'This is ' + ''.join([PARTS[i] for i in range(n, -1, -1)])
+    return 'This is ' + ''.join([PARTS[i] for i in range(n - 1, -1, -1)])
 
 
-def rhyme():
-    return '\n\n'.join(map(verse, range(0, 12)))
+def recite(begin, end):
+    return [verse(i) for i in range(begin, end + 1)]
