@@ -1,4 +1,4 @@
-def prime_factors(natural_number):
+def factors(natural_number):
     result = []
     i = 2
     while i * i <= natural_number:
@@ -6,7 +6,7 @@ def prime_factors(natural_number):
             while natural_number % i == 0:
                 result.append(i)
                 natural_number //= i
-        
+
         i += 1
     if natural_number != 1:
         result.append(natural_number)
