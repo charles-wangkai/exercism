@@ -1,4 +1,4 @@
-def binary_search(list_of_numbers, number):
+def find(list_of_numbers, number):
     lower_index, upper_index = 0, len(list_of_numbers) - 1
     while lower_index <= upper_index:
         middle_index = (lower_index + upper_index) // 2
