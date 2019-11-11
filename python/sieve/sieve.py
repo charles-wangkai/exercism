@@ -1,4 +1,4 @@
-def sieve(limit):
+def primes(limit):
     primes = [True] * (limit + 1)
     for i in range(2, len(primes)):
         for j in range(i * i, len(primes), i):
