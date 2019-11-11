@@ -1,7 +1,7 @@
 OFFSETS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
 
-def spiral(size):
+def spiral_matrix(size):
     matrix = [[None] * size for _ in range(size)]
 
     r, c = 0, -1
