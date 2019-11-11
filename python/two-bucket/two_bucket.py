@@ -1,4 +1,4 @@
-def two_bucket(bucket_one_cap, bucket_two_cap, desired_liters, first):
+def measure(bucket_one_cap, bucket_two_cap, desired_liters, first):
     buckets = [Bucket('one', bucket_one_cap), Bucket('two', bucket_two_cap)]
     if first == 'two':
         buckets = buckets[::-1]
