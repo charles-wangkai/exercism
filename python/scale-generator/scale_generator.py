@@ -4,25 +4,23 @@ FLATS = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab']
 FLAT_TONICS = {'F', 'Bb', 'Eb', 'Ab', 'Db',
                'Gb', 'd', 'g', 'c', 'f', 'bb', 'eb'}
 
-INTERVAL_2_OFFSET = {'m': 1, 'M': 2, 'A': 3}
+INTERVAL_TO_OFFSET = {'m': 1, 'M': 2, 'A': 3}
 
 
 class Scale(object):
-    def __init__(self, tonic, scale_name, pattern=None):
-        self.name = '{} {}'.format(tonic.capitalize(), scale_name)
+    def __init__(self, tonic, pattern=None):
+        self.scale = FLATS if tonic in FLAT_TONICS else SHARPS
+        self.start_index = self.scale.index(tonic.capitalize())
 
-        scale = FLATS if tonic in FLAT_TONICS else SHARPS
+    def chromatic(self):
+        return self.scale[self.start_index:] + self.scale[:self.start_index]
 
-        start_index = scale.index(tonic.capitalize())
-        if pattern is None:
-            self.pitches = scale[start_index:] + scale[:start_index]
-        else:
-            self.pitches = []
-            i = start_index
-            for interval in pattern:
-                self.pitches.append(scale[i])
+    def interval(self, pattern):
+        result = []
+        i = self.start_index
+        for interval in pattern:
+            result.append(self.scale[i])
 
-                i = (i + INTERVAL_2_OFFSET[interval]) % len(scale)
+            i = (i + INTERVAL_TO_OFFSET[interval]) % len(self.scale)
 
-            if i != start_index:
-                raise ValueError('Broken interval')
+        return result
