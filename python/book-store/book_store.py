@@ -14,7 +14,7 @@ GROUP_SIZE_TO_DISCOUNT = {
 }
 
 
-def calculate_total(books):
+def total(books):
     return calculate(to_tuple_key(collections.Counter(books)))
 
 
