@@ -1,10 +1,11 @@
-def poker(hand):
-    return [h for h in hand if Category(h) == max(map(Category, hand), key=lambda c: (c.rank, c.candidates))]
+def best_hands(hands):
+    return [h for h in hands if Category(h) == max(map(Category, hands), key=lambda c: (c.rank, c.candidates))]
 
 
 class Category:
     def __init__(self, h):
-        cards = sorted(map(Card, h), key=lambda card: card.value, reverse=True)
+        cards = sorted(map(Card, h.split()),
+                       key=lambda card: card.value, reverse=True)
 
         if self.is_straight_flush(cards):
             self.rank = -1
@@ -117,6 +118,6 @@ class Category:
 
 class Card:
     def __init__(self, s):
-        self.suit = s[1]
+        self.suit = s[-1:]
         self.value = [None, None, '2', '3', '4', '5', '6',
-                      '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'].index(s[0])
+                      '7', '8', '9', '10', 'J', 'Q', 'K', 'A'].index(s[:-1])
