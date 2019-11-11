@@ -48,12 +48,13 @@ class BowlingGame(object):
                 roll2 = self.read_roll(final)
 
                 if roll1 != 10 and roll1 + roll2 > 10:
-                    raise ValueError
+                    raise ValueError(
+                        'Two bonus rolls after a strike in the last frame cannot score more than 10 points!')
 
                 frames.append(Frame(roll1, roll2))
 
             if self.roll_index < len(self.rolls):
-                raise IndexError
+                raise IndexError('Cannot roll any more!')
 
             result = 0
             for i in range(9):
@@ -86,7 +87,8 @@ class BowlingGame(object):
         self.roll_index += 1
 
         if roll < 0 or roll > 10:
-            raise ValueError
+            raise ValueError(
+                'A roll can not be negative or more than 10 points!')
 
         return roll
 
@@ -97,6 +99,7 @@ class BowlingGame(object):
 
         roll2 = self.read_roll(final)
         if roll1 + roll2 > 10:
-            raise ValueError
+            raise ValueError(
+                'Two rolls in a frame cannot score more than 10 points!')
 
         return Frame(roll1, roll2)
