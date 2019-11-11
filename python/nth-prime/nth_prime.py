@@ -1,6 +1,6 @@
-def nth_prime(positive_number):
+def prime(positive_number):
     if positive_number <= 0:
-        raise ValueError
+        raise ValueError('Invalid input!')
 
     prime = 1
     for _ in range(positive_number):
