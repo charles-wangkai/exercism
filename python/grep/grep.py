@@ -1,9 +1,9 @@
-def grep(pattern, files, flags=''):
+def grep(pattern, flags, files):
     result = ''
     for file in files:
         found = False
         with open(file) as fp:
-            for line_num, line in enumerate(fp, 1):
+            for line_num, line in enumerate(fp.readlines(), 1):
                 line = line.rstrip('\n')
                 if is_satisfied(line, pattern, flags):
                     if '-l' in flags:
