@@ -1,58 +1,72 @@
 import unittest
 
-from triangle import Triangle, TriangleError
+from triangle import equilateral, isosceles, scalene
+
+# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.1
 
 
-class TriangleTests(unittest.TestCase):
-    def test_equilateral_triangles_have_equal_sides(self):
-        self.assertEqual(Triangle(2, 2, 2).kind(), "equilateral")
+class EquilateralTriangleTest(unittest.TestCase):
+    def test_all_sides_are_equal(self):
+        self.assertIs(equilateral([2, 2, 2]), True)
 
-    def test_larger_equilateral_triangles_also_have_equal_sides(self):
-        self.assertEqual(Triangle(10, 10, 10).kind(), "equilateral")
+    def test_any_side_is_unequal(self):
+        self.assertIs(equilateral([2, 3, 2]), False)
 
-    def test_isosceles_triangles_have_last_two_sides_equal(self):
-        self.assertEqual(Triangle(3, 4, 4).kind(), "isosceles")
+    def test_no_sides_are_equal(self):
+        self.assertIs(equilateral([5, 4, 6]), False)
 
-    def test_isosceles_triangles_have_first_and_last_sides_equal(self):
-        self.assertEqual(Triangle(4, 3, 4).kind(), "isosceles")
+    def test_all_zero_sides_is_not_a_triangle(self):
+        self.assertIs(equilateral([0, 0, 0]), False)
 
-    def test_isosceles_triangles_have_two_first_sides_equal(self):
-        self.assertEqual(Triangle(4, 4, 3).kind(), "isosceles")
-
-    def test_isosceles_triangles_have_in_fact_exactly_two_sides_equal(self):
-        self.assertEqual(Triangle(10, 10, 2).kind(), "isosceles")
-
-    def test_scalene_triangles_have_no_equal_sides(self):
-        self.assertEqual(Triangle(3, 4, 5).kind(), "scalene")
-
-    def test_scalene_triangles_have_no_equal_sides_at_a_larger_scale_too(self):
-        self.assertEqual(Triangle(10, 11, 12).kind(), "scalene")
-
-        self.assertEqual(Triangle(5, 4, 2).kind(), "scalene")
-
-    def test_very_small_triangles_are_legal(self):
-        self.assertEqual(Triangle(0.4, 0.6, 0.3).kind(), "scalene")
-
-    def test_triangles_with_no_size_are_illegal(self):
-        with self.assertRaises(TriangleError):
-            Triangle(0, 0, 0)
-
-    def test_triangles_with_negative_sides_are_illegal(self):
-        with self.assertRaises(TriangleError):
-            Triangle(3, 4, -5)
-
-    def test_triangles_violating_triangle_inequality_are_illegal(self):
-        with self.assertRaises(TriangleError):
-            Triangle(1, 1, 3)
-
-    def test_triangles_violating_triangle_inequality_are_illegal_2(self):
-        with self.assertRaises(TriangleError):
-            Triangle(2, 4, 2)
-
-    def test_triangles_violating_triangle_inequality_are_illegal_3(self):
-        with self.assertRaises(TriangleError):
-            Triangle(7, 3, 2)
+    def test_sides_may_be_floats(self):
+        self.assertIs(equilateral([0.5, 0.5, 0.5]), True)
 
 
-if __name__ == '__main__':
+class IsoscelesTriangleTest(unittest.TestCase):
+    def test_last_two_sides_are_equal(self):
+        self.assertIs(isosceles([3, 4, 4]), True)
+
+    def test_first_two_sides_are_equal(self):
+        self.assertIs(isosceles([4, 4, 3]), True)
+
+    def test_first_and_last_sides_are_equal(self):
+        self.assertIs(isosceles([4, 3, 4]), True)
+
+    def test_equilateral_triangles_are_also_isosceles(self):
+        self.assertIs(isosceles([4, 4, 4]), True)
+
+    def test_no_sides_are_equal(self):
+        self.assertIs(isosceles([2, 3, 4]), False)
+
+    def test_first_triangle_inequality_violation(self):
+        self.assertIs(isosceles([1, 1, 3]), False)
+
+    def test_second_triangle_inequality_violation(self):
+        self.assertIs(isosceles([1, 3, 1]), False)
+
+    def test_third_triangle_inequality_violation(self):
+        self.assertIs(isosceles([3, 1, 1]), False)
+
+    def test_sides_may_be_floats(self):
+        self.assertIs(isosceles([0.5, 0.4, 0.5]), True)
+
+
+class ScaleneTriangleTest(unittest.TestCase):
+    def test_no_sides_are_equal(self):
+        self.assertIs(scalene([5, 4, 6]), True)
+
+    def test_all_sides_are_equal(self):
+        self.assertIs(scalene([4, 4, 4]), False)
+
+    def test_two_sides_are_equal(self):
+        self.assertIs(scalene([4, 4, 3]), False)
+
+    def test_may_not_violate_triangle_inequality(self):
+        self.assertIs(scalene([7, 3, 2]), False)
+
+    def test_sides_may_be_floats(self):
+        self.assertIs(scalene([0.5, 0.4, 0.6]), True)
+
+
+if __name__ == "__main__":
     unittest.main()
