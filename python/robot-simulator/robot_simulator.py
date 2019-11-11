@@ -1,4 +1,4 @@
-# Globals for the bearings
+# Globals for the directions
 # Change the values as you see fit
 EAST = {'offset': (1, 0)}
 NORTH = {'offset': (0, 1)}
@@ -7,23 +7,27 @@ SOUTH = {'offset': (0, -1)}
 
 
 class Robot(object):
-    BEARINGS = [EAST, NORTH, WEST, SOUTH]
+    DIRECTIONS = [EAST, NORTH, WEST, SOUTH]
 
-    def __init__(self, bearing=NORTH, x=0, y=0):
-        self.instruction2command = {'R': self.turn_right, 'L': self.turn_left, 'A': self.advance}
-        
-        self.bearing = bearing
+    def __init__(self, direction=NORTH, x=0, y=0):
+        self.instruction_to_command = {
+            'R': self.turn_right, 'L': self.turn_left, 'A': self.advance}
+
+        self.direction = direction
         self.coordinates = (x, y)
 
     def advance(self):
-        self.coordinates = tuple(map(sum, zip(self.coordinates, self.bearing['offset'])))
-    
-    def turn_left(self):
-        self.bearing = self.BEARINGS[(self.BEARINGS.index(self.bearing) + 1) % len(self.BEARINGS)]
-    
-    def turn_right(self):
-        self.bearing = self.BEARINGS[(self.BEARINGS.index(self.bearing) - 1) % len(self.BEARINGS)]
+        self.coordinates = tuple(
+            map(sum, zip(self.coordinates, self.direction['offset'])))
 
-    def simulate(self, instructions):
+    def turn_left(self):
+        self.direction = self.DIRECTIONS[(self.DIRECTIONS.index(
+            self.direction) + 1) % len(self.DIRECTIONS)]
+
+    def turn_right(self):
+        self.direction = self.DIRECTIONS[(self.DIRECTIONS.index(
+            self.direction) - 1) % len(self.DIRECTIONS)]
+
+    def move(self, instructions):
         for instruction in instructions:
-            self.instruction2command[instruction]()
+            self.instruction_to_command[instruction]()
