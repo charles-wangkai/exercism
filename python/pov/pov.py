@@ -1,7 +1,7 @@
 from json import dumps
 
 
-class Tree(object):
+class Tree:
     def __init__(self, label, children=[]):
         self.label = label
         self.children = children
@@ -22,12 +22,12 @@ class Tree(object):
     def __eq__(self, other):
         return self.__dict__() == other.__dict__()
 
-    def fromPov(self, from_node):
-        label2tree = self.build_label2tree()
-        if from_node not in label2tree:
+    def from_pov(self, from_node):
+        label_to_tree = self.build_label_to_tree()
+        if from_node not in label_to_tree:
             raise ValueError('Tree does not exist')
 
-        return label2tree[from_node].build_tree(None)
+        return label_to_tree[from_node].build_tree(None)
 
     def build_tree(self, source):
         children = []
@@ -38,13 +38,13 @@ class Tree(object):
                 children.append(child.build_tree(self))
         return Tree(self.label, children)
 
-    def pathTo(self, from_node, to_node):
-        label2tree = self.build_label2tree()
-        if from_node not in label2tree or to_node not in label2tree:
+    def path_to(self, from_node, to_node):
+        label_to_tree = self.build_label_to_tree()
+        if from_node not in label_to_tree or to_node not in label_to_tree:
             raise ValueError('Tree does not exist')
 
         path = []
-        self.fromPov(from_node).find(path, to_node)
+        self.from_pov(from_node).find(path, to_node)
         return path
 
     def find(self, path, to_node):
@@ -60,17 +60,17 @@ class Tree(object):
         path.pop()
         return False
 
-    def build_label2tree(self):
-        label2tree = {}
-        self.search(label2tree)
-        return label2tree
+    def build_label_to_tree(self):
+        label_to_tree = {}
+        self.search(label_to_tree)
+        return label_to_tree
 
-    def search(self, label2tree):
-        if self.label in label2tree:
+    def search(self, label_to_tree):
+        if self.label in label_to_tree:
             return
 
-        label2tree[self.label] = self
+        label_to_tree[self.label] = self
         if self.parent:
-            self.parent.search(label2tree)
+            self.parent.search(label_to_tree)
         for child in self.children:
-            child.search(label2tree)
+            child.search(label_to_tree)
