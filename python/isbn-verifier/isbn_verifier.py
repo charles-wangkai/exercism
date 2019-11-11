@@ -1,4 +1,4 @@
-def verify(isbn):
+def is_valid(isbn):
     s = isbn.replace('-', '')
 
     return len(s) == 10 and all(map(str.isdigit, s[:9])) and (s[9] == 'X' or s[9].isdigit()) and sum(map(lambda i: parse_int(s[i]) * (10 - i), range(10))) % 11 == 0
