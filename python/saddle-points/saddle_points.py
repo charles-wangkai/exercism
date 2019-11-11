@@ -6,10 +6,10 @@ def saddle_points(matrix):
         raise ValueError('Irregular Matrix!')
     col = len(matrix[0])
 
-    return {(r, c)
+    return [{'row': r + 1, 'column': c + 1}
             for r in range(row)
             for c in range(col)
-            if is_saddle_point(matrix, r, c)}
+            if is_saddle_point(matrix, r, c)]
 
 
 def is_saddle_point(matrix, r, c):
