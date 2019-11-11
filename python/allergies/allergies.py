@@ -13,9 +13,9 @@ class Allergies(object):
     def __init__(self, score):
         self.score = score
 
-    def is_allergic_to(self, item):
+    def allergic_to(self, item):
         return (self.score & self.ITEM_TO_SCORE.get(item, 0)) != 0
 
     @property
     def lst(self):
-        return list(filter(self.is_allergic_to, self.ITEM_TO_SCORE))
+        return list(filter(self.allergic_to, self.ITEM_TO_SCORE))
