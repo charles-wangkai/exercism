@@ -1,8 +1,8 @@
-class Luhn(object):
+class Luhn:
     def __init__(self, candidate):
         self.candidate = candidate.replace(' ', '')
 
-    def is_valid(self):
+    def valid(self):
         if len(self.candidate) <= 1 or not self.candidate.isdigit():
             return False
 
