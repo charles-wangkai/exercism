@@ -1,13 +1,13 @@
-def board(input_board_array):
+def annotate(input_board_array):
     row = len(input_board_array)
     if row == 0:
         return []
     col = len(input_board_array[0])
 
     if len(set(map(len, input_board_array))) != 1:
-        raise ValueError
+        raise ValueError('Widths are not same!')
     if not all(map(lambda line: all(map(lambda square: square in '* ', line)), input_board_array)):
-        raise ValueError
+        raise ValueError('Invalid character!')
 
     board = [[None] * col for _ in range(row)]
     for r in range(row):
