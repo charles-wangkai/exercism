@@ -4,7 +4,7 @@ EQUAL = object()
 UNEQUAL = object()
 
 
-def check_lists(first_list, second_list):
+def sublist(first_list, second_list):
     if contains(second_list, first_list):
         if contains(first_list, second_list):
             return EQUAL
