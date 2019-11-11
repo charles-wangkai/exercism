@@ -1,6 +1,6 @@
 def classify(number):
     if number <= 0:
-        raise ValueError
+        raise ValueError('Number can only be positive!')
 
     aliquot_sum = compute_aliquot_sum(number)
     if aliquot_sum == number:
