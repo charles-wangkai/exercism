@@ -6,15 +6,16 @@ that the sum of the coins' value would equal the correct amount of change.
 ## For example
 
 - An input of 15 with [1, 5, 10, 25, 100] should return one nickel (5)
-  and one dime (10) or [0, 1, 1, 0, 0]
+  and one dime (10) or [5, 10]
 - An input of 40 with [1, 5, 10, 25, 100] should return one nickel (5)
-  and one dime (10) and one quarter (25) or [0, 1, 1, 1, 0]
+  and one dime (10) and one quarter (25) or [5, 10, 25]
 
 ## Edge cases
 
 - Does your algorithm work for any given set of coins?
 - Can you ask for negative change?
 - Can you ask for a change value smaller than the smallest coin value?
+
 
 ## Exception messages
 
@@ -32,12 +33,9 @@ raise Exception("Meaningful message indicating the source of the error")
 
 ## Running the tests
 
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
+To run the tests, run `pytest change_test.py`
 
-- Python 2.7: `py.test change_test.py`
-- Python 3.4+: `pytest change_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
+Alternatively, you can tell Python to run the pytest module:
 `python -m pytest change_test.py`
 
 ### Common `pytest` options
@@ -55,7 +53,7 @@ Note that, when trying to submit an exercise, make sure the solution is in the `
 You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
 
 For more detailed information about running tests, code style and linting,
-please see the [help page](http://exercism.io/languages/python).
+please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
