@@ -25,7 +25,7 @@ class Edge(object):
 class Graph(object):
     def __init__(self, data=[]):
         if not isinstance(data, list):
-            raise TypeError
+            raise TypeError('Data should be a list!')
 
         self.nodes = []
         self.edges = []
@@ -33,24 +33,26 @@ class Graph(object):
 
         for element in data:
             if len(element) == 0:
-                raise TypeError
+                raise TypeError('Element can not be empty!')
 
             if element[0] == NODE:
                 if len(element) != 3:
-                    raise ValueError
+                    raise ValueError('Node element should have 3 values!')
 
                 self.nodes.append(Node(element[1], element[2]))
             elif element[0] == EDGE:
                 if len(element) != 4:
-                    raise ValueError
+                    raise ValueError('Edge element should have 4 values!')
 
                 self.edges.append(Edge(element[1], element[2], element[3]))
             elif element[0] == ATTR:
                 if len(element) < 3:
-                    raise TypeError
+                    raise TypeError(
+                        'Attr element can not have less than 3 values!')
                 elif len(element) > 3:
-                    raise ValueError
+                    raise ValueError(
+                        'Attr element can not have more than 3 values!')
 
                 self.attrs[element[1]] = element[2]
             else:
-                raise ValueError
+                raise ValueError('Invalid element type!')
