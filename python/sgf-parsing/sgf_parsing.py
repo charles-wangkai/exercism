@@ -23,7 +23,7 @@ class SgfTree(object):
 
 
 def parse(input_string):
-    input_string = input_string.replace('\n', ' ').replace('\t', ' ')
+    input_string = input_string.replace('\t', ' ')
     if not (input_string.startswith('(') and input_string.endswith(')')):
         raise ValueError('Must enclosed with parentheses!')
 
@@ -36,22 +36,25 @@ def parse(input_string):
     if not s:
         return SgfTree()
 
-    begin_index = find_index(s, '[')
-    if begin_index < 0:
+    if '[' not in s:
         raise ValueError('Properties without delimiter!')
 
-    property_id = s[:begin_index]
-    if not property_id.isupper():
-        raise ValueError('Property id must be uppercase!')
+    properties = {}
+    while s and s[0] not in ';(':
+        begin_index = find_index(s, '[')
+        property_id = s[:begin_index]
+        if not property_id.isupper():
+            raise ValueError('Property id must be uppercase!')
 
-    properties = {property_id: []}
-    while begin_index < len(s) and s[begin_index] == '[':
-        end_index = find_index(s, ']', begin_index)
-        properties[property_id].append(decode(s[begin_index + 1:end_index]))
+        properties[property_id] = []
+        while begin_index < len(s) and s[begin_index] == '[':
+            end_index = find_index(s, ']', begin_index)
+            properties[property_id].append(
+                decode(s[begin_index + 1:end_index]))
 
-        begin_index = end_index + 1
+            begin_index = end_index + 1
 
-    s = s[begin_index:]
+        s = s[begin_index:]
 
     children = []
     index = 0
