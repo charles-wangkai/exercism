@@ -16,7 +16,7 @@ def concat(lists):
     return result
 
 
-def filter_clone(function, xs):
+def filter(function, xs):
     return [x for x in xs if function(x)]
 
 
@@ -27,7 +27,7 @@ def length(xs):
     return result
 
 
-def map_clone(function, xs):
+def map(function, xs):
     return [function(x) for x in xs]
 
 
