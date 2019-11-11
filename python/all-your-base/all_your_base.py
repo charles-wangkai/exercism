@@ -13,4 +13,8 @@ def rebase(from_base, digits, to_base):
     while number:
         target_digits.append(number % to_base)
         number //= to_base
+
+    if not target_digits:
+        target_digits.append(0)
+
     return target_digits[::-1]
