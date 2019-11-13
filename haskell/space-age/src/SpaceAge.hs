@@ -1,13 +1,17 @@
-module SpaceAge (Planet(..), ageOn) where
+module SpaceAge
+  ( Planet(..)
+  , ageOn
+  ) where
 
-data Planet = Mercury
-            | Venus
-            | Earth
-            | Mars
-            | Jupiter
-            | Saturn
-            | Uranus
-            | Neptune
+data Planet
+  = Mercury
+  | Venus
+  | Earth
+  | Mars
+  | Jupiter
+  | Saturn
+  | Uranus
+  | Neptune
 
 ageOn :: Planet -> Float -> Float
 ageOn Earth = (/ 31557600)
