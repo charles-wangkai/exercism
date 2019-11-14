@@ -16,6 +16,6 @@ const COLOR_TO_DIGIT = {
   white: 9
 };
 
-export const value = colors => {
-  return COLOR_TO_DIGIT[colors[0]] * 10 + COLOR_TO_DIGIT[colors[1]];
+export const value = ([color1, color2]) => {
+  return COLOR_TO_DIGIT[color1] * 10 + COLOR_TO_DIGIT[color2];
 };
