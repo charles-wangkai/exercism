@@ -8,8 +8,7 @@ library:
   exposed-modules: DNA
   source-dirs: src
   ghc-options: -Wall
-  dependencies:
-    - containers
+  # dependencies:
 
 tests:
   test:

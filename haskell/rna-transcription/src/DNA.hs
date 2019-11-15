@@ -2,16 +2,12 @@ module DNA
   ( toRNA
   ) where
 
-import qualified Data.Map as Map
-
 toRNA :: String -> Either Char String
-toRNA xs = foldl f (Right "") xs
-  where
-    f result x =
-      case result of
-        Left _ -> result
-        Right v ->
-          case dnaToRna Map.!? x of
-            Nothing -> Left x
-            Just r -> Right (v ++ [r])
-    dnaToRna = Map.fromList [('G', 'C'), ('C', 'G'), ('T', 'A'), ('A', 'U')]
+toRNA xs = traverse dnaToRna xs
+
+dnaToRna :: Char -> Either Char Char
+dnaToRna 'G' = Right 'C'
+dnaToRna 'C' = Right 'G'
+dnaToRna 'T' = Right 'A'
+dnaToRna 'A' = Right 'U'
+dnaToRna x = Left x

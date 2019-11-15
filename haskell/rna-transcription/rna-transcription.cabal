@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 10802d881394692f8faae407150571913b3b950e1ad02e74925d0c60809a6048
+-- hash: 6a65545b4ce412dfa8d34a288540e955171791710b3e6c35eb759bd2bd084aae
 
 name:           rna-transcription
 version:        1.3.0.10
@@ -20,7 +20,6 @@ library
   ghc-options: -Wall
   build-depends:
       base
-    , containers
   default-language: Haskell2010
 
 test-suite test
