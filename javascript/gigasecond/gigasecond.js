@@ -4,7 +4,5 @@
 //
 
 export const gigasecond = dt => {
-  dt.setSeconds(dt.getSeconds() + 1000000000);
-
-  return dt;
+  return new Date(dt.getTime() + 1000000000 * 1000);
 };
