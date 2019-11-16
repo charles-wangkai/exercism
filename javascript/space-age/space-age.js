@@ -16,9 +16,7 @@ const PLANET_TO_EARTH_YAER = {
 };
 
 export const age = (planet, seconds) => {
-  return (
-    Math.round(
-      (seconds / EARTH_YAER_SECONDS / PLANET_TO_EARTH_YAER[planet]) * 100
-    ) / 100
+  return Number(
+    (seconds / EARTH_YAER_SECONDS / PLANET_TO_EARTH_YAER[planet]).toFixed(2)
   );
 };
