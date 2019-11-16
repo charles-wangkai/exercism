@@ -4,7 +4,7 @@
 //
 
 export const isPangram = s => {
-  return (
-    new Set([...s.toLowerCase()].filter(ch => ch.match(/[a-z]/))).size == 26
+  return [..."abcdefghijklmnopqrstuvwxyz"].every(ch =>
+    s.toLowerCase().includes(ch)
   );
 };
