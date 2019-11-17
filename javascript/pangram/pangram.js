@@ -4,7 +4,6 @@
 //
 
 export const isPangram = s => {
-  return [..."abcdefghijklmnopqrstuvwxyz"].every(ch =>
-    s.toLowerCase().includes(ch)
-  );
+  const lowerCased = s.toLowerCase();
+  return [..."abcdefghijklmnopqrstuvwxyz"].every(ch => lowerCased.includes(ch));
 };
