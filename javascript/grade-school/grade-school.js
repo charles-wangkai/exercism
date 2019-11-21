@@ -5,25 +5,25 @@
 
 export class GradeSchool {
   constructor() {
-    this.nameToGrade = {};
+    this.gradeToNames = {};
   }
 
   roster() {
-    return Object.fromEntries(
-      [...new Set(Object.values(this.nameToGrade))].map(grade => [
-        grade,
-        this.grade(grade)
-      ])
-    );
+    return JSON.parse(JSON.stringify(this.gradeToNames));
   }
 
   add(name, grade) {
-    this.nameToGrade[name] = grade;
+    if (!Object.prototype.hasOwnProperty.call(this.gradeToNames, grade)) {
+      this.gradeToNames[grade] = [];
+    }
+    this.gradeToNames[grade].push(name);
+
+    this.gradeToNames[grade].sort();
   }
 
   grade(grade) {
-    return Object.keys(this.nameToGrade)
-      .filter(name => this.nameToGrade[name] == grade)
-      .sort();
+    return Object.prototype.hasOwnProperty.call(this.gradeToNames, grade)
+      ? [...this.gradeToNames[grade]]
+      : [];
   }
 }
