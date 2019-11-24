@@ -8,8 +8,14 @@ export class List {
     this.values = values;
   }
 
+  push(value) {
+    this.values[this.values.length] = value;
+  }
+
   append(list) {
-    this.values.push(...list.values);
+    for (const value of list.values) {
+      this.push(value);
+    }
 
     return this;
   }
@@ -23,11 +29,23 @@ export class List {
   }
 
   filter(callback) {
-    return new List(this.values.filter(callback));
+    const result = new List();
+    for (const value of this.values) {
+      if (callback(value)) {
+        result.push(value);
+      }
+    }
+
+    return result;
   }
 
   map(callback) {
-    return new List(this.values.map(callback));
+    const result = new List();
+    for (const value of this.values) {
+      result.push(callback(value));
+    }
+
+    return result;
   }
 
   length() {
@@ -35,15 +53,24 @@ export class List {
   }
 
   foldl(callback, initialValue) {
-    return this.values.reduce(callback, initialValue);
+    let result = initialValue;
+    for (const value of this.values) {
+      result = callback(result, value);
+    }
+
+    return result;
   }
 
   foldr(callback, initialValue) {
-    return this.values.reduceRight(callback, initialValue);
+    return new List(this.values).reverse().foldl(callback, initialValue);
   }
 
   reverse() {
-    this.values.reverse();
+    for (let i = 0, j = this.values.length - 1; i < j; i++, j--) {
+      const temp = this.values[i];
+      this.values[i] = this.values[j];
+      this.values[j] = temp;
+    }
 
     return this;
   }
