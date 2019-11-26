@@ -4,74 +4,83 @@
 //
 
 export class List {
-  constructor(values = []) {
-    this.values = values;
+  constructor(a, b) {
+    if (a === undefined) {
+      this.last = null;
+    } else if (a instanceof List) {
+      this.prefix = a;
+      this.last = b;
+    } else {
+      const length = b === undefined ? a.length : b;
+
+      if (length === 0) {
+        return new List();
+      } else {
+        return new List(new List(a, length - 1), a[length - 1]);
+      }
+    }
+  }
+
+  get values() {
+    if (this.isEmpty()) {
+      return [];
+    }
+
+    const result = this.prefix.values;
+    result.push(this.last);
+
+    return result;
+  }
+
+  isEmpty() {
+    return this.last === null;
   }
 
   push(value) {
-    this.values[this.values.length] = value;
+    return new List(this, value);
   }
 
   append(list) {
-    for (const value of list.values) {
-      this.push(value);
-    }
-
-    return this;
+    return list.isEmpty() ? this : this.append(list.prefix).push(list.last);
   }
 
   concat(lists) {
-    for (const list of lists.values) {
-      this.append(list);
-    }
-
-    return this;
+    return lists.isEmpty()
+      ? this
+      : this.concat(lists.prefix).append(lists.last);
   }
 
   filter(callback) {
-    const result = new List();
-    for (const value of this.values) {
-      if (callback(value)) {
-        result.push(value);
-      }
-    }
-
-    return result;
+    return this.isEmpty()
+      ? this
+      : callback(this.last)
+      ? new List(this.prefix.filter(callback), this.last)
+      : this.prefix.filter(callback);
   }
 
   map(callback) {
-    const result = new List();
-    for (const value of this.values) {
-      result.push(callback(value));
-    }
-
-    return result;
+    return this.isEmpty()
+      ? this
+      : new List(this.prefix.map(callback), callback(this.last));
   }
 
   length() {
-    return this.values.length;
+    return this.isEmpty() ? 0 : this.prefix.length() + 1;
   }
 
   foldl(callback, initialValue) {
-    let result = initialValue;
-    for (const value of this.values) {
-      result = callback(result, value);
-    }
-
-    return result;
+    return this.reverse().foldr(callback, initialValue);
   }
 
   foldr(callback, initialValue) {
-    return new List(this.values).reverse().foldl(callback, initialValue);
+    return this.isEmpty()
+      ? initialValue
+      : this.prefix.foldr(callback, callback(initialValue, this.last));
   }
 
   reverse() {
-    for (let i = 0, j = this.values.length - 1; i < j; i++, j--) {
-      const temp = this.values[i];
-      this.values[i] = this.values[j];
-      this.values[j] = temp;
-    }
-
-    return this;
+    return this.isEmpty()
+      ? this
+      : new List().push(this.last).append(this.prefix.reverse());
   }
 }
