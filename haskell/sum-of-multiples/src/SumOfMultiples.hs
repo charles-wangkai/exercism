@@ -5,11 +5,8 @@ module SumOfMultiples
 import qualified Data.Set as Set
 
 sumOfMultiples :: [Integer] -> Integer -> Integer
-sumOfMultiples factors limit =
-  sum $
-  Set.fromList
-    [ multiple
-    | factor <- factors
-    , factor /= 0
-    , multiple <- [factor,factor * 2 .. limit - 1]
-    ]
+sumOfMultiples factors limit = sum $ Set.unions $ map multiplesOf factors
+  where
+    multiplesOf n
+      | n == 0 = Set.empty
+      | otherwise = Set.fromList [n,n * 2 .. limit - 1]
