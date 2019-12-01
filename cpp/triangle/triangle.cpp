@@ -1,4 +1,5 @@
 #include "triangle.h"
+#include <array>
 #include <stdexcept>
 
 using namespace std;
@@ -7,16 +8,18 @@ namespace triangle
 {
 flavor kind(double a, double b, double c)
 {
-    if (!(a > 0 && b > 0 && c > 0 && a + b > c && b + c > a && c + a > b))
+    array<double, 3> sides = {a, b, c};
+    sort(sides.begin(), sides.end());
+    if (sides[0] <= 0 || sides[0] + sides[1] <= sides[2])
     {
         throw domain_error("Invalid triangle!");
     }
 
-    if (a == b && b == c)
+    if (sides[0] == sides[2])
     {
         return flavor::equilateral;
     }
-    else if (a == b || b == c || c == a)
+    else if (sides[0] == sides[1] || sides[1] == sides[2])
     {
         return flavor::isosceles;
     }
