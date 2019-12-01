@@ -9,7 +9,7 @@ private:
     long long secs;
 
 public:
-    space_age(long long secs);
+    explicit space_age(long long secs);
 
     long long seconds() const;
     double on_earth() const;
