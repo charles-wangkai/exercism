@@ -9,12 +9,6 @@ unsigned long long square(int n)
 
 unsigned long long total()
 {
-    unsigned long long result = 0;
-    for (int i = 1; i <= 64; i++)
-    {
-        result += square(i);
-    }
-
-    return result;
+    return (1ULL << 63) - 1 + (1ULL << 63);
 }
 } // namespace grains
