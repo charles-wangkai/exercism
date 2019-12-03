@@ -3,47 +3,56 @@
 // convenience to get you started writing code faster.
 //
 
+const KEY = Symbol("key");
+
+const ALPHABET = {
+  size: 26,
+  firstCharCode: "a".charCodeAt()
+};
+
 export class Cipher {
-  constructor(key = this.generateKey()) {
-    this._key = key;
-  }
-
-  generateKey() {
-    return Array.from({ length: 100 }, () =>
-      String.fromCharCode("a".charCodeAt() + Math.floor(Math.random() * 26))
-    ).join("");
-  }
-
-  convertLetterToOffset(letter) {
-    return letter.charCodeAt() - "a".charCodeAt();
-  }
-
-  convertOffsetToLetter(offset) {
-    return String.fromCharCode(offset + "a".charCodeAt());
+  constructor(key = generateKey()) {
+    this[KEY] = key;
   }
 
   encode(text) {
     return Array.from(text, (letter, i) =>
-      this.convertOffsetToLetter(
-        (this.convertLetterToOffset(letter) +
-          this.convertLetterToOffset(this._key[i % this._key.length])) %
-          26
+      convertOffsetToLetter(
+        (convertLetterToOffset(letter) +
+          convertLetterToOffset(this[KEY][i % this[KEY].length])) %
+          ALPHABET.size
       )
     ).join("");
   }
 
   decode(text) {
     return Array.from(text, (letter, i) =>
-      this.convertOffsetToLetter(
-        (this.convertLetterToOffset(letter) -
-          this.convertLetterToOffset(this._key[i % this._key.length]) +
-          26) %
-          26
+      convertOffsetToLetter(
+        (convertLetterToOffset(letter) -
+          convertLetterToOffset(this[KEY][i % this[KEY].length]) +
+          ALPHABET.size) %
+          ALPHABET.size
       )
     ).join("");
   }
 
   get key() {
-    return this._key;
+    return this[KEY];
   }
+}
+
+function generateKey() {
+  return Array.from({ length: 100 }, () =>
+    String.fromCharCode(
+      ALPHABET.firstCharCode + Math.floor(Math.random() * ALPHABET.size)
+    )
+  ).join("");
+}
+
+function convertLetterToOffset(letter) {
+  return letter.charCodeAt() - ALPHABET.firstCharCode;
+}
+
+function convertOffsetToLetter(offset) {
+  return String.fromCharCode(offset + ALPHABET.firstCharCode);
 }
