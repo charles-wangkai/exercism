@@ -19,7 +19,7 @@ string convert(int n)
     {
         result += "Plong";
     }
-    if (result == "")
+    if (result.empty())
     {
         result = to_string(n);
     }
