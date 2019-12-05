@@ -3,9 +3,9 @@
 // convenience to get you started writing code faster.
 //
 
-class ArgumentError extends Error {}
+export class ArgumentError extends Error {}
 
-class Wordy {
+export class WordProblem {
   constructor(question) {
     this.question = question;
   }
@@ -17,27 +17,33 @@ class Wordy {
       throw new ArgumentError();
     }
 
-    let result = convertToNumber(fields[0]);
-    for (let i = 1; i < fields.length; i += 2) {
-      result = compute(result, fields[i], convertToNumber(fields[i + 1]));
+    let [operand, ...restFields] = fields;
+    let result = convertToNumber(operand);
+
+    while (restFields.length) {
+      const [operator, operand, ...rest] = restFields;
+      restFields = rest;
+
+      result = compute(result, operator, convertToNumber(operand));
     }
 
     return result;
   }
 }
 
-function compute(x, operation, y) {
-  if (operation === "plus") {
-    return x + y;
-  } else if (operation === "minus") {
-    return x - y;
-  } else if (operation === "multiplied") {
-    return x * y;
-  } else if (operation === "divided") {
-    return x / y;
-  } else {
-    throw new ArgumentError();
+const OPERATIONS = {
+  plus: (x, y) => x + y,
+  minus: (x, y) => x - y,
+  multiplied: (x, y) => x * y,
+  divided: (x, y) => x / y
+};
+
+function compute(x, operator, y) {
+  if (Object.prototype.hasOwnProperty.call(OPERATIONS, operator)) {
+    return OPERATIONS[operator](x, y);
   }
+
+  throw new ArgumentError();
 }
 
 function convertToNumber(s) {
@@ -48,5 +54,3 @@ function convertToNumber(s) {
 
   return result;
 }
-
-export { Wordy as WordProblem, ArgumentError };
