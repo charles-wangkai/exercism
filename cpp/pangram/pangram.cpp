@@ -1,5 +1,6 @@
 #include "pangram.h"
 #include <bitset>
+#include <cctype>
 
 namespace pangram
 {
