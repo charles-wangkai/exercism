@@ -10,16 +10,9 @@ export const secretHandshake = n => {
     throw new Error("Handshake must be a number");
   }
 
-  const result = [];
-  let remain = n;
-  for (const signal of SIGNALS) {
-    if (remain & 1) {
-      result.push(signal);
-    }
+  const result = SIGNALS.filter((signal, index) => n & (1 << index));
 
-    remain >>= 1;
-  }
-  if (remain & 1) {
+  if (n & (1 << SIGNALS.length)) {
     result.reverse();
   }
 
