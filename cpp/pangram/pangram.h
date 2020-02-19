@@ -1,4 +1,4 @@
-#if !defined(PANGRAM_H)
+#ifndef PANGRAM_H
 #define PANGRAM_H
 
 #include <string>
