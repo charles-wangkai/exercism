@@ -1,4 +1,4 @@
-#if !defined(GRAINS_H)
+#ifndef GRAINS_H
 #define GRAINS_H
 
 namespace grains
