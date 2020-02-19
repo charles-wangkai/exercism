@@ -1,4 +1,4 @@
-#if !defined(TRIANGLE_H)
+#ifndef TRIANGLE_H
 #define TRIANGLE_H
 
 namespace triangle
