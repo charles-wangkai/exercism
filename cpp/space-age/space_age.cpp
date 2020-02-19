@@ -2,7 +2,8 @@
 
 namespace space_age
 {
-space_age::space_age(long long secs) : secs(secs) {}
+space_age::space_age(long long secs)
+    : secs{secs} {}
 
 long long space_age::seconds() const
 {
