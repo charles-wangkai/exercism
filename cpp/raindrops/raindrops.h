@@ -1,4 +1,4 @@
-#if !defined(RAINDROPS_H)
+#ifndef RAINDROPS_H
 #define RAINDROPS_H
 
 #include <string>

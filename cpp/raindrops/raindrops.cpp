@@ -1,12 +1,10 @@
 #include "raindrops.h"
 
-using namespace std;
-
 namespace raindrops
 {
-string convert(int n)
+std::string convert(int n)
 {
-    string result;
+    std::string result;
     if (n % 3 == 0)
     {
         result += "Pling";
@@ -21,7 +19,7 @@ string convert(int n)
     }
     if (result.empty())
     {
-        result = to_string(n);
+        result = std::to_string(n);
     }
 
     return result;
