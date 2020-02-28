@@ -25,7 +25,7 @@ def meetup(year, month, which, day_of_the_week):
             count += 1
 
             if which == 'teenth':
-                if 13 <= d.day <= 20:
+                if 13 <= d.day <= 19:
                     return d
             elif which != 'last':
                 if count == int(which[0]):
