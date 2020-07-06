@@ -1,16 +1,14 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class BuildTreeTest {
-
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
 	public void testEmptyList() throws InvalidRecordsException {
@@ -146,36 +144,33 @@ public class BuildTreeTest {
 	}
 
 	@Test
-	public void testRootNodeHasParent() throws InvalidRecordsException {
-		expectedException.expect(InvalidRecordsException.class);
-		expectedException.expectMessage("Invalid Records");
-
+	public void testRootNodeHasParent() {
 		ArrayList<Record> records = new ArrayList<>();
 		records.add(new Record(0, 1));
 		records.add(new Record(1, 0));
 
 		BuildTree test = new BuildTree();
-		test.buildTree(records);
+
+		InvalidRecordsException expected = assertThrows(InvalidRecordsException.class, () -> test.buildTree(records));
+
+		assertThat(expected).hasMessage("Invalid Records");
 	}
 
 	@Test
-	public void testNoRootNode() throws InvalidRecordsException {
-		expectedException.expect(InvalidRecordsException.class);
-		expectedException.expectMessage("Invalid Records");
-
+	public void testNoRootNode() {
 		ArrayList<Record> records = new ArrayList<>();
 		records.add(new Record(1, 0));
 		records.add(new Record(2, 0));
 
 		BuildTree test = new BuildTree();
-		test.buildTree(records);
+
+		InvalidRecordsException expected = assertThrows(InvalidRecordsException.class, () -> test.buildTree(records));
+
+		assertThat(expected).hasMessage("Invalid Records");
 	}
 
 	@Test
-	public void testNonContinuousRecords() throws InvalidRecordsException {
-		expectedException.expect(InvalidRecordsException.class);
-		expectedException.expectMessage("Invalid Records");
-
+	public void testNonContinuousRecords() {
 		ArrayList<Record> records = new ArrayList<>();
 		records.add(new Record(2, 0));
 		records.add(new Record(4, 2));
@@ -183,14 +178,14 @@ public class BuildTreeTest {
 		records.add(new Record(0, 0));
 
 		BuildTree test = new BuildTree();
-		test.buildTree(records);
+
+		InvalidRecordsException expected = assertThrows(InvalidRecordsException.class, () -> test.buildTree(records));
+
+		assertThat(expected).hasMessage("Invalid Records");
 	}
 
 	@Test
-	public void testCycleIndirectly() throws InvalidRecordsException {
-		expectedException.expect(InvalidRecordsException.class);
-		expectedException.expectMessage("Invalid Records");
-
+	public void testCycleIndirectly() {
 		ArrayList<Record> records = new ArrayList<>();
 		records.add(new Record(5, 2));
 		records.add(new Record(3, 2));
@@ -201,7 +196,10 @@ public class BuildTreeTest {
 		records.add(new Record(6, 3));
 
 		BuildTree test = new BuildTree();
-		test.buildTree(records);
+
+		InvalidRecordsException expected = assertThrows(InvalidRecordsException.class, () -> test.buildTree(records));
+
+		assertThat(expected).hasMessage("Invalid Records");
 	}
 
 	private void assertNodeIsLeaf(TreeNode node) {
