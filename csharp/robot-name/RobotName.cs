@@ -3,31 +3,31 @@ using System;
 
 public class Robot
 {
+    const int MAX_NAME_NUM = 26 * 26 * 10 * 10 * 10;
+
     static Random random = new Random();
     static ISet<string> names = new HashSet<string>();
 
-    string _name;
-
-    public string Name
+    public Robot()
     {
-        get
+        if (names.Count == MAX_NAME_NUM)
         {
-            if (_name == null)
-            {
-                do
-                {
-                    _name = $"{GenerateLetter()}{GenerateLetter()}{GenerateDigit()}{GenerateDigit()}{GenerateDigit()}";
-                } while (!names.Add(_name));
-            }
-
-            return _name;
+            throw new InvalidOperationException();
         }
+
+        Reset();
     }
+
+    public string Name { get; private set; }
 
     public void Reset()
     {
-        names.Remove(_name);
-        _name = null;
+        names.Remove(Name);
+
+        do
+        {
+            Name = $"{GenerateLetter()}{GenerateLetter()}{GenerateDigit()}{GenerateDigit()}{GenerateDigit()}";
+        } while (!names.Add(Name));
     }
 
     char GenerateLetter()
