@@ -10,11 +10,6 @@ public class Robot
 
     public Robot()
     {
-        if (names.Count == MAX_NAME_NUM)
-        {
-            throw new InvalidOperationException();
-        }
-
         Reset();
     }
 
@@ -22,12 +17,18 @@ public class Robot
 
     public void Reset()
     {
-        names.Remove(Name);
+        if (names.Count == MAX_NAME_NUM)
+        {
+            throw new InvalidOperationException();
+        }
 
+        string name;
         do
         {
-            Name = $"{GenerateLetter()}{GenerateLetter()}{GenerateDigit()}{GenerateDigit()}{GenerateDigit()}";
-        } while (!names.Add(Name));
+            name = $"{GenerateLetter()}{GenerateLetter()}{GenerateNumber():000}";
+        } while (!names.Add(name));
+
+        Name = name;
     }
 
     char GenerateLetter()
@@ -35,8 +36,8 @@ public class Robot
         return (char)(random.Next(26) + 'A');
     }
 
-    int GenerateDigit()
+    int GenerateNumber()
     {
-        return random.Next(10);
+        return random.Next(1000);
     }
 }
