@@ -1,5 +1,10 @@
 # Hamming
 
+Welcome to Hamming on Exercism's C# Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the Hamming Distance between two DNA strands.
 
 Your body is made up of cells that contain DNA. Those cells regularly wear out and need replacing, which they achieve by dividing into daughter cells. In fact, the average human body experiences about 10 quadrillion cell divisions in a lifetime!
@@ -16,28 +21,25 @@ They have 7 differences, and therefore the Hamming Distance is 7.
 
 The Hamming Distance is useful for lots of things in science, not just biology, so it's a nice phrase to be familiar with :)
 
-# Implementation notes
+## Implementation notes
 
 The Hamming distance is only defined for sequences of equal length, so
 an attempt to calculate it between sequences of different lengths should
-not work. The general handling of this situation (e.g., raising an
-exception vs returning a special value) may differ between languages.
-
-## Running the tests
-
-To run the tests, run the command `dotnet test` from within the exercise directory.
-
-Initially, only the first test will be enabled. This is to encourage you to solve the exercise one step at a time.
-Once you get the first test passing, remove the `Skip` property from the next test and work on getting that test passing.
-Once none of the tests are skipped and they are all passing, you can submit your solution 
-using `exercism submit Hamming.cs`
-
-## Further information
-
-For more detailed information about the C# track, including how to get help if
-you're having trouble, please visit the exercism.io [C# language page](http://exercism.io/languages/csharp/resources).
+not work.
 
 ## Source
 
-The Calculating Point Mutations problem at Rosalind [http://rosalind.info/problems/hamm/](http://rosalind.info/problems/hamm/)
+### Contributed to by
 
+- @bressain
+- @ErikSchierboom
+- @j2jensen
+- @jwood803
+- @robkeim
+- @vgrigoriu
+- @wolf99
+- @Zureka
+
+### Based on
+
+The Calculating Point Mutations problem at Rosalind - http://rosalind.info/problems/hamm/

@@ -10,6 +10,9 @@ public static class Hamming
             throw new ArgumentException();
         }
 
-        return Enumerable.Range(0, firstStrand.Length).Where(i => firstStrand[i] != secondStrand[i]).Count();
+        return Enumerable
+            .Range(0, firstStrand.Length)
+            .Where(i => firstStrand[i] != secondStrand[i])
+            .Count();
     }
 }
