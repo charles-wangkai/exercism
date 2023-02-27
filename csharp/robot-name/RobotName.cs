@@ -22,13 +22,18 @@ public class Robot
             throw new InvalidOperationException();
         }
 
-        string name;
-        do
+        while (true)
         {
-            name = $"{GenerateLetter()}{GenerateLetter()}{GenerateNumber():000}";
-        } while (!names.Add(name));
+            string name =
+                $"{GenerateLetter()}{GenerateLetter()}{GenerateDigit()}{GenerateDigit()}{GenerateDigit()}";
+            if (!names.Contains(name))
+            {
+                names.Add(name);
+                Name = name;
 
-        Name = name;
+                break;
+            }
+        }
     }
 
     char GenerateLetter()
@@ -36,8 +41,8 @@ public class Robot
         return (char)(random.Next(26) + 'A');
     }
 
-    int GenerateNumber()
+    int GenerateDigit()
     {
-        return random.Next(1000);
+        return random.Next(10);
     }
 }
