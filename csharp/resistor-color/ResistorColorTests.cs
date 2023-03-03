@@ -1,5 +1,3 @@
-// This file was auto-generated based on version 1.0.0 of the canonical data.
-
 using Xunit;
 
 public class ResistorColorTests
@@ -25,6 +23,21 @@ public class ResistorColorTests
     [Fact]
     public void Colors()
     {
-        Assert.Equal(new[] { "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white" }, ResistorColor.Colors());
+        Assert.Equal(
+            new[]
+            {
+                "black",
+                "brown",
+                "red",
+                "orange",
+                "yellow",
+                "green",
+                "blue",
+                "violet",
+                "grey",
+                "white"
+            },
+            ResistorColor.Colors()
+        );
     }
 }

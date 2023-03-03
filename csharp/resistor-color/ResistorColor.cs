@@ -2,7 +2,8 @@
 
 public static class ResistorColor
 {
-    static readonly string[] COLORS = {
+    static readonly string[] COLORS =
+    {
         "black",
         "brown",
         "red",
@@ -15,13 +16,7 @@ public static class ResistorColor
         "white"
     };
 
-    public static int ColorCode(string color)
-    {
-        return Array.IndexOf(COLORS, color);
-    }
+    public static int ColorCode(string color) => Array.IndexOf(COLORS, color);
 
-    public static string[] Colors()
-    {
-        return COLORS;
-    }
+    public static string[] Colors() => COLORS;
 }
