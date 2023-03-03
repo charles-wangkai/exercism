@@ -4,15 +4,18 @@ using System.Linq;
 
 public class HighScores
 {
-    List<int> _scores;
+    List<int> scores;
 
-    public HighScores(List<int> scores) => _scores = scores;
+    public HighScores(List<int> scores)
+    {
+        this.scores = scores;
+    }
 
-    public List<int> Scores() => _scores;
+    public List<int> Scores() => scores;
 
-    public int Latest() => _scores.Last();
+    public int Latest() => scores.Last();
 
-    public int PersonalBest() => _scores.Max();
+    public int PersonalBest() => scores.Max();
 
-    public List<int> PersonalTopThree() => _scores.OrderByDescending(score => score).Take(3).ToList();
+    public List<int> PersonalTopThree() => scores.OrderByDescending(x => x).Take(3).ToList();
 }
