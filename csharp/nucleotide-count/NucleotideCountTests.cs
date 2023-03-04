@@ -1,5 +1,3 @@
-// This file was auto-generated based on version 1.3.0 of the canonical data.
-
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -55,7 +53,12 @@ public class NucleotideCountTests
             ['G'] = 17,
             ['T'] = 21
         };
-        Assert.Equal(expected, NucleotideCount.Count("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"));
+        Assert.Equal(
+            expected,
+            NucleotideCount.Count(
+                "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
+            )
+        );
     }
 
     [Fact]
