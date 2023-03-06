@@ -12,7 +12,7 @@ static class Badge
         }
         result.Append(name);
         result.Append(" - ");
-        result.Append((department == null) ? "OWNER" : department.ToUpper());
+        result.Append((department ?? "owner").ToUpper());
 
         return result.ToString();
     }
