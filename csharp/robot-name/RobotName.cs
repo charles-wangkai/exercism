@@ -36,13 +36,7 @@ public class Robot
         }
     }
 
-    char GenerateLetter()
-    {
-        return (char)(random.Next(26) + 'A');
-    }
+    char GenerateLetter() => (char)(random.Next(26) + 'A');
 
-    int GenerateDigit()
-    {
-        return random.Next(10);
-    }
+    int GenerateDigit() => random.Next(10);
 }
