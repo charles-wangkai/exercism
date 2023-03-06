@@ -4,13 +4,7 @@ public class Player
 {
     Random random = new Random();
 
-    public int RollDie()
-    {
-        return random.Next(1, 19);
-    }
+    public int RollDie() => random.Next(1, 19);
 
-    public double GenerateSpellStrength()
-    {
-        return random.NextDouble() * 100;
-    }
+    public double GenerateSpellStrength() => random.NextDouble() * 100;
 }
