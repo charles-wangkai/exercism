@@ -24,13 +24,8 @@ static class AssemblyLine
         return 0.77;
     }
 
-    public static double ProductionRatePerHour(int speed)
-    {
-        return 221 * speed * SuccessRate(speed);
-    }
+    public static double ProductionRatePerHour(int speed) => 221 * speed * SuccessRate(speed);
 
-    public static int WorkingItemsPerMinute(int speed)
-    {
-        return (int)Math.Floor(ProductionRatePerHour(speed) / 60);
-    }
+    public static int WorkingItemsPerMinute(int speed) =>
+        (int)Math.Floor(ProductionRatePerHour(speed) / 60);
 }
