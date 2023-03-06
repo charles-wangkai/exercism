@@ -6,22 +6,14 @@ class RemoteControlCar
 
     int driveCount;
 
-    public static RemoteControlCar Buy()
-    {
-        return new RemoteControlCar();
-    }
+    public static RemoteControlCar Buy() => new RemoteControlCar();
 
-    public string DistanceDisplay()
-    {
-        return $"Driven {driveCount * 20} meters";
-    }
+    public string DistanceDisplay() => $"Driven {driveCount * 20} meters";
 
-    public string BatteryDisplay()
-    {
-        return (driveCount == MAX_DRIVE_COUNT)
+    public string BatteryDisplay() =>
+        (driveCount == MAX_DRIVE_COUNT)
             ? "Battery empty"
             : $"Battery at {MAX_DRIVE_COUNT - driveCount}%";
-    }
 
     public void Drive()
     {
