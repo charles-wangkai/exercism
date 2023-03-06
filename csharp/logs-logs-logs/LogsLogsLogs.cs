@@ -27,15 +27,11 @@ static class LogLine
         ["FTL"] = LogLevel.Fatal
     };
 
-    public static LogLevel ParseLogLevel(string logLine)
-    {
-        return STR_TO_LOG_LEVEL.TryGetValue(logLine.Substring(1, 3), out LogLevel logLevel)
+    public static LogLevel ParseLogLevel(string logLine) =>
+        STR_TO_LOG_LEVEL.TryGetValue(logLine.Substring(1, 3), out LogLevel logLevel)
             ? logLevel
             : LogLevel.Unknown;
-    }
 
-    public static string OutputForShortLog(LogLevel logLevel, string message)
-    {
-        return $"{(int)logLevel}:{message}";
-    }
+    public static string OutputForShortLog(LogLevel logLevel, string message) =>
+        $"{(int)logLevel}:{message}";
 }
