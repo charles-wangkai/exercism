@@ -23,6 +23,12 @@ impl<'a> HighScores<'a> {
     }
 
     pub fn personal_top_three(&self) -> Vec<u32> {
-        self.scores.iter().sorted().rev().take(3).copied().collect()
+        self.scores
+            .iter()
+            .sorted_unstable()
+            .rev()
+            .take(3)
+            .copied()
+            .collect()
     }
 }
