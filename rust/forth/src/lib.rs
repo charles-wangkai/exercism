@@ -54,8 +54,8 @@ impl Forth {
                     if command.starts_with(": ") {
                         let tokens = tokenize(&command[2..command.len() - 2]);
 
-                        let name = String::from(tokens[0]);
-                        if is_number(&name) {
+                        let name = tokens[0];
+                        if is_number(name) {
                             return Err(Error::InvalidWord);
                         }
 
@@ -91,11 +91,12 @@ impl Forth {
                             definition.push(item);
                         }
 
-                        if !self.name_to_definitions.contains_key(&name) {
-                            self.name_to_definitions.insert(name.clone(), Vec::new());
+                        if !self.name_to_definitions.contains_key(name) {
+                            self.name_to_definitions
+                                .insert(String::from(name), Vec::new());
                         }
                         self.name_to_definitions
-                            .get_mut(&name)
+                            .get_mut(name)
                             .unwrap()
                             .push(definition);
                     } else {
