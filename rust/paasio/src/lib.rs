@@ -48,7 +48,7 @@ pub struct WriteStats<W> {
 }
 
 impl<W: Write> WriteStats<W> {
-    pub fn new(wrapped: W) -> WriteStats<W> {
+    pub fn new(wrapped: W) -> Self {
         Self {
             wrapped,
             byte_num: 0,
