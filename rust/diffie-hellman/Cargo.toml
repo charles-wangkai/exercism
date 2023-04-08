@@ -1,0 +1,11 @@
+[package]
+edition = "2021"
+name = "diffie-hellman"
+version = "0.1.0"
+
+[dependencies]
+rand = "0.8.5"
+mod_exp = "1.0.1"
+
+[features]
+big-primes = []
