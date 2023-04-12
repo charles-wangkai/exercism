@@ -5,14 +5,12 @@ pub fn chain(input: &[(u8, u8)]) -> Option<Vec<(u8, u8)>> {
         return Some(Vec::new());
     }
 
-    for permutation in input.iter().permutations(input.len()) {
-        let solution = check(&permutation);
-        if solution.is_some() {
-            return solution;
-        }
-    }
-
-    None
+    input
+        .iter()
+        .permutations(input.len())
+        .map(|permutation| check(&permutation))
+        .find(|solution| solution.is_some())
+        .unwrap_or(None)
 }
 
 fn check(permutation: &[&(u8, u8)]) -> Option<Vec<(u8, u8)>> {
