@@ -1,5 +1,10 @@
 # Twelve Days
 
+Welcome to Twelve Days on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Output the lyrics to 'The Twelve Days of Christmas'.
 
 ```text
@@ -28,33 +33,31 @@ On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, 
 On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
 ```
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)](http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song))
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @FridaTveit
+
+### Contributed to by
+
+- @c-thornton
+- @jmrunkle
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @morrme
+- @msomji
+- @muzimuzhi
+- @PatrickMcSweeny
+- @rootulp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @Zaldrick
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)
