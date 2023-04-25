@@ -1,139 +1,140 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class BobTest {
-	private Bob bob;
+  private Bob bob;
 
-	@Before
-	public void setUp() {
-		bob = new Bob();
-	}
+  @Before
+  public void setUp() {
+    bob = new Bob();
+  }
 
-	@Test
-	public void saySomething() {
-		assertEquals("Whatever.", bob.hey("Tom-ay-to, tom-aaaah-to."));
-	}
+  @Test
+  public void saySomething() {
+    assertThat(bob.hey("Tom-ay-to, tom-aaaah-to.")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void shouting() {
-		assertEquals("Whoa, chill out!", bob.hey("WATCH OUT!"));
-	}
+  @Test
+  public void shouting() {
+    assertThat(bob.hey("WATCH OUT!")).isEqualTo("Whoa, chill out!");
+  }
 
-	@Test
-	public void shoutingGibberish() {
-		assertEquals("Whoa, chill out!", bob.hey("FCECDFCAAB"));
-	}
+  @Test
+  public void shoutingGibberish() {
+    assertThat(bob.hey("FCECDFCAAB")).isEqualTo("Whoa, chill out!");
+  }
 
-	@Test
-	public void askingAQuestion() {
-		assertEquals("Sure.", bob.hey("Does this cryogenic chamber make me look fat?"));
-	}
+  @Test
+  public void askingAQuestion() {
+    assertThat(bob.hey("Does this cryogenic chamber make me look fat?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void askingANumericQuestion() {
-		assertEquals("Sure.", bob.hey("You are, what, like 15?"));
-	}
+  @Test
+  public void askingANumericQuestion() {
+    assertThat(bob.hey("You are, what, like 15?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void askingGibberish() {
-		assertEquals("Sure.", bob.hey("fffbbcbeab?"));
-	}
+  @Test
+  public void askingGibberish() {
+    assertThat(bob.hey("fffbbcbeab?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void talkingForcefully() {
-		assertEquals("Whatever.", bob.hey("Let's go make out behind the gym!"));
-	}
+  @Test
+  public void talkingForcefully() {
+    assertThat(bob.hey("Hi there!")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void usingAcronymsInRegularSpeech() {
-		assertEquals("Whatever.", bob.hey("It's OK if you don't want to go to the DMV."));
-	}
+  @Test
+  public void usingAcronymsInRegularSpeech() {
+    assertThat(bob.hey("It's OK if you don't want to go work for NASA.")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void forcefulQuestions() {
-		assertEquals("Calm down, I know what I'm doing!", bob.hey("WHAT THE HELL WERE YOU THINKING?"));
-	}
+  @Test
+  public void forcefulQuestions() {
+    assertThat(bob.hey("WHAT'S GOING ON?")).isEqualTo("Calm down, I know what I'm doing!");
+  }
 
-	@Test
-	public void shoutingNumbers() {
-		assertEquals("Whoa, chill out!", bob.hey("1, 2, 3 GO!"));
-	}
+  @Test
+  public void shoutingNumbers() {
+    assertThat(bob.hey("1, 2, 3 GO!")).isEqualTo("Whoa, chill out!");
+  }
 
-	@Test
-	public void onlyNumbers() {
-		assertEquals("Whatever.", bob.hey("1, 2, 3"));
-	}
+  @Test
+  public void onlyNumbers() {
+    assertThat(bob.hey("1, 2, 3")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void questionWithOnlyNumbers() {
-		assertEquals("Sure.", bob.hey("4?"));
-	}
+  @Test
+  public void questionWithOnlyNumbers() {
+    assertThat(bob.hey("4?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void shoutingWithSpecialCharacters() {
-		assertEquals("Whoa, chill out!", bob.hey("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"));
-	}
+  @Test
+  public void shoutingWithSpecialCharacters() {
+    assertThat(bob.hey("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"))
+        .isEqualTo("Whoa, chill out!");
+  }
 
-	@Test
-	public void shoutingWithNoExclamationMark() {
-		assertEquals("Whoa, chill out!", bob.hey("I HATE THE DMV"));
-	}
+  @Test
+  public void shoutingWithNoExclamationMark() {
+    assertThat(bob.hey("I HATE THE DENTIST")).isEqualTo("Whoa, chill out!");
+  }
 
-	@Test
-	public void statementContainingQuestionMark() {
-		assertEquals("Whatever.", bob.hey("Ending with ? means a question."));
-	}
+  @Test
+  public void statementContainingQuestionMark() {
+    assertThat(bob.hey("Ending with ? means a question.")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void nonLettersWithQuestion() {
-		assertEquals("Sure.", bob.hey(":) ?"));
-	}
+  @Test
+  public void nonLettersWithQuestion() {
+    assertThat(bob.hey(":) ?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void prattlingOn() {
-		assertEquals("Sure.", bob.hey("Wait! Hang on. Are you going to be OK?"));
-	}
+  @Test
+  public void prattlingOn() {
+    assertThat(bob.hey("Wait! Hang on. Are you going to be OK?")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void silence() {
-		assertEquals("Fine. Be that way!", bob.hey(""));
-	}
+  @Test
+  public void silence() {
+    assertThat(bob.hey("")).isEqualTo("Fine. Be that way!");
+  }
 
-	@Test
-	public void prolongedSilence() {
-		assertEquals("Fine. Be that way!", bob.hey("          "));
-	}
+  @Test
+  public void prolongedSilence() {
+    assertThat(bob.hey("          ")).isEqualTo("Fine. Be that way!");
+  }
 
-	@Test
-	public void alternateSilence() {
-		assertEquals("Fine. Be that way!", bob.hey("\t\t\t\t\t\t\t\t\t\t"));
-	}
+  @Test
+  public void alternateSilence() {
+    assertThat(bob.hey("\t\t\t\t\t\t\t\t\t\t")).isEqualTo("Fine. Be that way!");
+  }
 
-	@Test
-	public void multipleLineQuestion() {
-		assertEquals("Whatever.", bob.hey("\nDoes this cryogenic chamber make me look fat?\nNo."));
-	}
+  @Test
+  public void multipleLineQuestion() {
+    assertThat(bob.hey("\nDoes this cryogenic chamber make me look fat?\nNo."))
+        .isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void startingWithWhitespace() {
-		assertEquals("Whatever.", bob.hey("         hmmmmmmm..."));
-	}
+  @Test
+  public void startingWithWhitespace() {
+    assertThat(bob.hey("         hmmmmmmm...")).isEqualTo("Whatever.");
+  }
 
-	@Test
-	public void endingWithWhiteSpace() {
-		assertEquals("Sure.", bob.hey("Okay if like my  spacebar  quite a bit?   "));
-	}
+  @Test
+  public void endingWithWhiteSpace() {
+    assertThat(bob.hey("Okay if like my  spacebar  quite a bit?   ")).isEqualTo("Sure.");
+  }
 
-	@Test
-	public void otherWhiteSpace() {
-		assertEquals("Fine. Be that way!", bob.hey("\n\r \t"));
-	}
+  @Test
+  public void otherWhiteSpace() {
+    assertThat(bob.hey("\n\r \t")).isEqualTo("Fine. Be that way!");
+  }
 
-	@Test
-	public void nonQuestionEndingWithWhiteSpace() {
-		assertEquals("Whatever.", bob.hey("This is a statement ending with whitespace      "));
-	}
-
+  @Test
+  public void nonQuestionEndingWithWhiteSpace() {
+    assertThat(bob.hey("This is a statement ending with whitespace      ")).isEqualTo("Whatever.");
+  }
 }
