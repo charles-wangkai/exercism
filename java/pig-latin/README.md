@@ -1,5 +1,10 @@
 # Pig Latin
 
+Welcome to Pig Latin on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a program that translates from English to Pig Latin.
 
 Pig Latin is a made-up children's language that's intended to be
@@ -16,8 +21,6 @@ There are a few more rules for edge cases, and there are regional
 variants too.
 
 See <http://en.wikipedia.org/wiki/Pig_latin> for more details.
-
-# Tips
 
 Since this exercise has difficulty 5 it doesn't come with any starter implementation.
 This is so that you get to practice creating classes and methods which is an important part of programming in Java.
@@ -78,34 +81,33 @@ The new error should tell you which type it's expecting.
 
 After having resolved these errors you should be ready to start making the tests pass!
 
-
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-The Pig Latin exercise at Test First Teaching by Ultrasaurus [https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/](https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @aadityakulkarni
+- @FridaTveit
+- @jackattack24
+- @jmrunkle
+- @jtigger
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @LuLechuan
+- @matthewmorgan
+- @matthewstyler
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @robkeim
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @vdemeester
+- @Zaldrick
+
+### Based on
+
+The Pig Latin exercise at Test First Teaching by Ultrasaurus - https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/
