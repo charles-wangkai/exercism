@@ -1,86 +1,78 @@
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class IsogramCheckerTest {
+  private IsogramChecker isogramChecker;
 
-	@Test
-	public void testEmptyString() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram(""));
-	}
+  @Before
+  public void setUp() {
+    isogramChecker = new IsogramChecker();
+  }
 
-	@Test
-	public void testLowercaseIsogram() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("isogram"));
-	}
+  @Test
+  public void testEmptyString() {
+    assertThat(isogramChecker.isIsogram("")).isTrue();
+  }
 
-	@Test
-	public void testNotIsogram() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("eleven"));
-	}
+  @Test
+  public void testLowercaseIsogram() {
+    assertThat(isogramChecker.isIsogram("isogram")).isTrue();
+  }
 
-	@Test
-	public void testDuplicateEndAlphabet() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("zzyzx"));
-	}
+  @Test
+  public void testNotIsogram() {
+    assertThat(isogramChecker.isIsogram("eleven")).isFalse();
+  }
 
-	@Test
-	public void testMediumLongIsogram() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("subdermatoglyphic"));
-	}
+  @Test
+  public void testDuplicateEndAlphabet() {
+    assertThat(isogramChecker.isIsogram("zzyzx")).isFalse();
+  }
 
-	@Test
-	public void testCaseInsensitive() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("Alphabet"));
-	}
+  @Test
+  public void testMediumLongIsogram() {
+    assertThat(isogramChecker.isIsogram("subdermatoglyphic")).isTrue();
+  }
 
-	@Test
-	public void testDuplicatMixedCase() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("alphAbet"));
-	}
+  @Test
+  public void testCaseInsensitive() {
+    assertThat(isogramChecker.isIsogram("Alphabet")).isFalse();
+  }
 
-	@Test
-	public void testIsogramWithHyphen() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("thumbscrew-japingly"));
-	}
+  @Test
+  public void testDuplicatMixedCase() {
+    assertThat(isogramChecker.isIsogram("alphAbet")).isFalse();
+  }
 
-	@Test
-	public void testIsogramWithDuplicatedCharAfterHyphen() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("thumbscrew-jappingly"));
-	}
+  @Test
+  public void testIsogramWithHyphen() {
+    assertThat(isogramChecker.isIsogram("thumbscrew-japingly")).isTrue();
+  }
 
-	@Test
-	public void testIsogramWithDuplicatedHyphen() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("six-year-old"));
-	}
+  @Test
+  public void testIsogramWithDuplicatedCharAfterHyphen() {
+    assertThat(isogramChecker.isIsogram("thumbscrew-jappingly")).isFalse();
+  }
 
-	@Test
-	public void testMadeUpNameThatIsAnIsogram() {
-		IsogramChecker iso = new IsogramChecker();
-		assertTrue(iso.isIsogram("Emily Jung Schwartzkopf"));
-	}
+  @Test
+  public void testIsogramWithDuplicatedHyphen() {
+    assertThat(isogramChecker.isIsogram("six-year-old")).isTrue();
+  }
 
-	@Test
-	public void testDuplicatedCharacterInTheMiddleIsNotIsogram() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("accentor"));
-	}
+  @Test
+  public void testMadeUpNameThatIsAnIsogram() {
+    assertThat(isogramChecker.isIsogram("Emily Jung Schwartzkopf")).isTrue();
+  }
 
-	@Test
-	public void testSameFirstAndLast() {
-		IsogramChecker iso = new IsogramChecker();
-		assertFalse(iso.isIsogram("angola"));
-	}
+  @Test
+  public void testDuplicatedCharacterInTheMiddleIsNotIsogram() {
+    assertThat(isogramChecker.isIsogram("accentor")).isFalse();
+  }
 
+  @Test
+  public void testSameFirstAndLast() {
+    assertThat(new IsogramChecker().isIsogram("angola")).isFalse();
+  }
 }
