@@ -1,38 +1,29 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class TwoferTest {
 
-	private Twofer twofer;
+  private Twofer twofer;
 
-	@Before
-	public void setup() {
-		twofer = new Twofer();
-	}
+  @Before
+  public void setup() {
+    twofer = new Twofer();
+  }
 
-	@Test
-	public void noNameGiven() {
-		String input = null;
-		String expected = "One for you, one for me.";
+  @Test
+  public void noNameGiven() {
+    assertThat(twofer.twofer(null)).isEqualTo("One for you, one for me.");
+  }
 
-		assertEquals(expected, twofer.twofer(input));
-	}
+  @Test
+  public void aNameGiven() {
+    assertThat(twofer.twofer("Alice")).isEqualTo("One for Alice, one for me.");
+  }
 
-	@Test
-	public void aNameGiven() {
-		String input = "Alice";
-		String expected = "One for Alice, one for me.";
-
-		assertEquals(expected, twofer.twofer(input));
-	}
-
-	@Test
-	public void anotherNameGiven() {
-		String input = "Bob";
-		String expected = "One for Bob, one for me.";
-
-		assertEquals(expected, twofer.twofer(input));
-	}
+  @Test
+  public void anotherNameGiven() {
+    assertThat(twofer.twofer("Bob")).isEqualTo("One for Bob, one for me.");
+  }
 }
