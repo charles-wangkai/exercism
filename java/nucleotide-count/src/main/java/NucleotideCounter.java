@@ -1,41 +1,38 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class NucleotideCounter {
-	static final char[] SYMBOLS = { 'A', 'C', 'G', 'T' };
+  static final char[] SYMBOLS = {'A', 'C', 'G', 'T'};
 
-	String dna;
+  String dna;
 
-	NucleotideCounter(String dna) {
-		if (!dna.chars().allMatch(this::isValidSymbol)) {
-			throw new IllegalArgumentException();
-		}
+  NucleotideCounter(String dna) {
+    if (!dna.chars().allMatch(c -> isValidSymbol((char) c))) {
+      throw new IllegalArgumentException();
+    }
 
-		this.dna = dna;
-	}
+    this.dna = dna;
+  }
 
-	boolean isValidSymbol(int ch) {
-		for (char symbol : SYMBOLS) {
-			if (ch == symbol) {
-				return true;
-			}
-		}
-		return false;
-	}
+  boolean isValidSymbol(char c) {
+    return IntStream.range(0, SYMBOLS.length).anyMatch(i -> c == SYMBOLS[i]);
+  }
 
-	Map<Character, Integer> nucleotideCounts() {
-		Map<Character, Integer> symbol2count = new HashMap<Character, Integer>();
-		for (char symbol : SYMBOLS) {
-			symbol2count.put(symbol, count(symbol));
-		}
-		return symbol2count;
-	}
+  Map<Character, Integer> nucleotideCounts() {
+    Map<Character, Integer> symbolToCount = new HashMap<>();
+    for (char symbol : SYMBOLS) {
+      symbolToCount.put(symbol, count(symbol));
+    }
 
-	int count(char symbol) {
-		if (new String(SYMBOLS).indexOf(symbol) < 0) {
-			throw new IllegalArgumentException();
-		}
+    return symbolToCount;
+  }
 
-		return (int) dna.chars().filter(ch -> ch == symbol).count();
-	}
+  int count(char symbol) {
+    if (IntStream.range(0, SYMBOLS.length).allMatch(i -> symbol != SYMBOLS[i])) {
+      throw new IllegalArgumentException();
+    }
+
+    return (int) dna.chars().filter(c -> c == symbol).count();
+  }
 }
