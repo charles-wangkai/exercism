@@ -1,41 +1,55 @@
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RobotTest {
 
-	private static final String EXPECTED_ROBOT_NAME_PATTERN = "[A-Z]{2}\\d{3}";
-	private Robot robot;
+  private static final String EXPECTED_ROBOT_NAME_PATTERN = "[A-Z]{2}\\d{3}";
+  private Robot robot;
 
-	@Before
-	public void setUp() {
-		robot = new Robot();
-	}
+  @Before
+  public void setUp() {
+    robot = new Robot();
+  }
 
-	@Test
-	public void hasName() {
-		assertIsValidName(robot.getName());
-	}
+  @Test
+  public void hasName() {
+    assertIsValidName(robot.getName());
+  }
 
-	@Test
-	public void differentRobotsHaveDifferentNames() {
-		assertThat(robot.getName(), not(equalTo(new Robot().getName())));
-	}
+  @Test
+  public void sameRobotsHaveSameNames() {
+    assertThat(robot.getName()).isEqualTo(robot.getName());
+  }
 
-	@Test
-	public void resetName() {
-		final String name = robot.getName();
-		robot.reset();
-		final String name2 = robot.getName();
-		assertThat(name, not(equalTo(name2)));
-		assertIsValidName(name2);
-	}
+  @Test
+  public void differentRobotsHaveDifferentNames() {
+    assertThat(robot.getName()).isNotEqualTo(new Robot().getName());
+  }
 
-	private static void assertIsValidName(String name) {
-		assertThat(name.matches(EXPECTED_ROBOT_NAME_PATTERN), is(true));
-	}
+  @Test
+  public void resetName() {
+    final String name = robot.getName();
+    robot.reset();
+    final String name2 = robot.getName();
+    assertThat(name).isNotEqualTo(name2);
+    assertIsValidName(name2);
+  }
+
+  @Test
+  public void robotNamesAreUnique() {
+    Set<String> robotNames = new HashSet<>();
+    int sampleSize = 5000;
+    for (int i = 0; i < sampleSize; i++) {
+      robotNames.add(new Robot().getName());
+    }
+    assertThat(robotNames).hasSize(sampleSize);
+  }
+
+  private static void assertIsValidName(String name) {
+    assertThat(name).matches(EXPECTED_ROBOT_NAME_PATTERN);
+  }
 }
