@@ -1,6 +1,9 @@
 # Yacht
 
-# Score a single throw of dice in *Yacht*
+Welcome to Yacht on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The dice game [Yacht](https://en.wikipedia.org/wiki/Yacht_(dice_game)) is from
 the same family as Poker Dice, Generala and particularly Yahtzee, of which it
@@ -36,33 +39,22 @@ of the category your solution should return 0. You can assume that five values
 will always be presented, and the value of each will be between one and six
 inclusively. You should not assume that the dice are ordered.
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-James Kilfiger, using wikipedia [https://en.wikipedia.org/wiki/Yacht_(dice_game)](https://en.wikipedia.org/wiki/Yacht_(dice_game))
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @lemoncurry
+
+### Contributed to by
+
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+
+### Based on
+
+James Kilfiger, using wikipedia - https://en.wikipedia.org/wiki/Yacht_(dice_game)
