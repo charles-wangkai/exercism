@@ -2,29 +2,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiamondPrinter {
-	List<String> printToList(char letter) {
-		int width = (letter - 'A') * 2 + 1;
+  List<String> printToList(char letter) {
+    List<String> lines = new ArrayList<>();
 
-		StringBuilder emptyLine = new StringBuilder();
-		for (int i = 0; i < width; i++) {
-			emptyLine.append(" ");
-		}
+    int width = (letter - 'A') * 2 + 1;
+    for (int i = 0; i < letter - 'A' + 1; ++i) {
+      StringBuilder line = new StringBuilder(" ".repeat(width));
+      line.setCharAt(width / 2 + i, (char) (i + 'A'));
+      line.setCharAt(width / 2 - i, (char) (i + 'A'));
 
-		List<String> lines = new ArrayList<String>();
-		for (int i = 0; i < letter - 'A' + 1; i++) {
-			StringBuilder line = new StringBuilder(emptyLine.toString());
-			line.setCharAt(width / 2 + i, (char) (i + 'A'));
-			line.setCharAt(width / 2 - i, (char) (i + 'A'));
+      lines.add(line.toString());
+    }
 
-			lines.add(line.toString());
-		}
+    List<String> lowerHalf = new ArrayList<>();
+    for (int i = lines.size() - 2; i >= 0; --i) {
+      lowerHalf.add(lines.get(i));
+    }
 
-		List<String> lowerHalf = new ArrayList<String>();
-		for (int i = lines.size() - 2; i >= 0; i--) {
-			lowerHalf.add(lines.get(i));
-		}
+    lines.addAll(lowerHalf);
 
-		lines.addAll(lowerHalf);
-		return lines;
-	}
+    return lines;
+  }
 }
