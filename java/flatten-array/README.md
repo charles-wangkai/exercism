@@ -1,5 +1,10 @@
 # Flatten Array
 
+Welcome to Flatten Array on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Take a nested list and return a single flattened list with all values except nil/null.
 
 The challenge is to write a function that accepts an arbitrarily-deep nested list-like structure and returns a flattened structure without any nil/null values.
@@ -9,8 +14,6 @@ For Example
 input: [1,[2,3,null,4],[null],5]
 
 output: [1,2,3,4,5]
-
-# Tips
 
 Since this exercise has difficulty 5 it doesn't come with any starter implementation.
 This is so that you get to practice creating classes and methods which is an important part of programming in Java.
@@ -71,34 +74,35 @@ The new error should tell you which type it's expecting.
 
 After having resolved these errors you should be ready to start making the tests pass!
 
-
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Interview Question [https://reference.wolfram.com/language/ref/Flatten.html](https://reference.wolfram.com/language/ref/Flatten.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @stkent
+
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @jackattack24
+- @jmrunkle
+- @jtigger
+- @kytrinyx
+- @lemoncurry
+- @michaelspets
+- @mirkoperillo
+- @morrme
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @superklamer
+- @vivshaw
+- @Zaldrick
+
+### Based on
+
+Interview Question - https://reference.wolfram.com/language/ref/Flatten.html
