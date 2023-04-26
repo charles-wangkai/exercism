@@ -1,97 +1,91 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
 public class KnapsackTest {
 
-    private Knapsack knapsack;
+  private Knapsack knapsack;
 
-    @Before
-    public void setup() {
-	knapsack = new Knapsack();
-    }
+  @Before
+  public void setup() {
+    knapsack = new Knapsack();
+  }
 
-    @Test
-    public void testNoItems() {
-	ArrayList<Item> items = new ArrayList<>();
-	assertEquals(0, knapsack.maximumValue(100, items));
-    }
+  @Test
+  public void testNoItems() {
+    List<Item> items = List.of();
+    assertThat(knapsack.maximumValue(100, items)).isEqualTo(0);
+  }
 
-    @Test
-    public void testOneItemTooHeavy() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(100, 1));
-	assertEquals(0, knapsack.maximumValue(10, items));
-    }
+  @Test
+  public void testOneItemTooHeavy() {
+    List<Item> items = List.of(new Item(100, 1));
 
-    @Test
-    public void testFiveItemsCannotBeGreedyByWeight() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(2, 5));
-	items.add(new Item(2, 5));
-	items.add(new Item(2, 5));
-	items.add(new Item(2, 5));
-	items.add(new Item(10, 21));
-	assertEquals(21, knapsack.maximumValue(10, items));
-    }
+    assertThat(knapsack.maximumValue(10, items)).isEqualTo(0);
+  }
 
-    @Test
-    public void testFiveItemsCannotBeGreedyByValue() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(2, 20));
-	items.add(new Item(2, 20));
-	items.add(new Item(2, 20));
-	items.add(new Item(2, 20));
-	items.add(new Item(10, 50));
-	assertEquals(80, knapsack.maximumValue(10, items));
-    }
+  @Test
+  public void testFiveItemsCannotBeGreedyByWeight() {
+    List<Item> items =
+        List.of(new Item(2, 5), new Item(2, 5), new Item(2, 5), new Item(2, 5), new Item(10, 21));
 
-    @Test
-    public void testExampleKnapsack() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(5, 10));
-	items.add(new Item(4, 40));
-	items.add(new Item(6, 30));
-	items.add(new Item(4, 50));
-	assertEquals(90, knapsack.maximumValue(10, items));
-    }
+    assertThat(knapsack.maximumValue(10, items)).isEqualTo(21);
+  }
 
-    @Test
-    public void testEightItems() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(25, 350));
-	items.add(new Item(35, 400));
-	items.add(new Item(45, 450));
-	items.add(new Item(5, 20));
-	items.add(new Item(25, 70));
-	items.add(new Item(3, 8));
-	items.add(new Item(2, 5));
-	items.add(new Item(2, 5));
-	assertEquals(900, knapsack.maximumValue(104, items));
-    }
+  @Test
+  public void testFiveItemsCannotBeGreedyByValue() {
+    List<Item> items =
+        List.of(
+            new Item(2, 20), new Item(2, 20), new Item(2, 20), new Item(2, 20), new Item(10, 50));
 
-    @Test
-    public void testFifteenItems() {
-	ArrayList<Item> items = new ArrayList<>();
-	items.add(new Item(70, 135));
-	items.add(new Item(73, 139));
-	items.add(new Item(77, 149));
-	items.add(new Item(80, 150));
-	items.add(new Item(82, 156));
-	items.add(new Item(87, 163));
-	items.add(new Item(90, 173));
-	items.add(new Item(94, 184));
-	items.add(new Item(98, 192));
-	items.add(new Item(106, 201));
-	items.add(new Item(110, 210));
-	items.add(new Item(113, 214));
-	items.add(new Item(115, 221));
-	items.add(new Item(118, 229));
-	items.add(new Item(120, 240));
-	assertEquals(1458, knapsack.maximumValue(750, items));
-    }
+    assertThat(knapsack.maximumValue(10, items)).isEqualTo(80);
+  }
 
+  @Test
+  public void testExampleKnapsack() {
+    List<Item> items = List.of(new Item(5, 10), new Item(4, 40), new Item(6, 30), new Item(4, 50));
+
+    assertThat(knapsack.maximumValue(10, items)).isEqualTo(90);
+  }
+
+  @Test
+  public void testEightItems() {
+    List<Item> items =
+        List.of(
+            new Item(25, 350),
+            new Item(35, 400),
+            new Item(45, 450),
+            new Item(5, 20),
+            new Item(25, 70),
+            new Item(3, 8),
+            new Item(2, 5),
+            new Item(2, 5));
+
+    assertThat(knapsack.maximumValue(104, items)).isEqualTo(900);
+  }
+
+  @Test
+  public void testFifteenItems() {
+    List<Item> items =
+        List.of(
+            new Item(70, 135),
+            new Item(73, 139),
+            new Item(77, 149),
+            new Item(80, 150),
+            new Item(82, 156),
+            new Item(87, 163),
+            new Item(90, 173),
+            new Item(94, 184),
+            new Item(98, 192),
+            new Item(106, 201),
+            new Item(110, 210),
+            new Item(113, 214),
+            new Item(115, 221),
+            new Item(118, 229),
+            new Item(120, 240));
+
+    assertThat(knapsack.maximumValue(750, items)).isEqualTo(1458);
+  }
 }

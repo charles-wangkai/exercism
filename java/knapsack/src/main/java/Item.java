@@ -1,9 +1,9 @@
 public class Item {
-	int weight;
-	int value;
+  int weight;
+  int value;
 
-	Item(int weight, int value) {
-		this.weight = weight;
-		this.value = value;
-	}
+  Item(int weight, int value) {
+    this.weight = weight;
+    this.value = value;
+  }
 }
