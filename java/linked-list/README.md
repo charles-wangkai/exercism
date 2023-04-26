@@ -1,5 +1,10 @@
 # Linked List
 
+Welcome to Linked List on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a doubly linked list.
 
 Like an array, a linked list is a simple linear data structure. Several
@@ -27,8 +32,6 @@ empty list.
 
 If you want to know more about linked lists, check [Wikipedia](https://en.wikipedia.org/wiki/Linked_list).
 
-# Tips
-
 This exercise introduces [generics](https://docs.oracle.com/javase/tutorial/java/generics/index.html).
 To make the tests pass you need to construct your class such that it accepts any type of input, e.g. `Integer` or `String`.
 
@@ -55,34 +58,34 @@ However, every primitive type has a corresponding reference type, so instead of 
 
 It can help to look at an [example use case of generics](https://docs.oracle.com/javase/tutorial/java/generics/types.html) to get you started.
 
-
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Classic computer science topic
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @counterleft
+
+### Contributed to by
+
+- @aryasaatvik
+- @FridaTveit
+- @hugueschabot
+- @javaeeeee
+- @jmrunkle
+- @jtigger
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @mirkoperillo
+- @mraediaz
+- @msomji
+- @muzimuzhi
+- @Ppapierski
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @Zaldrick
+
+### Based on
+
+Classic computer science topic
