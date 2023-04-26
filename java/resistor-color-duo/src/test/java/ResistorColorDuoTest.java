@@ -1,58 +1,38 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class ResistorColorDuoTest {
-	private ResistorColorDuo resistorColorDuo;
+  private ResistorColorDuo resistorColorDuo;
 
-	@Before
-	public void setup() {
-		resistorColorDuo = new ResistorColorDuo();
-	}
+  @Before
+  public void setup() {
+    resistorColorDuo = new ResistorColorDuo();
+  }
 
-	@Test
-	public void testBrownAndBlack() {
-		String[] input = { "brown", "black" };
-		int expected = 10;
-		int actual = resistorColorDuo.value(input);
+  @Test
+  public void testBrownAndBlack() {
+    assertThat(resistorColorDuo.value(new String[] {"brown", "black"})).isEqualTo(10);
+  }
 
-		assertEquals(expected, actual);
-	}
+  @Test
+  public void testBlueAndGrey() {
+    assertThat(resistorColorDuo.value(new String[] {"blue", "grey"})).isEqualTo(68);
+  }
 
-	@Test
-	public void testBlueAndGrey() {
-		String[] input = { "blue", "grey" };
-		int expected = 68;
-		int actual = resistorColorDuo.value(input);
+  @Test
+  public void testYellowAndViolet() {
+    assertThat(resistorColorDuo.value(new String[] {"yellow", "violet"})).isEqualTo(47);
+  }
 
-		assertEquals(expected, actual);
-	}
+  @Test
+  public void testOrangeAndOrange() {
+    assertThat(resistorColorDuo.value(new String[] {"orange", "orange"})).isEqualTo(33);
+  }
 
-	@Test
-	public void testYellowAndViolet() {
-		String[] input = { "yellow", "violet" };
-		int expected = 47;
-		int actual = resistorColorDuo.value(input);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testOrangeAndOrange() {
-		String[] input = { "orange", "orange" };
-		int expected = 33;
-		int actual = resistorColorDuo.value(input);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void testIgnoreAdditionalColors() {
-		String[] input = { "green", "brown", "orange" };
-		int expected = 51;
-		int actual = resistorColorDuo.value(input);
-
-		assertEquals(expected, actual);
-	}
+  @Test
+  public void testIgnoreAdditionalColors() {
+    assertThat(resistorColorDuo.value(new String[] {"green", "brown", "orange"})).isEqualTo(51);
+  }
 }
