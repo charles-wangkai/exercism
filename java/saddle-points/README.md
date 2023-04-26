@@ -1,5 +1,10 @@
 # Saddle Points
 
+Welcome to Saddle Points on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Detect saddle points in a matrix.
 
 So say you have a matrix like so:
@@ -28,33 +33,33 @@ The matrix can have a different number of rows and columns (Non square).
 Note that you may find other definitions of matrix saddle points online,
 but the tests for this exercise follow the above unambiguous definition.
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @stkent
+
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @hgvanpariya
+- @jackattack24
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @morrme
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @vivshaw
+- @Zaldrick
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

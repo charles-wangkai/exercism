@@ -27,5 +27,4 @@ class MatrixCoordinate {
     result = 31 * result + col;
     return result;
   }
-
 }
