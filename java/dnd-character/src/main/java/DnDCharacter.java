@@ -1,14 +1,16 @@
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 class DnDCharacter {
   private Random random = new Random();
-  private int strength = ability();
-  private int dexterity = ability();
-  private int constitution = ability();
-  private int intelligence = ability();
-  private int wisdom = ability();
-  private int charisma = ability();
+  private int strength = ability(rollDice());
+  private int dexterity = ability(rollDice());
+  private int constitution = ability(rollDice());
+  private int intelligence = ability(rollDice());
+  private int wisdom = ability(rollDice());
+  private int charisma = ability(rollDice());
 
   public int getStrength() {
     return strength;
@@ -38,15 +40,19 @@ class DnDCharacter {
     return 10 + modifier(constitution);
   }
 
-  private int rollDice() {
-    return random.nextInt(6) + 1;
-  }
-
-  public int ability() {
-    return IntStream.range(0, 4).map(i -> rollDice()).sorted().skip(1).sum();
+  public int ability(List<Integer> rolls) {
+    return rolls.stream()
+        .sorted(Comparator.reverseOrder())
+        .limit(3)
+        .mapToInt(Integer::intValue)
+        .sum();
   }
 
   public int modifier(int value) {
     return Math.floorDiv(value - 10, 2);
+  }
+
+  public List<Integer> rollDice() {
+    return IntStream.range(0, 4).map(i -> random.nextInt(6) + 1).boxed().toList();
   }
 }
