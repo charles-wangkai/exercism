@@ -1,46 +1,37 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class ResistorColorTest {
 
-	private ResistorColor resistorColor;
+  private ResistorColor resistorColor;
 
-	@Before
-	public void setup() {
-		resistorColor = new ResistorColor();
-	}
+  @Before
+  public void setup() {
+    resistorColor = new ResistorColor();
+  }
 
-	@Test
-	public void testBlackColorCode() {
-		String input = "black";
-		int expected = 0;
+  @Test
+  public void testBlackColorCode() {
+    assertThat(resistorColor.colorCode("black")).isEqualTo(0);
+  }
 
-		assertEquals(expected, resistorColor.colorCode(input));
-	}
+  @Test
+  public void testWhiteColorCode() {
+    assertThat(resistorColor.colorCode("white")).isEqualTo(9);
+  }
 
-	@Test
-	public void testWhiteColorCode() {
-		String input = "white";
-		int expected = 9;
+  @Test
+  public void testOrangeColorCode() {
+    assertThat(resistorColor.colorCode("orange")).isEqualTo(3);
+  }
 
-		assertEquals(expected, resistorColor.colorCode(input));
-	}
-
-	@Test
-	public void testOrangeColorCode() {
-		String input = "orange";
-		int expected = 3;
-
-		assertEquals(expected, resistorColor.colorCode(input));
-	}
-
-	@Test
-	public void testColors() {
-		String[] expected = { "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white" };
-
-		assertEquals(expected, resistorColor.colors());
-	}
-
+  @Test
+  public void testColors() {
+    assertThat(resistorColor.colors())
+        .containsExactly(
+            "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey",
+            "white");
+  }
 }
