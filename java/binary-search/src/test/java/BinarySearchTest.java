@@ -8,6 +8,7 @@ import org.junit.Test;
 public class BinarySearchTest {
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueInAnArrayWithOneElement() throws ValueNotFoundException {
     List<Integer> listOfUnitLength = Collections.singletonList(6);
 
@@ -17,6 +18,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueInTheMiddleOfAnArray() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -26,6 +28,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueAtTheBeginningOfAnArray() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -35,6 +38,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueAtTheEndOfAnArray() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -44,6 +48,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueInAnArrayOfOddLength() throws ValueNotFoundException {
     List<Integer> sortedListOfOddLength =
         List.of(1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634);
@@ -54,6 +59,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void findsAValueInAnArrayOfEvenLength() throws ValueNotFoundException {
     List<Integer> sortedListOfEvenLength = List.of(1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377);
 
@@ -63,6 +69,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void identifiesThatAValueIsNotFoundInTheArray() {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -74,6 +81,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void aValueSmallerThanTheArraysSmallestValueIsNotFound() {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -85,6 +93,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void aValueLargerThanTheArraysSmallestValueIsNotFound() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
@@ -96,6 +105,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void nothingIsFoundInAnEmptyArray() throws ValueNotFoundException {
     List<Integer> emptyList = Collections.emptyList();
 
@@ -107,6 +117,7 @@ public class BinarySearchTest {
   }
 
   @Test
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void nothingIsFoundWhenTheLeftAndRightBoundCross() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 2);
 
