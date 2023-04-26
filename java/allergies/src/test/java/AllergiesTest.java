@@ -1,384 +1,390 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
 public class AllergiesTest {
 
-	// Testing for eggs allergy
+  // Testing for eggs allergy
 
-	@Test
-	public void eggsNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void eggsNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.EGGS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.EGGS)).isFalse();
+  }
 
-	@Test
-	public void eggsAllergicOnlyToEggs() {
-		Allergies allergies = new Allergies(1);
+  @Test
+  public void eggsAllergicOnlyToEggs() {
+    Allergies allergies = new Allergies(1);
 
-		assertTrue(allergies.isAllergicTo(Allergen.EGGS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.EGGS)).isTrue();
+  }
 
-	@Test
-	public void eggsAllergicToEggsAndSomethingElse() {
-		Allergies allergies = new Allergies(3);
+  @Test
+  public void eggsAllergicToEggsAndSomethingElse() {
+    Allergies allergies = new Allergies(3);
 
-		assertTrue(allergies.isAllergicTo(Allergen.EGGS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.EGGS)).isTrue();
+  }
 
-	@Test
-	public void eggsAllergicToSomethingButNotEggs() {
-		Allergies allergies = new Allergies(2);
+  @Test
+  public void eggsAllergicToSomethingButNotEggs() {
+    Allergies allergies = new Allergies(2);
 
-		assertFalse(allergies.isAllergicTo(Allergen.EGGS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.EGGS)).isFalse();
+  }
 
-	@Test
-	public void eggsAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void eggsAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.EGGS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.EGGS)).isTrue();
+  }
 
-	// Testing for peanuts allergy
+  // Testing for peanuts allergy
 
-	@Test
-	public void peanutsNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void peanutsNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.PEANUTS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.PEANUTS)).isFalse();
+  }
 
-	@Test
-	public void peanutsAllergicOnlyToPeanuts() {
-		Allergies allergies = new Allergies(2);
+  @Test
+  public void peanutsAllergicOnlyToPeanuts() {
+    Allergies allergies = new Allergies(2);
 
-		assertTrue(allergies.isAllergicTo(Allergen.PEANUTS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.PEANUTS)).isTrue();
+  }
 
-	@Test
-	public void peanutsAllergicToPeanutsAndSomethingElse() {
-		Allergies allergies = new Allergies(7);
+  @Test
+  public void peanutsAllergicToPeanutsAndSomethingElse() {
+    Allergies allergies = new Allergies(7);
 
-		assertTrue(allergies.isAllergicTo(Allergen.PEANUTS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.PEANUTS)).isTrue();
+  }
 
-	@Test
-	public void peanutsAllergicToSomethingButNotPeanuts() {
-		Allergies allergies = new Allergies(5);
+  @Test
+  public void peanutsAllergicToSomethingButNotPeanuts() {
+    Allergies allergies = new Allergies(5);
 
-		assertFalse(allergies.isAllergicTo(Allergen.PEANUTS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.PEANUTS)).isFalse();
+  }
 
-	@Test
-	public void peanutsAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void peanutsAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.PEANUTS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.PEANUTS)).isTrue();
+  }
 
-	// Testing for shellfish allergy
+  // Testing for shellfish allergy
 
-	@Test
-	public void shellfishNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void shellfishNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.SHELLFISH));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.SHELLFISH)).isFalse();
+  }
 
-	@Test
-	public void shellfishAllergicOnlyToShellfish() {
-		Allergies allergies = new Allergies(4);
+  @Test
+  public void shellfishAllergicOnlyToShellfish() {
+    Allergies allergies = new Allergies(4);
 
-		assertTrue(allergies.isAllergicTo(Allergen.SHELLFISH));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.SHELLFISH)).isTrue();
+  }
 
-	@Test
-	public void shellfishAllergicToShellfishAndSomethingElse() {
-		Allergies allergies = new Allergies(14);
+  @Test
+  public void shellfishAllergicToShellfishAndSomethingElse() {
+    Allergies allergies = new Allergies(14);
 
-		assertTrue(allergies.isAllergicTo(Allergen.SHELLFISH));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.SHELLFISH)).isTrue();
+  }
 
-	@Test
-	public void shellfishAllergicToSomethingButNotShellfish() {
-		Allergies allergies = new Allergies(10);
+  @Test
+  public void shellfishAllergicToSomethingButNotShellfish() {
+    Allergies allergies = new Allergies(10);
 
-		assertFalse(allergies.isAllergicTo(Allergen.SHELLFISH));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.SHELLFISH)).isFalse();
+  }
 
-	@Test
-	public void shellfishAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void shellfishAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.SHELLFISH));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.SHELLFISH)).isTrue();
+  }
 
-	// Testing for strawberries allergy
+  // Testing for strawberries allergy
 
-	@Test
-	public void strawberriesNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void strawberriesNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.STRAWBERRIES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.STRAWBERRIES)).isFalse();
+  }
 
-	@Test
-	public void strawberriesAllergicOnlyToStrawberries() {
-		Allergies allergies = new Allergies(8);
+  @Test
+  public void strawberriesAllergicOnlyToStrawberries() {
+    Allergies allergies = new Allergies(8);
 
-		assertTrue(allergies.isAllergicTo(Allergen.STRAWBERRIES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.STRAWBERRIES)).isTrue();
+  }
 
-	@Test
-	public void strawberriesAllergicToStrawberriesAndSomethingElse() {
-		Allergies allergies = new Allergies(28);
+  @Test
+  public void strawberriesAllergicToStrawberriesAndSomethingElse() {
+    Allergies allergies = new Allergies(28);
 
-		assertTrue(allergies.isAllergicTo(Allergen.STRAWBERRIES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.STRAWBERRIES)).isTrue();
+  }
 
-	@Test
-	public void strawberriesAllergicToSomethingButNotStrawberries() {
-		Allergies allergies = new Allergies(20);
+  @Test
+  public void strawberriesAllergicToSomethingButNotStrawberries() {
+    Allergies allergies = new Allergies(20);
 
-		assertFalse(allergies.isAllergicTo(Allergen.STRAWBERRIES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.STRAWBERRIES)).isFalse();
+  }
 
-	@Test
-	public void strawberriesAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void strawberriesAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.STRAWBERRIES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.STRAWBERRIES)).isTrue();
+  }
 
-	// Testing for tomatoes allergy
+  // Testing for tomatoes allergy
 
-	@Test
-	public void tomatoesNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void tomatoesNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.TOMATOES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.TOMATOES)).isFalse();
+  }
 
-	@Test
-	public void tomatoesAllergicOnlyToTomatoes() {
-		Allergies allergies = new Allergies(16);
+  @Test
+  public void tomatoesAllergicOnlyToTomatoes() {
+    Allergies allergies = new Allergies(16);
 
-		assertTrue(allergies.isAllergicTo(Allergen.TOMATOES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.TOMATOES)).isTrue();
+  }
 
-	@Test
-	public void tomatoesAllergicToTomatoesAndSomethingElse() {
-		Allergies allergies = new Allergies(56);
+  @Test
+  public void tomatoesAllergicToTomatoesAndSomethingElse() {
+    Allergies allergies = new Allergies(56);
 
-		assertTrue(allergies.isAllergicTo(Allergen.TOMATOES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.TOMATOES)).isTrue();
+  }
 
-	@Test
-	public void tomatoesAllergicToSomethingButNotTomatoes() {
-		Allergies allergies = new Allergies(40);
+  @Test
+  public void tomatoesAllergicToSomethingButNotTomatoes() {
+    Allergies allergies = new Allergies(40);
 
-		assertFalse(allergies.isAllergicTo(Allergen.TOMATOES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.TOMATOES)).isFalse();
+  }
 
-	@Test
-	public void tomatoesAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void tomatoesAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.TOMATOES));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.TOMATOES)).isTrue();
+  }
 
-	// Testing for chocolate allergy
+  // Testing for chocolate allergy
 
-	@Test
-	public void chocolateNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void chocolateNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.CHOCOLATE));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CHOCOLATE)).isFalse();
+  }
 
-	@Test
-	public void chocolateAllergicOnlyToChocolate() {
-		Allergies allergies = new Allergies(32);
+  @Test
+  public void chocolateAllergicOnlyToChocolate() {
+    Allergies allergies = new Allergies(32);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CHOCOLATE));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CHOCOLATE)).isTrue();
+  }
 
-	@Test
-	public void chocolateAllergicToChocolateAndSomethingElse() {
-		Allergies allergies = new Allergies(112);
+  @Test
+  public void chocolateAllergicToChocolateAndSomethingElse() {
+    Allergies allergies = new Allergies(112);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CHOCOLATE));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CHOCOLATE)).isTrue();
+  }
 
-	@Test
-	public void chocolateAllergicToSomethingButNotChocolate() {
-		Allergies allergies = new Allergies(80);
+  @Test
+  public void chocolateAllergicToSomethingButNotChocolate() {
+    Allergies allergies = new Allergies(80);
 
-		assertFalse(allergies.isAllergicTo(Allergen.CHOCOLATE));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CHOCOLATE)).isFalse();
+  }
 
-	@Test
-	public void chocolateAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void chocolateAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CHOCOLATE));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CHOCOLATE)).isTrue();
+  }
 
-	// Testing for pollen allergy
+  // Testing for pollen allergy
 
-	@Test
-	public void pollenNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void pollenNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.POLLEN));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.POLLEN)).isFalse();
+  }
 
-	@Test
-	public void pollenAllergicOnlyToPollen() {
-		Allergies allergies = new Allergies(64);
+  @Test
+  public void pollenAllergicOnlyToPollen() {
+    Allergies allergies = new Allergies(64);
 
-		assertTrue(allergies.isAllergicTo(Allergen.POLLEN));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.POLLEN)).isTrue();
+  }
 
-	@Test
-	public void pollenAllergicToPollenAndSomethingElse() {
-		Allergies allergies = new Allergies(224);
+  @Test
+  public void pollenAllergicToPollenAndSomethingElse() {
+    Allergies allergies = new Allergies(224);
 
-		assertTrue(allergies.isAllergicTo(Allergen.POLLEN));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.POLLEN)).isTrue();
+  }
 
-	@Test
-	public void pollenAllergicToSomethingButNotPollen() {
-		Allergies allergies = new Allergies(160);
+  @Test
+  public void pollenAllergicToSomethingButNotPollen() {
+    Allergies allergies = new Allergies(160);
 
-		assertFalse(allergies.isAllergicTo(Allergen.POLLEN));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.POLLEN)).isFalse();
+  }
 
-	@Test
-	public void pollenAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void pollenAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.POLLEN));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.POLLEN)).isTrue();
+  }
 
-	// Testing for cats allergy
+  // Testing for cats allergy
 
-	@Test
-	public void catsNotAllergicToAnything() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void catsNotAllergicToAnything() {
+    Allergies allergies = new Allergies(0);
 
-		assertFalse(allergies.isAllergicTo(Allergen.CATS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CATS)).isFalse();
+  }
 
-	@Test
-	public void catsAllergicOnlyToCats() {
-		Allergies allergies = new Allergies(128);
+  @Test
+  public void catsAllergicOnlyToCats() {
+    Allergies allergies = new Allergies(128);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CATS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CATS)).isTrue();
+  }
 
-	@Test
-	public void catsAllergicToCatsAndSomethingElse() {
-		Allergies allergies = new Allergies(192);
+  @Test
+  public void catsAllergicToCatsAndSomethingElse() {
+    Allergies allergies = new Allergies(192);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CATS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CATS)).isTrue();
+  }
 
-	@Test
-	public void catsAllergicToSomethingButNotCats() {
-		Allergies allergies = new Allergies(64);
+  @Test
+  public void catsAllergicToSomethingButNotCats() {
+    Allergies allergies = new Allergies(64);
 
-		assertFalse(allergies.isAllergicTo(Allergen.CATS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CATS)).isFalse();
+  }
 
-	@Test
-	public void catsAllergicToEverything() {
-		Allergies allergies = new Allergies(255);
+  @Test
+  public void catsAllergicToEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertTrue(allergies.isAllergicTo(Allergen.CATS));
-	}
+    assertThat(allergies.isAllergicTo(Allergen.CATS)).isTrue();
+  }
 
-	// Testing listing allergies
+  // Testing listing allergies
 
-	@Test
-	public void listNoAllergies() {
-		Allergies allergies = new Allergies(0);
+  @Test
+  public void listNoAllergies() {
+    Allergies allergies = new Allergies(0);
 
-		assertEquals(0, allergies.getList().size());
-	}
+    assertThat(allergies.getList().size()).isEqualTo(0);
+  }
 
-	@Test
-	public void listJustEggs() {
-		Allergies allergies = new Allergies(1);
-		List<Allergen> expectedAllergens = Collections.singletonList(Allergen.EGGS);
+  @Test
+  public void listJustEggs() {
+    Allergies allergies = new Allergies(1);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList()).containsExactly(Allergen.EGGS);
+  }
 
-	@Test
-	public void listJustPeanuts() {
-		Allergies allergies = new Allergies(2);
-		List<Allergen> expectedAllergens = Collections.singletonList(Allergen.PEANUTS);
+  @Test
+  public void listJustPeanuts() {
+    Allergies allergies = new Allergies(2);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList()).containsExactly(Allergen.PEANUTS);
+  }
 
-	@Test
-	public void listJustStrawberries() {
-		Allergies allergies = new Allergies(8);
-		List<Allergen> expectedAllergens = Collections.singletonList(Allergen.STRAWBERRIES);
+  @Test
+  public void listJustStrawberries() {
+    Allergies allergies = new Allergies(8);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList()).containsExactly(Allergen.STRAWBERRIES);
+  }
 
-	@Test
-	public void listEggsAndPeanuts() {
-		Allergies allergies = new Allergies(3);
-		List<Allergen> expectedAllergens = Arrays.asList(Allergen.EGGS, Allergen.PEANUTS);
+  @Test
+  public void listEggsAndPeanuts() {
+    Allergies allergies = new Allergies(3);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList()).containsExactly(Allergen.EGGS, Allergen.PEANUTS);
+  }
 
-	@Test
-	public void listoMoreThanEggsButNotPeanuts() {
-		Allergies allergies = new Allergies(5);
-		List<Allergen> expectedAllergens = Arrays.asList(Allergen.EGGS, Allergen.SHELLFISH);
+  @Test
+  public void listoMoreThanEggsButNotPeanuts() {
+    Allergies allergies = new Allergies(5);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList()).containsExactly(Allergen.EGGS, Allergen.SHELLFISH);
+  }
 
-	@Test
-	public void listManyAllergies() {
-		Allergies allergies = new Allergies(248);
-		List<Allergen> expectedAllergens = Arrays.asList(Allergen.STRAWBERRIES, Allergen.TOMATOES, Allergen.CHOCOLATE,
-				Allergen.POLLEN, Allergen.CATS);
+  @Test
+  public void listManyAllergies() {
+    Allergies allergies = new Allergies(248);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList())
+        .containsExactly(
+            Allergen.STRAWBERRIES,
+            Allergen.TOMATOES,
+            Allergen.CHOCOLATE,
+            Allergen.POLLEN,
+            Allergen.CATS);
+  }
 
-	@Test
-	public void listEverything() {
-		Allergies allergies = new Allergies(255);
-		List<Allergen> expectedAllergens = Arrays.asList(Allergen.EGGS, Allergen.PEANUTS, Allergen.SHELLFISH,
-				Allergen.STRAWBERRIES, Allergen.TOMATOES, Allergen.CHOCOLATE, Allergen.POLLEN, Allergen.CATS);
+  @Test
+  public void listEverything() {
+    Allergies allergies = new Allergies(255);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList())
+        .containsExactly(
+            Allergen.EGGS,
+            Allergen.PEANUTS,
+            Allergen.SHELLFISH,
+            Allergen.STRAWBERRIES,
+            Allergen.TOMATOES,
+            Allergen.CHOCOLATE,
+            Allergen.POLLEN,
+            Allergen.CATS);
+  }
 
-	@Test
-	public void listNoAllergenScoreParts() {
-		Allergies allergies = new Allergies(509);
-		List<Allergen> expectedAllergens = Arrays.asList(Allergen.EGGS, Allergen.SHELLFISH, Allergen.STRAWBERRIES,
-				Allergen.TOMATOES, Allergen.CHOCOLATE, Allergen.POLLEN, Allergen.CATS);
+  @Test
+  public void listNoAllergenScoreParts() {
+    Allergies allergies = new Allergies(509);
 
-		assertEquals(expectedAllergens, allergies.getList());
-	}
+    assertThat(allergies.getList())
+        .containsExactly(
+            Allergen.EGGS,
+            Allergen.SHELLFISH,
+            Allergen.STRAWBERRIES,
+            Allergen.TOMATOES,
+            Allergen.CHOCOLATE,
+            Allergen.POLLEN,
+            Allergen.CATS);
+  }
 }

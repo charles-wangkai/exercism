@@ -1,5 +1,10 @@
 # Allergies
 
+Welcome to Allergies on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a person's allergy score, determine whether or not they're allergic to a given item, and their full list of allergies.
 
 An allergy test produces a single numeric score which contains the
@@ -28,8 +33,6 @@ Note: a given score may include allergens **not** listed above (i.e.
 allergens that score 256, 512, 1024, etc.).  Your program should
 ignore those components of the score.  For example, if the allergy
 score is 257, your program should only report the eggs (1) allergy.
-
-# Tips
 
 Since this exercise has difficulty 5 it doesn't come with any starter implementation.
 This is so that you get to practice creating classes and methods which is an important part of programming in Java.
@@ -71,8 +74,8 @@ That should make the error go away, though you might need to add some more code 
 You might also get an error similar to:
 ```
   error: cannot find symbol
-        assertEquals(expectedOutput, exerciseClassName.someMethod());
-                                                       ^
+        assertThat(exerciseClassName.someMethod()).isEqualTo(expectedOutput);
+                                     ^
   symbol:   method someMethod()
   location: variable exerciseClassName of type ExerciseClassName
 ```
@@ -90,34 +93,35 @@ The new error should tell you which type it's expecting.
 
 After having resolved these errors you should be ready to start making the tests pass!
 
-
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Jumpstart Lab Warm-up [http://jumpstartlab.com](http://jumpstartlab.com)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @c-thornton
+- @FridaTveit
+- @jmluy
+- @jmrunkle
+- @jtigger
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @matthewstyler
+- @michael-berger-FR
+- @msomji
+- @muzimuzhi
+- @odzeno
+- @rohit1104
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sonapraneeth-a
+- @sshine
+- @stkent
+- @superklamer
+- @vasouv
+- @vdemeester
+- @Zaldrick
+
+### Based on
+
+Jumpstart Lab Warm-up - http://jumpstartlab.com
