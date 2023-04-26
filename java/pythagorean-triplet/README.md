@@ -1,5 +1,10 @@
 # Pythagorean Triplet
 
+Welcome to Pythagorean Triplet on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for
 which,
 
@@ -23,33 +28,33 @@ Given an input integer N, find all Pythagorean triplets for which `a + b + c = N
 
 For example, with N = 1000, there is exactly one Pythagorean triplet for which `a + b + c = 1000`: `{200, 375, 425}`.
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Problem 9 at Project Euler [http://projecteuler.net/problem=9](http://projecteuler.net/problem=9)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @javaeeeee
+
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @jmrunkle
+- @jsertel
+- @kytrinyx
+- @lemoncurry
+- @michaelspets
+- @mirkoperillo
+- @mraediaz
+- @msomji
+- @muzimuzhi
+- @princerachit
+- @redshirt4
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @Zaldrick
+
+### Based on
+
+Problem 9 at Project Euler - http://projecteuler.net/problem=9
