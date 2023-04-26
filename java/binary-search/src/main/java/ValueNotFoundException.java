@@ -1,6 +1,6 @@
 class ValueNotFoundException extends Exception {
 
-    ValueNotFoundException(String message) {
-        super(message);
-    }
+  ValueNotFoundException(String message) {
+    super(message);
+  }
 }
