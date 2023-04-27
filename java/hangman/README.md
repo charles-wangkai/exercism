@@ -1,5 +1,10 @@
 # Hangman
 
+Welcome to Hangman on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the logic of the hangman game using functional reactive programming.
 
 [Hangman][] is a simple word guessing game.
@@ -16,10 +21,6 @@ be described in the language/track specific files of the exercise.
 
 [Hangman]: https://en.wikipedia.org/wiki/Hangman_%28game%29
 [frp]: https://en.wikipedia.org/wiki/Functional_reactive_programming
-
-# Tips
-
-## Hints
 
 One main aspect of Functional Programming is to have side-effect free functions, not to have to wonder that hidden objects a function has changed.  
 
@@ -41,30 +42,14 @@ display the complete state of the game without requiring from it any form of sto
 it functional as well.  
 In this exercise, you have to find a way to use both inputs to generate this output in the form of an `Observable`.
 
-## Setup
+## Source
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+### Created by
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+- @Kineolyan
 
-# Running the tests
+### Contributed to by
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
