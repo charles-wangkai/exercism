@@ -1,3 +1,1 @@
-@SuppressWarnings("serial")
-class UnsolvablePuzzleException extends Exception {
-}
+class UnsolvablePuzzleException extends Exception {}
