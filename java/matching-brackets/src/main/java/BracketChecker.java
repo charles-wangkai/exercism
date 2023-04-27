@@ -1,27 +1,30 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class BracketChecker {
-	String s;
+  String s;
 
-	BracketChecker(String s) {
-		this.s = s;
-	}
+  BracketChecker(String s) {
+    this.s = s;
+  }
 
-	boolean areBracketsMatchedAndNestedCorrectly() {
-		Stack<Character> stack = new Stack<Character>();
-		for (int ch : s.chars().filter(ch -> "()[]{}".indexOf(ch) >= 0).collect(ArrayList<Integer>::new, List::add,
-				List::addAll)) {
-			if (ch == '(' || ch == '[' || ch == '{') {
-				stack.push((char) ch);
-			} else if (stack.empty() || (ch == ')' && stack.peek() != '(') || (ch == ']' && stack.peek() != '[')
-					|| (ch == '}' && stack.peek() != '{')) {
-				return false;
-			} else {
-				stack.pop();
-			}
-		}
-		return stack.empty();
-	}
+  boolean areBracketsMatchedAndNestedCorrectly() {
+    List<Character> brackets =
+        s.chars().filter(c -> "()[]{}".indexOf(c) >= 0).mapToObj(c -> (char) c).toList();
+    Stack<Character> stack = new Stack<>();
+    for (char bracket : brackets) {
+      if (bracket == '(' || bracket == '[' || bracket == '{') {
+        stack.push(bracket);
+      } else if (stack.empty()
+          || (bracket == ')' && stack.peek() != '(')
+          || (bracket == ']' && stack.peek() != '[')
+          || (bracket == '}' && stack.peek() != '{')) {
+        return false;
+      } else {
+        stack.pop();
+      }
+    }
+
+    return stack.empty();
+  }
 }
