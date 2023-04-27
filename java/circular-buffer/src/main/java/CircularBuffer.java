@@ -1,55 +1,56 @@
 public class CircularBuffer<T> {
-	T[] buffer;
-	int headIndex;
-	int tailIndex;
-	int length;
+  T[] buffer;
+  int headIndex;
+  int tailIndex;
+  int length;
 
-	@SuppressWarnings("unchecked")
-	CircularBuffer(int size) {
-		buffer = (T[]) new Object[size];
+  @SuppressWarnings("unchecked")
+  CircularBuffer(int size) {
+    buffer = (T[]) new Object[size];
 
-		clear();
-	}
+    clear();
+  }
 
-	T read() throws BufferIOException {
-		if (isEmpty()) {
-			throw new BufferIOException("Tried to read from empty buffer");
-		}
+  T read() throws BufferIOException {
+    if (isEmpty()) {
+      throw new BufferIOException("Tried to read from empty buffer");
+    }
 
-		T result = buffer[headIndex];
-		headIndex = (headIndex + 1) % buffer.length;
-		length--;
-		return result;
-	}
+    T result = buffer[headIndex];
+    headIndex = (headIndex + 1) % buffer.length;
+    --length;
 
-	void write(T element) throws BufferIOException {
-		if (isFull()) {
-			throw new BufferIOException("Tried to write to full buffer");
-		}
+    return result;
+  }
 
-		buffer[tailIndex] = element;
-		tailIndex = (tailIndex + 1) % buffer.length;
-		length++;
-	}
+  void write(T element) throws BufferIOException {
+    if (isFull()) {
+      throw new BufferIOException("Tried to write to full buffer");
+    }
 
-	void overwrite(T element) throws BufferIOException {
-		if (isFull()) {
-			read();
-		}
-		write(element);
-	}
+    buffer[tailIndex] = element;
+    tailIndex = (tailIndex + 1) % buffer.length;
+    ++length;
+  }
 
-	void clear() {
-		headIndex = 0;
-		tailIndex = 0;
-		length = 0;
-	}
+  void overwrite(T element) throws BufferIOException {
+    if (isFull()) {
+      read();
+    }
+    write(element);
+  }
 
-	boolean isEmpty() {
-		return length == 0;
-	}
+  void clear() {
+    headIndex = 0;
+    tailIndex = 0;
+    length = 0;
+  }
 
-	boolean isFull() {
-		return length > 0 && headIndex == tailIndex;
-	}
+  boolean isEmpty() {
+    return length == 0;
+  }
+
+  boolean isFull() {
+    return length > 0 && headIndex == tailIndex;
+  }
 }

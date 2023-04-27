@@ -1,165 +1,163 @@
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class CircularBufferTest {
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
+  @Test
+  public void readingFromEmptyBufferShouldThrowException() {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void readingFromEmptyBufferShouldThrowException() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    assertThatExceptionOfType(BufferIOException.class)
+        .isThrownBy(buffer::read)
+        .withMessage("Tried to read from empty buffer");
+  }
 
-		expectedException.expect(BufferIOException.class);
-		expectedException.expectMessage("Tried to read from empty buffer");
-		buffer.read();
-	}
+  @Test
+  public void canReadItemJustWritten() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void canReadItemJustWritten() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    buffer.write(1);
+    assertThat(buffer.read()).isEqualTo(1);
+  }
 
-		buffer.write(1);
-		assertThat(buffer.read(), is(1));
-	}
+  @Test
+  public void canReadItemOnlyOnce() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void canReadItemOnlyOnce() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    buffer.write(1);
+    assertThat(buffer.read()).isEqualTo(1);
 
-		buffer.write(1);
-		assertThat(buffer.read(), is(1));
+    assertThatExceptionOfType(BufferIOException.class)
+        .isThrownBy(buffer::read)
+        .withMessage("Tried to read from empty buffer");
+  }
 
-		expectedException.expect(BufferIOException.class);
-		expectedException.expectMessage("Tried to read from empty buffer");
-		buffer.read();
-	}
+  @Test
+  public void readsItemsInOrderWritten() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
 
-	@Test
-	public void readsItemsInOrderWritten() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
+    buffer.write(1);
+    buffer.write(2);
+    assertThat(buffer.read()).isEqualTo(1);
+    assertThat(buffer.read()).isEqualTo(2);
+  }
 
-		buffer.write(1);
-		buffer.write(2);
-		assertThat(buffer.read(), is(1));
-		assertThat(buffer.read(), is(2));
-	}
+  @Test
+  public void fullBufferCantBeWrittenTo() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void fullBufferCantBeWrittenTo() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    buffer.write(1);
 
-		buffer.write(1);
-		expectedException.expect(BufferIOException.class);
-		expectedException.expectMessage("Tried to write to full buffer");
-		buffer.write(2);
-	}
+    assertThatExceptionOfType(BufferIOException.class)
+        .isThrownBy(() -> buffer.write(2))
+        .withMessage("Tried to write to full buffer");
+  }
 
-	@Test
-	public void readFreesUpSpaceForWrite() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+  @Test
+  public void readFreesUpSpaceForWrite() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-		buffer.write(1);
-		assertThat(buffer.read(), is(1));
-		buffer.write(2);
-		assertThat(buffer.read(), is(2));
-	}
+    buffer.write(1);
+    assertThat(buffer.read()).isEqualTo(1);
+    buffer.write(2);
+    assertThat(buffer.read()).isEqualTo(2);
+  }
 
-	@Test
-	public void maintainsReadPositionAcrossWrites() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(3);
+  @Test
+  public void maintainsReadPositionAcrossWrites() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(3);
 
-		buffer.write(1);
-		buffer.write(2);
-		assertThat(buffer.read(), is(1));
-		buffer.write(3);
-		assertThat(buffer.read(), is(2));
-		assertThat(buffer.read(), is(3));
-	}
+    buffer.write(1);
+    buffer.write(2);
+    assertThat(buffer.read()).isEqualTo(1);
+    buffer.write(3);
+    assertThat(buffer.read()).isEqualTo(2);
+    assertThat(buffer.read()).isEqualTo(3);
+  }
 
-	@Test
-	public void cantReadClearedItems() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+  @Test
+  public void cantReadClearedItems() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-		buffer.write(1);
-		buffer.clear();
-		expectedException.expect(BufferIOException.class);
-		expectedException.expectMessage("Tried to read from empty buffer");
-		buffer.read();
-	}
+    buffer.write(1);
+    buffer.clear();
 
-	@Test
-	public void clearFreesUpCapacity() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    assertThatExceptionOfType(BufferIOException.class)
+        .isThrownBy(buffer::read)
+        .withMessage("Tried to read from empty buffer");
+  }
 
-		buffer.write(1);
-		buffer.clear();
-		buffer.write(2);
-		assertThat(buffer.read(), is(2));
-	}
+  @Test
+  public void clearFreesUpCapacity() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void clearDoesNothingOnEmptyBuffer() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
+    buffer.write(1);
+    buffer.clear();
+    buffer.write(2);
+    assertThat(buffer.read()).isEqualTo(2);
+  }
 
-		buffer.clear();
-		buffer.write(1);
-		assertThat(buffer.read(), is(1));
-	}
+  @Test
+  public void clearDoesNothingOnEmptyBuffer() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(1);
 
-	@Test
-	public void overwriteActsLikeWriteOnNonFullBuffer() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
+    buffer.clear();
+    buffer.write(1);
+    assertThat(buffer.read()).isEqualTo(1);
+  }
 
-		buffer.write(1);
-		buffer.overwrite(2);
-		assertThat(buffer.read(), is(1));
-		assertThat(buffer.read(), is(2));
-	}
+  @Test
+  public void overwriteActsLikeWriteOnNonFullBuffer() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
 
-	@Test
-	public void overwriteRemovesOldestElementOnFullBuffer() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
+    buffer.write(1);
+    buffer.overwrite(2);
+    assertThat(buffer.read()).isEqualTo(1);
+    assertThat(buffer.read()).isEqualTo(2);
+  }
 
-		buffer.write(1);
-		buffer.write(2);
-		buffer.overwrite(3);
-		assertThat(buffer.read(), is(2));
-		assertThat(buffer.read(), is(3));
-	}
+  @Test
+  public void overwriteRemovesOldestElementOnFullBuffer() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
 
-	@Test
-	public void overwriteDoesntRemoveAnAlreadyReadElement() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(3);
+    buffer.write(1);
+    buffer.write(2);
+    buffer.overwrite(3);
+    assertThat(buffer.read()).isEqualTo(2);
+    assertThat(buffer.read()).isEqualTo(3);
+  }
 
-		buffer.write(1);
-		buffer.write(2);
-		buffer.write(3);
-		assertThat(buffer.read(), is(1));
-		buffer.write(4);
-		buffer.overwrite(5);
-		assertThat(buffer.read(), is(3));
-		assertThat(buffer.read(), is(4));
-		assertThat(buffer.read(), is(5));
-	}
+  @Test
+  public void overwriteDoesntRemoveAnAlreadyReadElement() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(3);
 
-	@Test
-	public void initialClearDoesNotAffectWrappingAround() throws BufferIOException {
-		CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
+    buffer.write(1);
+    buffer.write(2);
+    buffer.write(3);
+    assertThat(buffer.read()).isEqualTo(1);
+    buffer.write(4);
+    buffer.overwrite(5);
+    assertThat(buffer.read()).isEqualTo(3);
+    assertThat(buffer.read()).isEqualTo(4);
+    assertThat(buffer.read()).isEqualTo(5);
+  }
 
-		buffer.clear();
-		buffer.write(1);
-		buffer.write(2);
-		buffer.overwrite(3);
-		buffer.overwrite(4);
-		assertThat(buffer.read(), is(3));
-		assertThat(buffer.read(), is(4));
-		expectedException.expect(BufferIOException.class);
-		expectedException.expectMessage("Tried to read from empty buffer");
-		buffer.read();
-	}
+  @Test
+  public void initialClearDoesNotAffectWrappingAround() throws BufferIOException {
+    CircularBuffer<Integer> buffer = new CircularBuffer<>(2);
+
+    buffer.clear();
+    buffer.write(1);
+    buffer.write(2);
+    buffer.overwrite(3);
+    buffer.overwrite(4);
+    assertThat(buffer.read()).isEqualTo(3);
+    assertThat(buffer.read()).isEqualTo(4);
+
+    assertThatExceptionOfType(BufferIOException.class)
+        .isThrownBy(buffer::read)
+        .withMessage("Tried to read from empty buffer");
+  }
 }

@@ -1,6 +1,6 @@
 public class BufferIOException extends Exception {
 
-    BufferIOException(String message) {
-        super(message);
-    }
+  BufferIOException(String message) {
+    super(message);
+  }
 }
