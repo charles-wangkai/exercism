@@ -1,216 +1,153 @@
-import static org.junit.Assert.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import java.util.Arrays;
-
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class BaseConverterTest {
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
+  @Test
+  public void testSingleBitOneToDecimal() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {1});
 
-	@Test
-	public void testSingleBitOneToDecimal() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] { 1 });
+    assertThat(baseConverter.convertToBase(10)).containsExactly(1);
+  }
 
-		int[] expectedDigits = new int[] { 1 };
-		int[] actualDigits = baseConverter.convertToBase(10);
+  @Test
+  public void testBinaryToSingleDecimal() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {1, 0, 1});
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+    assertThat(baseConverter.convertToBase(10)).containsExactly(5);
+  }
 
-	@Test
-	public void testBinaryToSingleDecimal() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] { 1, 0, 1 });
+  @Test
+  public void testSingleDecimalToBinary() {
+    BaseConverter baseConverter = new BaseConverter(10, new int[] {5});
 
-		int[] expectedDigits = new int[] { 5 };
-		int[] actualDigits = baseConverter.convertToBase(10);
+    assertThat(baseConverter.convertToBase(2)).containsExactly(1, 0, 1);
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testBinaryToMultipleDecimal() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {1, 0, 1, 0, 1, 0});
 
-	@Test
-	public void testSingleDecimalToBinary() {
-		BaseConverter baseConverter = new BaseConverter(10, new int[] { 5 });
+    assertThat(baseConverter.convertToBase(10)).containsExactly(4, 2);
+  }
 
-		int[] expectedDigits = new int[] { 1, 0, 1 };
-		int[] actualDigits = baseConverter.convertToBase(2);
+  @Test
+  public void testDecimalToBinary() {
+    BaseConverter baseConverter = new BaseConverter(10, new int[] {4, 2});
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+    assertThat(baseConverter.convertToBase(2)).containsExactly(1, 0, 1, 0, 1, 0);
+  }
 
-	@Test
-	public void testBinaryToMultipleDecimal() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] { 1, 0, 1, 0, 1, 0 });
+  @Test
+  public void testTrinaryToHexadecimal() {
+    BaseConverter baseConverter = new BaseConverter(3, new int[] {1, 1, 2, 0});
 
-		int[] expectedDigits = new int[] { 4, 2 };
-		int[] actualDigits = baseConverter.convertToBase(10);
+    assertThat(baseConverter.convertToBase(16)).containsExactly(2, 10);
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testHexadecimalToTrinary() {
+    BaseConverter baseConverter = new BaseConverter(16, new int[] {2, 10});
 
-	@Test
-	public void testDecimalToBinary() {
-		BaseConverter baseConverter = new BaseConverter(10, new int[] { 4, 2 });
+    assertThat(baseConverter.convertToBase(3)).containsExactly(1, 1, 2, 0);
+  }
 
-		int[] expectedDigits = new int[] { 1, 0, 1, 0, 1, 0 };
-		int[] actualDigits = baseConverter.convertToBase(2);
+  @Test
+  public void test15BitInteger() {
+    BaseConverter baseConverter = new BaseConverter(97, new int[] {3, 46, 60});
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+    assertThat(baseConverter.convertToBase(73)).containsExactly(6, 10, 45);
+  }
 
-	@Test
-	public void testTrinaryToHexadecimal() {
-		BaseConverter baseConverter = new BaseConverter(3, new int[] { 1, 1, 2, 0 });
+  @Test
+  public void testEmptyDigits() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {});
 
-		int[] expectedDigits = new int[] { 2, 10 };
-		int[] actualDigits = baseConverter.convertToBase(16);
+    assertThat(baseConverter.convertToBase(10)).containsExactly(0);
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testSingleZero() {
+    BaseConverter baseConverter = new BaseConverter(10, new int[] {0});
 
-	@Test
-	public void testHexadecimalToTrinary() {
-		BaseConverter baseConverter = new BaseConverter(16, new int[] { 2, 10 });
+    assertThat(baseConverter.convertToBase(2)).containsExactly(0);
+  }
 
-		int[] expectedDigits = new int[] { 1, 1, 2, 0 };
-		int[] actualDigits = baseConverter.convertToBase(3);
+  @Test
+  public void testMultipleZeros() {
+    BaseConverter baseConverter = new BaseConverter(10, new int[] {0, 0, 0});
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+    assertThat(baseConverter.convertToBase(2)).containsExactly(0);
+  }
 
-	@Test
-	public void test15BitInteger() {
-		BaseConverter baseConverter = new BaseConverter(97, new int[] { 3, 46, 60 });
+  @Test
+  public void testLeadingZeros() {
+    BaseConverter baseConverter = new BaseConverter(7, new int[] {0, 6, 0});
 
-		int[] expectedDigits = new int[] { 6, 10, 45 };
-		int[] actualDigits = baseConverter.convertToBase(73);
+    assertThat(baseConverter.convertToBase(10)).containsExactly(4, 2);
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testFirstBaseIsOne() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new BaseConverter(1, new int[] {1}))
+        .withMessage("Bases must be at least 2.");
+  }
 
-	@Test
-	public void testEmptyDigits() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] {});
+  @Test
+  public void testFirstBaseIsZero() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new BaseConverter(0, new int[] {1}))
+        .withMessage("Bases must be at least 2.");
+  }
 
-		int[] expectedDigits = new int[] { 0 };
-		int[] actualDigits = baseConverter.convertToBase(10);
+  @Test
+  public void testFirstBaseIsNegative() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new BaseConverter(-2, new int[] {1}))
+        .withMessage("Bases must be at least 2.");
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testNegativeDigit() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new BaseConverter(2, new int[] {1, -1, 1, 0, 1, 0}))
+        .withMessage("Digits may not be negative.");
+  }
 
-	@Test
-	public void testSingleZero() {
-		BaseConverter baseConverter = new BaseConverter(10, new int[] { 0 });
+  @Test
+  public void testInvalidPositiveDigit() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new BaseConverter(2, new int[] {1, 2, 1, 0, 1, 0}))
+        .withMessage("All digits must be strictly less than the base.");
+  }
 
-		int[] expectedDigits = new int[] { 0 };
-		int[] actualDigits = baseConverter.convertToBase(2);
+  @Test
+  public void testSecondBaseIsOne() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {1, 0, 1, 0, 1, 0});
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> baseConverter.convertToBase(1))
+        .withMessage("Bases must be at least 2.");
+  }
 
-	@Test
-	public void testMultipleZeros() {
-		BaseConverter baseConverter = new BaseConverter(10, new int[] { 0, 0, 0 });
+  @Test
+  public void testSecondBaseIsZero() {
+    BaseConverter baseConverter = new BaseConverter(10, new int[] {7});
 
-		int[] expectedDigits = new int[] { 0 };
-		int[] actualDigits = baseConverter.convertToBase(2);
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> baseConverter.convertToBase(0))
+        .withMessage("Bases must be at least 2.");
+  }
 
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
+  @Test
+  public void testSecondBaseIsNegative() {
+    BaseConverter baseConverter = new BaseConverter(2, new int[] {1});
 
-	@Test
-	public void testLeadingZeros() {
-		BaseConverter baseConverter = new BaseConverter(7, new int[] { 0, 6, 0 });
-
-		int[] expectedDigits = new int[] { 4, 2 };
-		int[] actualDigits = baseConverter.convertToBase(10);
-
-		assertArrayEquals(String.format("Expected digits: %s but found digits: %s", Arrays.toString(expectedDigits),
-				Arrays.toString(actualDigits)), expectedDigits, actualDigits);
-	}
-
-	@Test
-	public void testFirstBaseIsOne() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		new BaseConverter(1, new int[] { 1 });
-	}
-
-	@Test
-	public void testFirstBaseIsZero() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		new BaseConverter(0, new int[] {});
-	}
-
-	@Test
-	public void testFirstBaseIsNegative() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		new BaseConverter(-2, new int[] {});
-	}
-
-	@Test
-	public void testNegativeDigit() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Digits may not be negative.");
-
-		new BaseConverter(2, new int[] { 1, -1, 1, 0, 1, 0 });
-	}
-
-	@Test
-	public void testInvalidPositiveDigit() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("All digits must be strictly less than the base.");
-
-		new BaseConverter(2, new int[] { 1, 2, 1, 0, 1, 0 });
-	}
-
-	@Test
-	public void testSecondBaseIsOne() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] { 1, 0, 1, 0, 1, 0 });
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		baseConverter.convertToBase(1);
-	}
-
-	@Test
-	public void testSecondBaseIsZero() {
-		BaseConverter baseConverter = new BaseConverter(10, new int[] { 7 });
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		baseConverter.convertToBase(0);
-	}
-
-	@Test
-	public void testSecondBaseIsNegative() {
-		BaseConverter baseConverter = new BaseConverter(2, new int[] { 1 });
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Bases must be at least 2.");
-
-		baseConverter.convertToBase(-7);
-	}
-
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> baseConverter.convertToBase(-7))
+        .withMessage("Bases must be at least 2.");
+  }
 }
