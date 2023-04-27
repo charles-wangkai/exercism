@@ -1,157 +1,144 @@
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.Test;
 
 public class BinarySearchTreeTest {
 
-	@Test
-	public void dataIsRetained() {
-		BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
+  @Test
+  public void dataIsRetained() {
+    BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
 
-		int expected = 4;
-		binarySearchTree.insert(expected);
+    int expected = 4;
+    binarySearchTree.insert(expected);
 
-		BinarySearchTree.Node<Integer> root = binarySearchTree.getRoot();
-		assertNotNull(root);
+    BinarySearchTree.Node<Integer> root = binarySearchTree.getRoot();
 
-		int actual = root.getData();
-		assertEquals(expected, actual);
-	}
+    assertThat(root).isNotNull();
+    assertThat(root.getData()).isEqualTo(expected);
+  }
 
-	@Test
-	public void insertsLess() {
-		BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
-		char expectedRoot = '4';
-		char expectedLeft = '2';
+  @Test
+  public void insertsLess() {
+    BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
 
-		binarySearchTree.insert(expectedRoot);
-		binarySearchTree.insert(expectedLeft);
+    char expectedRoot = '4';
+    char expectedLeft = '2';
 
-		BinarySearchTree.Node<Character> root = binarySearchTree.getRoot();
-		assertNotNull(root);
-		BinarySearchTree.Node<Character> left = root.getLeft();
-		assertNotNull(left);
+    binarySearchTree.insert(expectedRoot);
+    binarySearchTree.insert(expectedLeft);
 
-		char actualRoot = root.getData();
-		char actualLeft = left.getData();
-		assertEquals(expectedLeft, actualLeft);
-		assertEquals(expectedRoot, actualRoot);
-	}
+    BinarySearchTree.Node<Character> root = binarySearchTree.getRoot();
+    BinarySearchTree.Node<Character> left = root.getLeft();
 
-	@Test
-	public void insertsSame() {
-		BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
-		String expectedRoot = "4";
-		String expectedLeft = "4";
+    assertThat(root).isNotNull();
+    assertThat(left).isNotNull();
 
-		binarySearchTree.insert(expectedRoot);
-		binarySearchTree.insert(expectedLeft);
+    assertThat(root.getData()).isEqualTo(expectedRoot);
+    assertThat(left.getData()).isEqualTo(expectedLeft);
+  }
 
-		BinarySearchTree.Node<String> root = binarySearchTree.getRoot();
-		assertNotNull(root);
-		BinarySearchTree.Node<String> left = root.getLeft();
-		assertNotNull(left);
+  @Test
+  public void insertsSame() {
+    BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
+    String expectedRoot = "4";
+    String expectedLeft = "4";
 
-		String actualRoot = root.getData();
-		String actualLeft = left.getData();
-		assertEquals(expectedLeft, actualLeft);
-		assertEquals(expectedRoot, actualRoot);
-	}
+    binarySearchTree.insert(expectedRoot);
+    binarySearchTree.insert(expectedLeft);
 
-	@Test
-	public void insertsRight() {
-		BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-		int expectedRoot = 4;
-		int expectedRight = 5;
+    BinarySearchTree.Node<String> root = binarySearchTree.getRoot();
+    BinarySearchTree.Node<String> left = root.getLeft();
 
-		binarySearchTree.insert(expectedRoot);
-		binarySearchTree.insert(expectedRight);
+    assertThat(root).isNotNull();
+    assertThat(left).isNotNull();
 
-		BinarySearchTree.Node<Integer> root = binarySearchTree.getRoot();
-		assertNotNull(root);
-		BinarySearchTree.Node<Integer> right = root.getRight();
-		assertNotNull(right);
+    assertThat(root.getData()).isEqualTo(expectedRoot);
+    assertThat(left.getData()).isEqualTo(expectedLeft);
+  }
 
-		int actualRoot = root.getData();
-		int actualRight = right.getData();
-		assertEquals(expectedRight, actualRight);
-		assertEquals(expectedRoot, actualRoot);
-	}
+  @Test
+  public void insertsRight() {
+    BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
+    int expectedRoot = 4;
+    int expectedRight = 5;
 
-	@Test
-	public void createsComplexTree() {
-		BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
-		List<Character> expected = Collections.unmodifiableList(Arrays.asList('4', '2', '6', '1', '3', '5', '7'));
+    binarySearchTree.insert(expectedRoot);
+    binarySearchTree.insert(expectedRight);
 
-		List<Character> treeData = Collections.unmodifiableList(Arrays.asList('4', '2', '6', '1', '3', '5', '7'));
-		treeData.forEach(binarySearchTree::insert);
+    BinarySearchTree.Node<Integer> root = binarySearchTree.getRoot();
+    BinarySearchTree.Node<Integer> right = root.getRight();
 
-		List<Character> actual = binarySearchTree.getAsLevelOrderList();
-		assertEquals(expected, actual);
-	}
+    assertThat(root).isNotNull();
+    assertThat(right).isNotNull();
 
-	@Test
-	public void sortsSingleElement() {
-		BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
-		List<String> expected = Collections.unmodifiableList(Collections.singletonList("2"));
+    assertThat(root.getData()).isEqualTo(expectedRoot);
+    assertThat(right.getData()).isEqualTo(expectedRight);
+  }
 
-		binarySearchTree.insert("2");
+  @Test
+  public void createsComplexTree() {
+    BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
+    List<Character> expected = List.of('4', '2', '6', '1', '3', '5', '7');
 
-		List<String> actual = binarySearchTree.getAsSortedList();
-		assertEquals(expected, actual);
-	}
+    List<Character> treeData = List.of('4', '2', '6', '1', '3', '5', '7');
+    treeData.forEach(binarySearchTree::insert);
 
-	@Test
-	public void sortsCollectionOfTwoIfSecondInsertedIsSmallerThanFirst() {
-		BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-		List<Integer> expected = Collections.unmodifiableList(Arrays.asList(1, 2));
+    assertThat(binarySearchTree.getAsLevelOrderList()).isEqualTo(expected);
+  }
 
-		binarySearchTree.insert(2);
-		binarySearchTree.insert(1);
+  @Test
+  public void sortsSingleElement() {
+    BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
+    List<String> expected = Collections.singletonList("2");
 
-		List<Integer> actual = binarySearchTree.getAsSortedList();
-		assertEquals(expected, actual);
-	}
+    binarySearchTree.insert("2");
 
-	@Test
-	public void sortsCollectionOfTwoIfSecondNumberisSameAsFirst() {
-		BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
-		List<Character> expected = Collections.unmodifiableList(Arrays.asList('2', '2'));
+    assertThat(binarySearchTree.getAsSortedList()).isEqualTo(expected);
+  }
 
-		binarySearchTree.insert('2');
-		binarySearchTree.insert('2');
+  @Test
+  public void sortsCollectionOfTwoIfSecondInsertedIsSmallerThanFirst() {
+    BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
+    List<Integer> expected = List.of(1, 2);
 
-		List<Character> actual = binarySearchTree.getAsSortedList();
-		assertEquals(expected, actual);
-	}
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(1);
 
-	@Test
-	public void sortsCollectionOfTwoIfSecondInsertedIsBiggerThanFirst() {
-		BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
-		List<Character> expected = Collections.unmodifiableList(Arrays.asList('2', '3'));
+    assertThat(binarySearchTree.getAsSortedList()).isEqualTo(expected);
+  }
 
-		binarySearchTree.insert('2');
-		binarySearchTree.insert('3');
+  @Test
+  public void sortsCollectionOfTwoIfSecondNumberisSameAsFirst() {
+    BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
+    List<Character> expected = List.of('2', '2');
 
-		List<Character> actual = binarySearchTree.getAsSortedList();
-		assertEquals(expected, actual);
-	}
+    binarySearchTree.insert('2');
+    binarySearchTree.insert('2');
 
-	@Test
-	public void iteratesOverComplexTree() {
-		BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
-		List<String> expected = Collections.unmodifiableList(Arrays.asList("1", "2", "3", "5", "6", "7"));
+    assertThat(binarySearchTree.getAsSortedList()).isEqualTo(expected);
+  }
 
-		List<String> treeData = Collections.unmodifiableList(Arrays.asList("2", "1", "3", "6", "7", "5"));
-		treeData.forEach(binarySearchTree::insert);
+  @Test
+  public void sortsCollectionOfTwoIfSecondInsertedIsBiggerThanFirst() {
+    BinarySearchTree<Character> binarySearchTree = new BinarySearchTree<>();
+    List<Character> expected = List.of('2', '3');
 
-		List<String> actual = binarySearchTree.getAsSortedList();
-		assertEquals(expected, actual);
-	}
+    binarySearchTree.insert('2');
+    binarySearchTree.insert('3');
+
+    assertThat(binarySearchTree.getAsSortedList()).isEqualTo(expected);
+  }
+
+  @Test
+  public void iteratesOverComplexTree() {
+    BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
+    List<String> expected = List.of("1", "2", "3", "5", "6", "7");
+
+    List<String> treeData = List.of("2", "1", "3", "6", "7", "5");
+    treeData.forEach(binarySearchTree::insert);
+
+    assertThat(binarySearchTree.getAsSortedList()).isEqualTo(expected);
+  }
 }

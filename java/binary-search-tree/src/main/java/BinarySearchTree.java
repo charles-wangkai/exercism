@@ -1,96 +1,100 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class BinarySearchTree<T extends Comparable<? super T>> {
-	static class Node<T> {
-		T data;
-		Node<T> left;
-		Node<T> right;
+  static class Node<T> {
+    T data;
+    Node<T> left;
+    Node<T> right;
 
-		Node(T data, Node<T> left, Node<T> right) {
-			this.data = data;
-			this.left = left;
-			this.right = right;
-		}
+    Node(T data, Node<T> left, Node<T> right) {
+      this.data = data;
+      this.left = left;
+      this.right = right;
+    }
 
-		T getData() {
-			return data;
-		}
+    T getData() {
+      return data;
+    }
 
-		Node<T> getLeft() {
-			return left;
-		}
+    Node<T> getLeft() {
+      return left;
+    }
 
-		Node<T> getRight() {
-			return right;
-		}
-	}
+    Node<T> getRight() {
+      return right;
+    }
+  }
 
-	Node<T> root;
+  Node<T> root;
 
-	void insert(T data) {
-		Node<T> node = new Node<T>(data, null, null);
-		if (root == null) {
-			root = node;
-		} else {
-			Node<T> parent = root;
-			while (true) {
-				if (data.compareTo(parent.data) <= 0) {
-					if (parent.left == null) {
-						parent.left = node;
-						break;
-					} else {
-						parent = parent.left;
-					}
-				} else {
-					if (parent.right == null) {
-						parent.right = node;
-						break;
-					} else {
-						parent = parent.right;
-					}
-				}
-			}
-		}
-	}
+  void insert(T data) {
+    Node<T> node = new Node<T>(data, null, null);
+    if (root == null) {
+      root = node;
+    } else {
+      Node<T> parent = root;
+      while (true) {
+        if (data.compareTo(parent.data) <= 0) {
+          if (parent.left == null) {
+            parent.left = node;
 
-	Node<T> getRoot() {
-		return root;
-	}
+            break;
+          } else {
+            parent = parent.left;
+          }
+        } else {
+          if (parent.right == null) {
+            parent.right = node;
 
-	List<T> getAsLevelOrderList() {
-		List<T> result = new ArrayList<T>();
-		Queue<Node<T>> queue = new LinkedList<Node<T>>();
-		queue.offer(root);
-		while (!queue.isEmpty()) {
-			Node<T> head = queue.poll();
+            break;
+          } else {
+            parent = parent.right;
+          }
+        }
+      }
+    }
+  }
 
-			if (head == null) {
-				continue;
-			}
+  Node<T> getRoot() {
+    return root;
+  }
 
-			result.add(head.data);
-			queue.offer(head.left);
-			queue.offer(head.right);
-		}
-		return result;
-	}
+  List<T> getAsLevelOrderList() {
+    List<T> result = new ArrayList<>();
+    Queue<Node<T>> queue = new ArrayDeque<>();
+    if (root != null) {
+      queue.offer(root);
+    }
+    while (!queue.isEmpty()) {
+      Node<T> head = queue.poll();
+      result.add(head.data);
 
-	List<T> getAsSortedList() {
-		List<T> result = new ArrayList<T>();
-		inorder(result, root);
-		return result;
-	}
+      if (head.left != null) {
+        queue.offer(head.left);
+      }
+      if (head.right != null) {
+        queue.offer(head.right);
+      }
+    }
 
-	void inorder(List<T> result, Node<T> node) {
-		if (node == null) {
-			return;
-		}
+    return result;
+  }
 
-		inorder(result, node.left);
-		result.add(node.data);
-		inorder(result, node.right);
-	}
+  List<T> getAsSortedList() {
+    List<T> result = new ArrayList<>();
+    inorder(result, root);
+
+    return result;
+  }
+
+  void inorder(List<T> sorted, Node<T> node) {
+    if (node != null) {
+      inorder(sorted, node.left);
+      sorted.add(node.data);
+      inorder(sorted, node.right);
+    }
+  }
 }
