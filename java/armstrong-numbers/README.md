@@ -1,5 +1,10 @@
 # Armstrong Numbers
 
+Welcome to Armstrong Numbers on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 An [Armstrong number](https://en.wikipedia.org/wiki/Narcissistic_number) is a number that is the sum of its own digits each raised to the power of the number of digits.
 
 For example:
@@ -11,39 +16,27 @@ For example:
 
 Write some code to determine whether a number is an Armstrong number.
 
-# Tips
-
 For more help on how to solve this exercise, please refer to the tutorial provided as part of the hello world exercise:
-[TUTORIAL.md](https://github.com/exercism/java/blob/master/exercises/hello-world/TUTORIAL.md)
-
-
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
+[instructions.append.md](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial)
 
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Narcissistic_number](https://en.wikipedia.org/wiki/Narcissistic_number)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @sjwarner-bp
+
+### Contributed to by
+
+- @FridaTveit
+- @jackattack24
+- @jmrunkle
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Narcissistic_number
