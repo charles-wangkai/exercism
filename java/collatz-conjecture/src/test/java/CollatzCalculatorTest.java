@@ -1,56 +1,43 @@
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class CollatzCalculatorTest {
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
+  private CollatzCalculator collatzCalculator = new CollatzCalculator();
 
-	private CollatzCalculator collatzCalculator;
+  @Test
+  public void testZeroStepsRequiredWhenStartingFrom1() {
+    assertEquals(0, collatzCalculator.computeStepCount(1));
+  }
 
-	@Before
-	public void setUp() {
-		collatzCalculator = new CollatzCalculator();
-	}
+  @Test
+  public void testCorrectNumberOfStepsWhenAllStepsAreDivisions() {
+    assertEquals(4, collatzCalculator.computeStepCount(16));
+  }
 
-	@Test
-	public void testZeroStepsRequiredWhenStartingFrom1() {
-		assertEquals(0, collatzCalculator.computeStepCount(1));
-	}
+  @Test
+  public void testCorrectNumberOfStepsWhenBothStepTypesAreNeeded() {
+    assertEquals(9, collatzCalculator.computeStepCount(12));
+  }
 
-	@Test
-	public void testCorrectNumberOfStepsWhenAllStepsAreDivisions() {
-		assertEquals(4, collatzCalculator.computeStepCount(16));
-	}
+  @Test
+  public void testAVeryLargeInput() {
+    assertEquals(152, collatzCalculator.computeStepCount(1000000));
+  }
 
-	@Test
-	public void testCorrectNumberOfStepsWhenBothStepTypesAreNeeded() {
-		assertEquals(9, collatzCalculator.computeStepCount(12));
-	}
+  @Test
+  public void testZeroIsConsideredInvalidInput() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> collatzCalculator.computeStepCount(0))
+        .withMessage("Only natural numbers are allowed");
+  }
 
-	@Test
-	public void testAVeryLargeInput() {
-		assertEquals(152, collatzCalculator.computeStepCount(1000000));
-	}
-
-	@Test
-	public void testZeroIsConsideredInvalidInput() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Only natural numbers are allowed");
-
-		collatzCalculator.computeStepCount(0);
-	}
-
-	@Test
-	public void testNegativeIntegerIsConsideredInvalidInput() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Only natural numbers are allowed");
-
-		collatzCalculator.computeStepCount(-15);
-	}
-
+  @Test
+  public void testNegativeIntegerIsConsideredInvalidInput() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> collatzCalculator.computeStepCount(-15))
+        .withMessage("Only natural numbers are allowed");
+  }
 }
