@@ -4,69 +4,67 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GrepTool {
-	String grep(String pattern, List<String> flags, List<String> files) {
-		StringBuilder result = new StringBuilder();
+  String grep(String pattern, List<String> flags, List<String> files) {
+    StringBuilder result = new StringBuilder();
+    for (String file : files) {
+      boolean found = false;
 
-		for (String file : files) {
-			boolean found = false;
+      try {
+        int lineNum = 1;
+        try (Scanner sc = new Scanner(new File(file))) {
+          while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            if (isSatisfied(line, pattern, flags)) {
+              if (flags.contains("-l")) {
+                if (!found) {
+                  if (!result.isEmpty()) {
+                    result.append("\n");
+                  }
 
-			try {
-				Scanner sc = new Scanner(new File(file));
+                  result.append(file);
+                }
+              } else {
+                if (!result.isEmpty()) {
+                  result.append("\n");
+                }
 
-				int lineNum = 1;
-				while (sc.hasNextLine()) {
-					String line = sc.nextLine();
+                if (files.size() > 1) {
+                  result.append(file).append(":");
+                }
 
-					if (isSatisfied(line, pattern, flags)) {
-						if (flags.contains("-l")) {
-							if (!found) {
-								if (result.length() != 0) {
-									result.append("\n");
-								}
+                if (flags.contains("-n")) {
+                  result.append(lineNum).append(":");
+                }
 
-								result.append(file);
-							}
-						} else {
-							if (result.length() != 0) {
-								result.append("\n");
-							}
+                result.append(line);
+              }
 
-							if (files.size() > 1) {
-								result.append(file);
-								result.append(":");
-							}
+              found = true;
+            }
 
-							if (flags.contains("-n")) {
-								result.append(lineNum);
-								result.append(":");
-							}
+            ++lineNum;
+          }
+        }
+      } catch (FileNotFoundException e) {
+      }
+    }
 
-							result.append(line);
-						}
+    return result.toString();
+  }
 
-						found = true;
-					}
+  boolean isSatisfied(String line, String pattern, List<String> flags) {
+    boolean result = !flags.contains("-x") || line.length() == pattern.length();
+    if (result) {
+      if (flags.contains("-i")) {
+        line = line.toLowerCase();
+        pattern = pattern.toLowerCase();
+      }
+      result = line.contains(pattern);
+    }
+    if (flags.contains("-v")) {
+      result ^= true;
+    }
 
-					lineNum++;
-				}
-
-				sc.close();
-			} catch (FileNotFoundException e) {
-			}
-		}
-
-		return result.toString();
-	}
-
-	boolean isSatisfied(String line, String pattern, List<String> flags) {
-		boolean match = !flags.contains("-x") || line.length() == pattern.length();
-		if (match) {
-			if (flags.contains("-i")) {
-				line = line.toLowerCase();
-				pattern = pattern.toLowerCase();
-			}
-			match = line.contains(pattern);
-		}
-		return flags.contains("-v") ? !match : match;
-	}
+    return result;
+  }
 }
