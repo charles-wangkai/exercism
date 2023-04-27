@@ -1,5 +1,10 @@
 # Custom Set
 
+Welcome to Custom Set on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Create a custom set type.
 
 Sometimes it is necessary to define a custom data structure of some
@@ -7,30 +12,30 @@ type, like a set. In this exercise you will define your own set. How it
 works internally doesn't matter, as long as it behaves like a set of
 unique elements.
 
-## Setup
+## Source
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+### Created by
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+- @javaeeeee
 
-# Running the tests
+### Contributed to by
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @aadityakulkarni
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @matthewstyler
+- @mirkoperillo
+- @mraediaz
+- @msomji
+- @muzimuzhi
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @t0dd
+- @Zaldrick
+- @zwaltman

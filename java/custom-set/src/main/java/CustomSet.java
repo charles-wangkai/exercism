@@ -1,54 +1,52 @@
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CustomSet<T> {
-	Set<T> set;
+  Set<T> set;
 
-	CustomSet(List<T> elements) {
-		set = new HashSet<T>(elements);
-	}
+  CustomSet(List<T> elements) {
+    set = new HashSet<>(elements);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		@SuppressWarnings("unchecked")
-		CustomSet<T> other = (CustomSet<T>) obj;
-		return isSubset(other) && other.isSubset(this);
-	}
+  @Override
+  public boolean equals(Object obj) {
+    @SuppressWarnings("unchecked")
+    CustomSet<T> other = (CustomSet<T>) obj;
 
-	boolean isEmpty() {
-		return set.isEmpty();
-	}
+    return isSubset(other) && other.isSubset(this);
+  }
 
-	boolean contains(T element) {
-		return set.contains(element);
-	}
+  boolean isEmpty() {
+    return set.isEmpty();
+  }
 
-	boolean isSubset(CustomSet<T> other) {
-		return set.containsAll(other.set);
-	}
+  boolean contains(T element) {
+    return set.contains(element);
+  }
 
-	boolean isDisjoint(CustomSet<T> other) {
-		return set.stream().allMatch(element -> !other.contains(element));
-	}
+  boolean isSubset(CustomSet<T> other) {
+    return set.containsAll(other.set);
+  }
 
-	void add(T element) {
-		set.add(element);
-	}
+  boolean isDisjoint(CustomSet<T> other) {
+    return set.stream().allMatch(element -> !other.contains(element));
+  }
 
-	CustomSet<T> getIntersection(CustomSet<T> other) {
-		return new CustomSet<T>(
-				set.stream().filter(element -> other.set.contains(element)).collect(Collectors.toList()));
-	}
+  void add(T element) {
+    set.add(element);
+  }
 
-	CustomSet<T> getDifference(CustomSet<T> other) {
-		return new CustomSet<T>(
-				set.stream().filter(element -> !other.set.contains(element)).collect(Collectors.toList()));
-	}
+  CustomSet<T> getIntersection(CustomSet<T> other) {
+    return new CustomSet<>(set.stream().filter(element -> other.set.contains(element)).toList());
+  }
 
-	CustomSet<T> getUnion(CustomSet<T> other) {
-		return new CustomSet<T>(Stream.concat(set.stream(), other.set.stream()).collect(Collectors.toList()));
-	}
+  CustomSet<T> getDifference(CustomSet<T> other) {
+    return new CustomSet<>(set.stream().filter(element -> !other.set.contains(element)).toList());
+  }
+
+  CustomSet<T> getUnion(CustomSet<T> other) {
+    return new CustomSet<>(Stream.concat(set.stream(), other.set.stream()).toList());
+  }
 }
