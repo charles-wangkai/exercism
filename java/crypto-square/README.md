@@ -1,5 +1,10 @@
 # Crypto Square
 
+Welcome to Crypto Square on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the classic method for composing secret messages called a square code.
 
 Given an English text, output the encoded version of that text.
@@ -72,33 +77,32 @@ ciphertext back in to the original message:
 "sseoau "
 ```
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @aadityakulkarni
+- @bmkiefer
+- @FridaTveit
+- @jmluy
+- @jmrunkle
+- @jtigger
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @PaulNoth
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @vdemeester
+- @Zaldrick
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html
