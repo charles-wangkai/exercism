@@ -1,10 +1,9 @@
 class CustomCheckedException extends Exception {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	CustomCheckedException() {
-	}
+  CustomCheckedException() {}
 
-	CustomCheckedException(String message) {
-		super(message);
-	}
+  CustomCheckedException(String message) {
+    super(message);
+  }
 }

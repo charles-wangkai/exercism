@@ -1,105 +1,112 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
-
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class ErrorHandlingTest {
 
-	private ErrorHandling errorHandling;
+  private ErrorHandling errorHandling = new ErrorHandling();
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+  @Test
+  public void testThrowIllegalArgumentException() {
+    assertThrows(
+        IllegalArgumentException.class,
+        errorHandling::handleErrorByThrowingIllegalArgumentException);
+  }
 
-	@Before
-	public void setUp() {
-		errorHandling = new ErrorHandling();
-	}
+  @Test
+  public void testThrowIllegalArgumentExceptionWithDetailMessage() {
+    IllegalArgumentException expected =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                errorHandling.handleErrorByThrowingIllegalArgumentExceptionWithDetailMessage(
+                    "This is the detail message."));
 
-	@Test
-	public void testThrowIllegalArgumentException() {
-		thrown.expect(IllegalArgumentException.class);
-		errorHandling.handleErrorByThrowingIllegalArgumentException();
-	}
+    assertThat(expected).hasMessage("This is the detail message.");
+  }
 
-	@Test
-	public void testThrowIllegalArgumentExceptionWithDetailMessage() {
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("This is the detail message.");
-		errorHandling.handleErrorByThrowingIllegalArgumentExceptionWithDetailMessage("This is the detail message.");
-	}
+  @Test
+  public void testThrowAnyCheckedException() {
+    Exception expected =
+        assertThrows(Exception.class, errorHandling::handleErrorByThrowingAnyCheckedException);
+    assertThat(expected).isNotInstanceOf(RuntimeException.class);
+  }
 
-	@Test
-	public void testThrowAnyCheckedException() {
-		try {
-			errorHandling.handleErrorByThrowingAnyCheckedException();
-		} catch (Exception e) {
-			assertFalse(e instanceof RuntimeException);
-		}
-	}
+  @Test
+  public void testThrowAnyCheckedExceptionWithDetailMessage() {
+    Exception expected =
+        assertThrows(
+            Exception.class,
+            () ->
+                errorHandling.handleErrorByThrowingAnyCheckedExceptionWithDetailMessage(
+                    "This is the detail message."));
+    assertThat(expected).isNotInstanceOf(RuntimeException.class);
+    assertThat(expected).hasMessage("This is the detail message.");
+  }
 
-	@Test
-	public void testThrowAnyCheckedExceptionWithDetailMessage() {
-		try {
-			errorHandling.handleErrorByThrowingAnyCheckedExceptionWithDetailMessage("This is the detail message.");
-		} catch (Exception e) {
-			assertFalse(e instanceof RuntimeException);
-			assertEquals("This is the detail message.", e.getMessage());
-		}
-	}
+  @Test
+  public void testThrowAnyUncheckedException() {
+    assertThrows(RuntimeException.class, errorHandling::handleErrorByThrowingAnyUncheckedException);
+  }
 
-	@Test
-	public void testThrowAnyUncheckedException() {
-		thrown.expect(RuntimeException.class);
-		errorHandling.handleErrorByThrowingAnyUncheckedException();
-	}
+  @Test
+  public void testThrowAnyUncheckedExceptionWithDetailMessage() {
+    RuntimeException expected =
+        assertThrows(
+            RuntimeException.class,
+            () ->
+                errorHandling.handleErrorByThrowingAnyUncheckedExceptionWithDetailMessage(
+                    "This is the detail message."));
+    assertThat(expected).hasMessage("This is the detail message.");
+  }
 
-	@Test
-	public void testThrowAnyUncheckedExceptionWithDetailMessage() {
-		thrown.expect(RuntimeException.class);
-		thrown.expectMessage("This is the detail message.");
-		errorHandling.handleErrorByThrowingAnyUncheckedExceptionWithDetailMessage("This is the detail message.");
-	}
+  @Test
+  public void testThrowCustomCheckedException() {
+    assertThrows(
+        CustomCheckedException.class, errorHandling::handleErrorByThrowingCustomCheckedException);
+  }
 
-	@Test
-	public void testThrowCustomCheckedException() throws CustomCheckedException {
-		thrown.expect(CustomCheckedException.class);
-		errorHandling.handleErrorByThrowingCustomCheckedException();
-	}
+  @Test
+  public void testThrowCustomCheckedExceptionWithDetailMessage() {
+    CustomCheckedException expected =
+        assertThrows(
+            CustomCheckedException.class,
+            () ->
+                errorHandling.handleErrorByThrowingCustomCheckedExceptionWithDetailMessage(
+                    "This is the detail message."));
+    assertThat(expected).hasMessage("This is the detail message.");
+  }
 
-	@Test
-	public void testThrowCustomCheckedExceptionWithDetailMessage() throws CustomCheckedException {
-		thrown.expect(CustomCheckedException.class);
-		thrown.expectMessage("This is the detail message.");
-		errorHandling.handleErrorByThrowingCustomCheckedExceptionWithDetailMessage("This is the detail message.");
-	}
+  @Test
+  public void testThrowCustomUncheckedException() {
+    assertThrows(
+        CustomUncheckedException.class,
+        errorHandling::handleErrorByThrowingCustomUncheckedException);
+  }
 
-	@Test
-	public void testThrowCustomUncheckedException() {
-		thrown.expect(CustomUncheckedException.class);
-		errorHandling.handleErrorByThrowingCustomUncheckedException();
-	}
+  @Test
+  public void testThrowCustomUncheckedExceptionWithDetailMessage() {
+    CustomUncheckedException expected =
+        assertThrows(
+            CustomUncheckedException.class,
+            () ->
+                errorHandling.handleErrorByThrowingCustomUncheckedExceptionWithDetailMessage(
+                    "This is the detail message."));
+    assertThat(expected).hasMessage("This is the detail message.");
+  }
 
-	@Test
-	public void testThrowCustomUncheckedExceptionWithDetailMessage() {
-		thrown.expect(CustomUncheckedException.class);
-		thrown.expectMessage("This is the detail message.");
-		errorHandling.handleErrorByThrowingCustomUncheckedExceptionWithDetailMessage("This is the detail message.");
-	}
+  @Test
+  public void testReturnOptionalInstance() {
+    Optional<Integer> successfulResult = errorHandling.handleErrorByReturningOptionalInstance("1");
+    assertTrue(successfulResult.isPresent());
+    assertEquals(1, (int) successfulResult.get());
 
-	@Test
-	public void testReturnOptionalInstance() {
-		Optional<Integer> successfulResult = errorHandling.handleErrorByReturningOptionalInstance("1");
-		assertTrue(successfulResult.isPresent());
-		assertEquals(1, (int) successfulResult.get());
-
-		Optional<Integer> failureResult = errorHandling.handleErrorByReturningOptionalInstance("a");
-		assertFalse(failureResult.isPresent());
-	}
-
+    Optional<Integer> failureResult = errorHandling.handleErrorByReturningOptionalInstance("a");
+    assertFalse(failureResult.isPresent());
+  }
 }
