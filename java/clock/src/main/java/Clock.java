@@ -1,30 +1,30 @@
-import java.time.LocalTime;
-
 public class Clock {
-	LocalTime time;
+  static final int MINUTE_IN_DAY = 24 * 60;
 
-	Clock(int hour, int minute) {
-		time = LocalTime.MIDNIGHT;
-		time = time.plusHours(hour);
-		time = time.plusMinutes(minute);
-	}
+  int totalMinute;
 
-	void add(int minutesToAdd) {
-		time = time.plusMinutes(minutesToAdd);
-	}
+  Clock(int hour, int minute) {
+    totalMinute = Math.floorMod(hour * 60 + minute, MINUTE_IN_DAY);
+  }
 
-	@Override
-	public String toString() {
-		return time.toString();
-	}
+  void add(int minutesToAdd) {
+    totalMinute = Math.floorMod(totalMinute + minutesToAdd, MINUTE_IN_DAY);
+  }
 
-	@Override
-	public int hashCode() {
-		return time.hashCode();
-	}
+  @Override
+  public String toString() {
+    return String.format("%02d:%02d", totalMinute / 60, totalMinute % 60);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		return time.equals(((Clock) obj).time);
-	}
+  @Override
+  public int hashCode() {
+    return totalMinute;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    Clock other = (Clock) obj;
+
+    return totalMinute == other.totalMinute;
+  }
 }
