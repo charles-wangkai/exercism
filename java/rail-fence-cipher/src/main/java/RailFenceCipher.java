@@ -4,53 +4,59 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RailFenceCipher {
-	int rails;
+  int rails;
 
-	RailFenceCipher(int rails) {
-		this.rails = rails;
-	}
+  RailFenceCipher(int rails) {
+    this.rails = rails;
+  }
 
-	private List<Integer>[] getFencePattern(int messageSize) {
-		@SuppressWarnings("unchecked")
-		List<Integer>[] pattern = new List[rails];
-		for (int i = 0; i < pattern.length; i++) {
-			pattern[i] = new ArrayList<Integer>();
-		}
-		int row = 0;
-		int rowOffset = 1;
-		for (int col = 0; col < messageSize; col++) {
-			pattern[row].add(col);
+  private List<Integer>[] getFencePattern(int messageSize) {
+    @SuppressWarnings("unchecked")
+    List<Integer>[] pattern = new List[rails];
+    for (int i = 0; i < pattern.length; ++i) {
+      pattern[i] = new ArrayList<>();
+    }
 
-			row += rowOffset;
-			if (!(row >= 0 && row < pattern.length)) {
-				rowOffset *= -1;
-				row += rowOffset * 2;
-			}
-		}
-		return pattern;
-	}
+    int r = 0;
+    int rOffset = 1;
+    for (int c = 0; c < messageSize; ++c) {
+      pattern[r].add(c);
 
-	String getEncryptedData(String message) {
-		List<Integer>[] pattern = getFencePattern(message.length());
+      r += rOffset;
+      if (!(r >= 0 && r < pattern.length)) {
+        rOffset *= -1;
+        r += rOffset * 2;
+      }
+    }
 
-		return String.join("",
-				Arrays.stream(pattern).map(line -> String.join("",
-						line.stream().map(col -> String.valueOf(message.charAt(col))).collect(Collectors.toList())))
-						.collect(Collectors.toList()));
-	}
+    return pattern;
+  }
 
-	String getDecryptedData(String encodedMessage) {
-		List<Integer>[] pattern = getFencePattern(encodedMessage.length());
+  String getEncryptedData(String message) {
+    List<Integer>[] pattern = getFencePattern(message.length());
 
-		StringBuilder result = new StringBuilder();
-		result.setLength(encodedMessage.length());
-		int index = 0;
-		for (List<Integer> line : pattern) {
-			for (int col : line) {
-				result.setCharAt(col, encodedMessage.charAt(index));
-				index++;
-			}
-		}
-		return result.toString();
-	}
+    return Arrays.stream(pattern)
+        .map(
+            line ->
+                line.stream()
+                    .map(message::charAt)
+                    .map(String::valueOf)
+                    .collect(Collectors.joining()))
+        .collect(Collectors.joining());
+  }
+
+  String getDecryptedData(String encodedMessage) {
+    List<Integer>[] pattern = getFencePattern(encodedMessage.length());
+
+    char[] result = new char[encodedMessage.length()];
+    int index = 0;
+    for (List<Integer> line : pattern) {
+      for (int c : line) {
+        result[c] = encodedMessage.charAt(index);
+        ++index;
+      }
+    }
+
+    return new String(result);
+  }
 }
