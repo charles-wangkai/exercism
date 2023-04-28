@@ -1,63 +1,67 @@
+import java.util.stream.IntStream;
+
 class Rational {
-	int numerator;
-	int denominator;
+  int numerator;
+  int denominator;
 
-	Rational(int numerator, int denominator) {
-		int g = gcd(numerator, denominator);
+  Rational(int numerator, int denominator) {
+    int g = gcd(numerator, denominator);
 
-		this.numerator = numerator / g;
-		this.denominator = denominator / g;
+    this.numerator = numerator / g;
+    this.denominator = denominator / g;
 
-		if (this.denominator < 0) {
-			this.numerator *= -1;
-			this.denominator *= -1;
-		}
-	}
+    if (this.denominator < 0) {
+      this.numerator *= -1;
+      this.denominator *= -1;
+    }
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		Rational other = (Rational) obj;
-		return numerator == other.numerator && denominator == other.denominator;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    Rational other = (Rational) obj;
 
-	int gcd(int a, int b) {
-		return b == 0 ? a : gcd(b, a % b);
-	}
+    return numerator == other.numerator && denominator == other.denominator;
+  }
 
-	Rational add(Rational r) {
-		return new Rational(numerator * r.denominator + r.numerator * denominator, denominator * r.denominator);
-	}
+  int gcd(int x, int y) {
+    return (y == 0) ? x : gcd(y, x % y);
+  }
 
-	Rational subtract(Rational r) {
-		return new Rational(numerator * r.denominator - r.numerator * denominator, denominator * r.denominator);
-	}
+  Rational add(Rational r) {
+    return new Rational(
+        numerator * r.denominator + r.numerator * denominator, denominator * r.denominator);
+  }
 
-	Rational multiply(Rational r) {
-		return new Rational(numerator * r.numerator, denominator * r.denominator);
-	}
+  Rational subtract(Rational r) {
+    return new Rational(
+        numerator * r.denominator - r.numerator * denominator, denominator * r.denominator);
+  }
 
-	Rational divide(Rational r) {
-		return new Rational(numerator * r.denominator, denominator * r.numerator);
-	}
+  Rational multiply(Rational r) {
+    return new Rational(numerator * r.numerator, denominator * r.denominator);
+  }
 
-	Rational abs() {
-		return new Rational(Math.abs(numerator), denominator);
-	}
+  Rational divide(Rational r) {
+    return new Rational(numerator * r.denominator, denominator * r.numerator);
+  }
 
-	Rational pow(int e) {
-		if (e < 0) {
-			Rational r = pow(-e);
-			return new Rational(r.denominator, r.numerator);
-		}
+  Rational abs() {
+    return new Rational(Math.abs(numerator), denominator);
+  }
 
-		Rational result = new Rational(1, 1);
-		for (int i = 0; i < e; i++) {
-			result = result.multiply(this);
-		}
-		return result;
-	}
+  Rational pow(int e) {
+    if (e < 0) {
+      Rational r = pow(-e);
 
-	double exp(double x) {
-		return Math.pow(Math.pow(x, 1.0 / denominator), numerator);
-	}
+      return new Rational(r.denominator, r.numerator);
+    }
+
+    return IntStream.range(0, e)
+        .mapToObj(i -> this)
+        .reduce(new Rational(1, 1), (acc, x) -> acc.multiply(x));
+  }
+
+  double exp(double x) {
+    return Math.pow(Math.pow(x, 1.0 / denominator), numerator);
+  }
 }
