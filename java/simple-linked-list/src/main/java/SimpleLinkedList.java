@@ -1,67 +1,68 @@
 import java.util.NoSuchElementException;
 
 public class SimpleLinkedList<T> {
-	Node<T> head;
+  Node<T> head;
 
-	SimpleLinkedList() {
-	}
+  SimpleLinkedList() {}
 
-	SimpleLinkedList(T[] values) {
-		for (int i = values.length - 1; i >= 0; i--) {
-			push(values[i]);
-		}
-	}
+  SimpleLinkedList(T[] values) {
+    for (int i = values.length - 1; i >= 0; --i) {
+      push(values[i]);
+    }
+  }
 
-	int size() {
-		int result = 0;
-		for (Node<T> node = head; node != null; node = node.next) {
-			result++;
-		}
-		return result;
-	}
+  int size() {
+    int result = 0;
+    for (Node<T> node = head; node != null; node = node.next) {
+      ++result;
+    }
 
-	void push(T value) {
-		Node<T> node = new Node<T>(value);
-		node.next = head;
-		head = node;
-	}
+    return result;
+  }
 
-	T pop() {
-		if (head == null) {
-			throw new NoSuchElementException();
-		}
+  void push(T value) {
+    Node<T> node = new Node<>(value);
+    node.next = head;
+    head = node;
+  }
 
-		T result = head.value;
-		head = head.next;
-		return result;
-	}
+  T pop() {
+    if (head == null) {
+      throw new NoSuchElementException();
+    }
 
-	void reverse() {
-		SimpleLinkedList<T> reversed = new SimpleLinkedList<T>();
-		while (head != null) {
-			reversed.push(pop());
-		}
-		head = reversed.head;
-	}
+    T result = head.value;
+    head = head.next;
 
-	@SuppressWarnings("unchecked")
-	<E> E[] asArray(Class<E> c) {
-		Object[] result = new Object[size()];
-		Node<T> node = head;
-		for (int i = 0; i < result.length; i++) {
-			result[i] = node.value;
+    return result;
+  }
 
-			node = node.next;
-		}
-		return (E[]) result;
-	}
+  void reverse() {
+    SimpleLinkedList<T> reversed = new SimpleLinkedList<>();
+    while (head != null) {
+      reversed.push(pop());
+    }
+    head = reversed.head;
+  }
+
+  @SuppressWarnings("unchecked")
+  <E> E[] asArray(Class<E> c) {
+    Object[] result = new Object[size()];
+    Node<T> node = head;
+    for (int i = 0; i < result.length; ++i) {
+      result[i] = node.value;
+      node = node.next;
+    }
+
+    return (E[]) result;
+  }
 }
 
 class Node<T> {
-	T value;
-	Node<T> next;
+  T value;
+  Node<T> next;
 
-	Node(T value) {
-		this.value = value;
-	}
+  Node(T value) {
+    this.value = value;
+  }
 }
