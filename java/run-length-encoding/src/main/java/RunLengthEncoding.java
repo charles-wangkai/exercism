@@ -1,51 +1,44 @@
 public class RunLengthEncoding {
-	String encode(String s) {
-		StringBuilder result = new StringBuilder();
-		char prev = 0;
-		int count = -1;
-		for (int i = 0; i <= s.length(); i++) {
-			if (i < s.length() && s.charAt(i) == prev) {
-				count++;
-			} else {
-				if (count > 0) {
-					if (count != 1) {
-						result.append(count);
-					}
-					result.append(prev);
-				}
+  String encode(String s) {
+    StringBuilder result = new StringBuilder();
+    char current = 0;
+    int count = 0;
+    for (int i = 0; i <= s.length(); ++i) {
+      if (i != s.length() && s.charAt(i) == current) {
+        ++count;
+      } else {
+        if (count != 0) {
+          if (count != 1) {
+            result.append(count);
+          }
+          result.append(current);
+        }
 
-				if (i < s.length()) {
-					prev = s.charAt(i);
-					count = 1;
-				}
-			}
-		}
-		return result.toString();
-	}
+        if (i != s.length()) {
+          current = s.charAt(i);
+          count = 1;
+        }
+      }
+    }
 
-	String decode(String s) {
-		StringBuilder result = new StringBuilder();
-		int index = 0;
-		while (index < s.length()) {
-			int endIndex = index;
-			while (endIndex < s.length() && Character.isDigit(s.charAt(endIndex))) {
-				endIndex++;
-			}
+    return result.toString();
+  }
 
-			int count;
-			if (endIndex == index) {
-				count = 1;
-			} else {
-				count = Integer.parseInt(s.substring(index, endIndex));
-			}
+  String decode(String s) {
+    StringBuilder result = new StringBuilder();
+    int index = 0;
+    while (index != s.length()) {
+      int endIndex = index;
+      while (endIndex != s.length() && Character.isDigit(s.charAt(endIndex))) {
+        ++endIndex;
+      }
 
-			char letter = s.charAt(endIndex);
-			for (int i = 0; i < count; i++) {
-				result.append(letter);
-			}
+      int count = (endIndex == index) ? 1 : Integer.parseInt(s.substring(index, endIndex));
+      result.append(String.valueOf(s.charAt(endIndex)).repeat(count));
 
-			index = endIndex + 1;
-		}
-		return result.toString();
-	}
+      index = endIndex + 1;
+    }
+
+    return result.toString();
+  }
 }
