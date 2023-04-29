@@ -1,5 +1,10 @@
 # Simple Cipher
 
+Welcome to Simple Cipher on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a simple shift cipher like Caesar and a more secure substitution cipher.
 
 ## Step 1
@@ -61,7 +66,7 @@ substitution cipher a little more fault tolerant by providing a source
 of randomness and ensuring that the key contains only lowercase letters.
 
 If someone doesn't submit a key at all, generate a truly random key of
-at least 100 alphanumeric characters in length.
+at least 100 lowercase characters in length.
 
 ## Extensions
 
@@ -78,8 +83,6 @@ on Wikipedia][dh] for one of the first implementations of this scheme.
 [1]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Caesar_cipher_left_shift_of_3.svg/320px-Caesar_cipher_left_shift_of_3.svg.png
 [dh]: http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 
-# Tips
-
 This exercise has three test classes: SimpleCipherStepOneTest.java, SimpleCipherStepTwoTest.java and SimpleCipherStepThreeTest.java.
 
 To run only one test class (e.g. in this example SimpleCipherStepOneTest.java):
@@ -87,33 +90,29 @@ To run only one test class (e.g. in this example SimpleCipherStepOneTest.java):
 $ gradle test --tests *StepOne*
 ```
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Substitution Cipher at Wikipedia [http://en.wikipedia.org/wiki/Substitution_cipher](http://en.wikipedia.org/wiki/Substitution_cipher)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @FridaTveit
+- @jmrunkle
+- @jtigger
+- @JTMaher2
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @mirkoperillo
+- @morrme
+- @msomji
+- @muzimuzhi
+- @RonakLakhotia
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @vdemeester
+- @Zaldrick
+
+### Based on
+
+Substitution Cipher at Wikipedia - http://en.wikipedia.org/wiki/Substitution_cipher
