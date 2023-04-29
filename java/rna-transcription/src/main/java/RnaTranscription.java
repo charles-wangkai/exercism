@@ -1,24 +1,21 @@
-import java.util.HashMap;
+import static java.util.Map.entry;
+
 import java.util.Map;
 
 class RnaTranscription {
+  static final Map<Character, Character> DNA_TO_RNA =
+      Map.ofEntries(entry('G', 'C'), entry('C', 'G'), entry('T', 'A'), entry('A', 'U'));
 
-	String transcribe(String dnaStrand) {
-		Map<Character, Character> dna2rna = new HashMap<Character, Character>();
-		dna2rna.put('G', 'C');
-		dna2rna.put('C', 'G');
-		dna2rna.put('T', 'A');
-		dna2rna.put('A', 'U');
+  String transcribe(String dnaStrand) {
+    StringBuilder result = new StringBuilder();
+    for (char dna : dnaStrand.toCharArray()) {
+      if (!DNA_TO_RNA.containsKey(dna)) {
+        throw new IllegalArgumentException("Invalid input");
+      }
 
-		StringBuilder result = new StringBuilder();
-		for (char dna : dnaStrand.toCharArray()) {
-			if (!dna2rna.containsKey(dna)) {
-				throw new IllegalArgumentException("Invalid input");
-			}
+      result.append(DNA_TO_RNA.get(dna));
+    }
 
-			result.append(dna2rna.get(dna));
-		}
-		return result.toString();
-	}
-
+    return result.toString();
+  }
 }
