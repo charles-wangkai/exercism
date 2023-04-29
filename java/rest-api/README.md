@@ -1,4 +1,9 @@
-# Rest Api
+# REST API
+
+Welcome to REST API on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Implement a RESTful API for tracking IOUs.
 
@@ -6,9 +11,9 @@ Four roommates have a habit of borrowing money from each other frequently, and h
 
 Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer) that receives [IOU](https://en.wikipedia.org/wiki/IOU)s as POST requests, and can deliver specified summary information via GET requests.
 
-### API Specification
+## API Specification
 
-#### User object
+### User object
 ```json
 {
   "name": "Adam",
@@ -25,7 +30,7 @@ Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/R
 }
 ```
 
-#### Methods
+### Methods
 
 | Description | HTTP Method | URL | Payload Format | Response w/o Payload | Response w/ Payload |
 | --- | --- | --- | --- | --- | --- |
@@ -33,33 +38,20 @@ Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/R
 | Create user | POST | /add | `{"user":<name of new user (unique)>}` | N/A | `<User object for new user>` |
 | Create IOU | POST | /iou | `{"lender":<name of lender>,"borrower":<name of borrower>,"amount":5.25}` | N/A | `{"users":<updated User objects for <lender> and <borrower> (sorted by name)>}` |
 
-### Other Resources:
+## Other Resources:
 - https://restfulapi.net/
 - Example RESTful APIs
   - [GitHub](https://developer.github.com/v3/)
   - [Reddit](https://www.reddit.com/dev/api/)
-## Setup
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+## Source
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+### Created by
 
-# Running the tests
+- @jmrunkle
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
+### Contributed to by
 
-```sh
-$ gradle test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
