@@ -1,5 +1,6 @@
 enum Relationship {
-
-    EQUAL, SUBLIST, SUPERLIST, UNEQUAL
-
+  EQUAL,
+  SUBLIST,
+  SUPERLIST,
+  UNEQUAL
 }
