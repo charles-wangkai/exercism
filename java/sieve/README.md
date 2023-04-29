@@ -1,61 +1,70 @@
 # Sieve
 
-Use the Sieve of Eratosthenes to find all the primes from 2 up to a given
-number.
+Welcome to Sieve on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
 
-The Sieve of Eratosthenes is a simple, ancient algorithm for finding all
-prime numbers up to any given limit. It does so by iteratively marking as
-composite (i.e. not prime) the multiples of each prime, starting with the
-multiples of 2. It does not use any division or remainder operation.
+## Introduction
 
-Create your range, starting at two and continuing up to and including the given limit. (i.e. [2, limit])
+You bought a big box of random computer parts at a garage sale.
+You've started putting the parts together to build custom computers.
 
-The algorithm consists of repeating the following over and over:
+You want to test the performance of different combinations of parts, and decide to create your own benchmarking program to see how your computers compare.
+You choose the famous "Sieve of Eratosthenes" algorithm, an ancient algorithm, but one that should push your computers to the limits.
 
-- take the next available unmarked number in your list (it is prime)
-- mark all the multiples of that number (they are not prime)
+## Instructions
 
-Repeat until you have processed each number in your range.
+Your task is to create a program that implements the Sieve of Eratosthenes algorithm to find prime numbers.
 
-When the algorithm terminates, all the numbers in the list that have not
-been marked are prime.
+A prime number is a number that is only divisible by 1 and itself.
+For example, 2, 3, 5, 7, 11, and 13 are prime numbers.
 
-The wikipedia article has a useful graphic that explains the algorithm:
-https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+The Sieve of Eratosthenes is an ancient algorithm that works by taking a list of numbers and crossing out all the numbers that aren't prime.
 
-Notice that this is a very specific algorithm, and the tests don't check
-that you've implemented the algorithm, only that you've come up with the
-correct list of primes. A good first test is to check that you do not use
-division or remainder operations (div, /, mod or % depending on the
-language).
+A number that is **not** prime is called a "composite number".
 
-## Setup
+To use the Sieve of Eratosthenes, you first create a list of all the numbers between 2 and your given number.
+Then you repeat the following steps:
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+1. Find the next unmarked number in your list. This is a prime number.
+2. Mark all the multiples of that prime number as composite (not prime).
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+You keep repeating these steps until you've gone through every number in your list.
+At the end, all the unmarked numbers are prime.
 
-# Running the tests
+```exercism/note
+[Wikipedia's Sieve of Eratosthenes article][eratosthenes] has a useful graphic that explains the algorithm.
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
+The tests don't check that you've implemented the algorithm, only that you've come up with the correct list of primes.
+A good first test is to check that you do not use division or remainder operations.
 
-```sh
-$ gradle test
+[eratosthenes]: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 ```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
 
 ## Source
 
-Sieve of Eratosthenes at Wikipedia [http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes](http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @aadityakulkarni
+- @FridaTveit
+- @jmrunkle
+- @jtigger
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @mirkoperillo
+- @morrme
+- @msomji
+- @muzimuzhi
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @vasouv
+- @vdemeester
+- @Zaldrick
+
+### Based on
+
+Sieve of Eratosthenes at Wikipedia - http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
