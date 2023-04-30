@@ -1,76 +1,68 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Tournament {
-	Map<String, Team> name2team = new HashMap<String, Team>();
+  Map<String, Team> nameToTeam = new HashMap<>();
 
-	String printTable() {
-		StringBuilder result = new StringBuilder();
-		result.append("Team                           | MP |  W |  D |  L |  P");
-		result.append("\n");
+  String printTable() {
+    return String.format(
+        "Team                           | MP |  W |  D |  L |  P\n%s",
+        nameToTeam.values().stream()
+            .sorted(
+                Comparator.comparing(Team::getPoint).reversed().thenComparing(team -> team.name))
+            .map(
+                team ->
+                    String.format(
+                        "%-30s | %2d | %2d | %2d | %2d | %2d\n",
+                        team.name,
+                        team.winCount + team.drawCount + team.lossCount,
+                        team.winCount,
+                        team.drawCount,
+                        team.lossCount,
+                        team.getPoint()))
+            .collect(Collectors.joining()));
+  }
 
-		List<Team> teams = new ArrayList<Team>(name2team.values());
-		Collections.sort(teams,
-				(team1, team2) -> (team1.getP() != team2.getP()) ? Integer.compare(team2.getP(), team1.getP())
-						: team1.name.compareTo(team2.name));
-		for (Team team : teams) {
-			result.append(String.format("%-30s | %2d | %2d | %2d | %2d | %2d", team.name, team.getMP(), team.w, team.d,
-					team.l, team.getP()));
-			result.append("\n");
-		}
+  void applyResults(String results) {
+    for (String result : results.split("\n")) {
+      String[] parts = result.split(";");
 
-		return result.toString();
-	}
+      String name1 = parts[0];
+      nameToTeam.putIfAbsent(name1, new Team(name1));
+      Team team1 = nameToTeam.get(name1);
 
-	void applyResults(String results) {
-		for (String result : results.split("\n")) {
-			String[] fields = result.split(";");
+      String name2 = parts[1];
+      nameToTeam.putIfAbsent(name2, new Team(name2));
+      Team team2 = nameToTeam.get(name2);
 
-			String name1 = fields[0];
-			if (!name2team.containsKey(name1)) {
-				name2team.put(name1, new Team(name1));
-			}
-			Team team1 = name2team.get(name1);
-
-			String name2 = fields[1];
-			if (!name2team.containsKey(name2)) {
-				name2team.put(name2, new Team(name2));
-			}
-			Team team2 = name2team.get(name2);
-
-			String outcome = fields[2];
-			if (outcome.equals("win")) {
-				team1.w++;
-				team2.l++;
-			} else if (outcome.equals("draw")) {
-				team1.d++;
-				team2.d++;
-			} else if (outcome.equals("loss")) {
-				team1.l++;
-				team2.w++;
-			}
-		}
-	}
+      String outcome = parts[2];
+      if (outcome.equals("win")) {
+        ++team1.winCount;
+        ++team2.lossCount;
+      } else if (outcome.equals("draw")) {
+        ++team1.drawCount;
+        ++team2.drawCount;
+      } else if (outcome.equals("loss")) {
+        ++team1.lossCount;
+        ++team2.winCount;
+      }
+    }
+  }
 }
 
 class Team {
-	String name;
-	int w;
-	int d;
-	int l;
+  String name;
+  int winCount;
+  int drawCount;
+  int lossCount;
 
-	Team(String name) {
-		this.name = name;
-	}
+  Team(String name) {
+    this.name = name;
+  }
 
-	int getMP() {
-		return w + d + l;
-	}
-
-	int getP() {
-		return w * 3 + d;
-	}
+  int getPoint() {
+    return winCount * 3 + drawCount;
+  }
 }
