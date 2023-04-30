@@ -1,5 +1,10 @@
 # Wordy
 
+Welcome to Wordy on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Parse and evaluate simple math word problems returning the answer as an integer.
 
 ## Iteration 0 — Numbers
@@ -67,33 +72,34 @@ If you'd like, handle exponentials.
 
 32
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-Inspired by one of the generated questions in the Extreme Startup game. [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @stkent
+
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @morrme
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @ThiagoSousaSantana
+- @vasouv
+- @vivshaw
+- @vpondala
+- @Zaldrick
+
+### Based on
+
+Inspired by one of the generated questions in the Extreme Startup game. - https://github.com/rchatley/extreme_startup
