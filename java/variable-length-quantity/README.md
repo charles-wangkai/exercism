@@ -1,5 +1,10 @@
 # Variable Length Quantity
 
+Welcome to Variable Length Quantity on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement variable length quantity encoding and decoding.
 
 The goal of this exercise is to implement [VLQ](https://en.wikipedia.org/wiki/Variable-length_quantity) encoding/decoding.
@@ -31,33 +36,25 @@ Here are examples of integers as 32-bit values, and the variable length quantiti
 0FFFFFFF          FF FF FF 7F
 ```
 
-## Setup
-
-Go through the setup instructions for Java to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
-
-# Running the tests
-
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
 ## Source
 
-A poor Splice developer having to implement MIDI encoding/decoding. [https://splice.com](https://splice.com)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @jackattack24
+
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @jmrunkle
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+- @vpondala
+
+### Based on
+
+A poor Splice developer having to implement MIDI encoding/decoding. - https://splice.com
