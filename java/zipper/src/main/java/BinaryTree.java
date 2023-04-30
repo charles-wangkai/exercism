@@ -1,38 +1,38 @@
 public class BinaryTree {
-	Zipper root;
+  Zipper root;
 
-	BinaryTree(Zipper root) {
-		this.root = root;
-	}
+  BinaryTree(Zipper root) {
+    this.root = root;
+  }
 
-	BinaryTree(int value) {
-		root = new Zipper(value);
-	}
+  BinaryTree(int value) {
+    root = new Zipper(value);
+  }
 
-	Zipper getRoot() {
-		return root;
-	}
+  Zipper getRoot() {
+    return root;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		BinaryTree other = (BinaryTree) obj;
-		return root.equals(other.root);
-	}
+  @Override
+  public boolean equals(Object obj) {
+    BinaryTree other = (BinaryTree) obj;
 
-	String printTree() {
-		return print(root);
-	}
+    return root.equals(other.root);
+  }
 
-	String print(Zipper zipper) {
-		if (zipper == null) {
-			return "null";
-		}
+  String printTree() {
+    return print(root);
+  }
 
-		return String.format("value: %d, left: %s, right: %s", zipper.value, wrap(print(zipper.left)),
-				wrap(print(zipper.right)));
-	}
+  String print(Zipper zipper) {
+    return (zipper == null)
+        ? "null"
+        : String.format(
+            "value: %d, left: %s, right: %s",
+            zipper.value, wrap(print(zipper.left)), wrap(print(zipper.right)));
+  }
 
-	String wrap(String s) {
-		return s == "null" ? s : ("{ " + s + " }");
-	}
+  String wrap(String s) {
+    return s.equals("null") ? s : ("{ " + s + " }");
+  }
 }
