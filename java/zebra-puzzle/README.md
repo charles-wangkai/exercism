@@ -1,5 +1,10 @@
 # Zebra Puzzle
 
+Welcome to Zebra Puzzle on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Solve the zebra puzzle.
 
 1. There are five houses.
@@ -25,20 +30,21 @@ drink different beverages and smoke different brands of cigarettes.
 Which of the residents drinks water?
 Who owns the zebra?
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Zebra_Puzzle](https://en.wikipedia.org/wiki/Zebra_Puzzle)
+### Created by
 
-## Submitting Incomplete Solutions
+- @lemoncurry
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @FridaTveit
+- @jmrunkle
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Zebra_Puzzle
