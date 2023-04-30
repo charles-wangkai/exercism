@@ -1,40 +1,56 @@
-# Sum Of Multiples
+# Sum of Multiples
 
-Given a number, find the sum of all the unique multiples of particular numbers up to
-but not including that number.
+Welcome to Sum of Multiples on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
 
-If we list all the natural numbers below 20 that are multiples of 3 or 5,
-we get 3, 5, 6, 9, 10, 12, 15, and 18.
+## Instructions
 
-The sum of these multiples is 78.
+Given a list of factors and a limit, add up all the unique multiples of the factors that are less than the limit.
+All inputs will be greater than or equal to zero.
 
-## Setup
+## Example
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+Suppose the limit is 20 and the list of factors is [3, 5].
+We need to find the sum of all unique multiples of 3 and 5 that are less than 20.
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+Multiples of 3 less than 20: 3, 6, 9, 12, 15, 18
+Multiples of 5 less than 20: 5, 10, 15
 
-# Running the tests
+The unique multiples are: 3, 5, 6, 9, 10, 12, 15, 18
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
+The sum of the unique multiples is: 3 + 5 + 6 + 9 + 10 + 12 + 15 + 18 = 78
 
-```sh
-$ gradle test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
+So, the answer is 78.
 
 ## Source
 
-A variation on Problem 1 at Project Euler [http://projecteuler.net/problem=1](http://projecteuler.net/problem=1)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @ProgrammingFuad
+
+### Contributed to by
+
+- @abo64
+- @FridaTveit
+- @javaeeeee
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @matthewmorgan
+- @michaelspets
+- @mirkoperillo
+- @mraediaz
+- @msomji
+- @muzimuzhi
+- @rootulp
+- @sjwarner-bp
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @vasouv
+- @Zaldrick
+
+### Based on
+
+A variation on Problem 1 at Project Euler - http://projecteuler.net/problem=1
