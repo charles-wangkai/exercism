@@ -1,5 +1,10 @@
 # Tree Building
 
+Welcome to Tree Building on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Refactor a tree building algorithm.
 
 Some web-forums have a tree layout, so posts are presented as a tree. However
@@ -26,16 +31,16 @@ root (ID: 0, parent ID: 0)
 +-- child3 (ID: 5, parent ID: 0)
 ```
 
-# Running the tests
+## Source
 
-You can run all the tests for an exercise by entering
+### Created by
 
-```sh
-$ gradle test
-```
+- @junming403
 
-in your terminal.
+### Contributed to by
 
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @jmrunkle
+- @lemoncurry
+- @msomji
+- @muzimuzhi
+- @uzilan
