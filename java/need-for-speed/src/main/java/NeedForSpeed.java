@@ -34,7 +34,7 @@ class RaceTrack {
     this.distance = distance;
   }
 
-  public boolean tryFinishTrack(NeedForSpeed car) {
+  public boolean canFinishRace(NeedForSpeed car) {
     return 100 / car.batteryDrain * car.speed >= distance;
   }
 }

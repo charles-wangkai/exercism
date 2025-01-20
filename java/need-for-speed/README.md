@@ -6,7 +6,11 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Introduction
 
-Creating an instance of a _class_ is done by calling its _constructor_ through the `new` operator. A constructor is a special type of method whose goal is to initialize a newly created instance. Constructors look like regular methods, but without a return type and with a name that matches the classes' name.
+## Constructors
+
+Creating an instance of a _class_ is done by calling its _constructor_ through the `new` operator.
+A constructor is a special type of method whose goal is to initialize a newly created instance.
+Constructors look like regular methods, but without a return type and with a name that matches the class's name.
 
 ```java
 class Library {
@@ -22,7 +26,9 @@ class Library {
 var library = new Library();
 ```
 
-Like regular methods, constructors can have parameters. Constructor parameters are usually stored as (private) fields to be accessed later, or else used in some one-off calculation. Arguments can be passed to constructors just like passing arguments to regular methods.
+Like regular methods, constructors can have parameters.
+Constructor parameters are usually stored as (private) fields to be accessed later, or else used in some one-off calculation.
+Arguments can be passed to constructors just like passing arguments to regular methods.
 
 ```java
 class Building {
@@ -41,7 +47,7 @@ var largeBuilding = new Building(55, 6.2);
 
 ## Instructions
 
-In this exercise you'll be organizing races between various types of remote controlled cars. Each car has its own speed and battery drain characteristics.
+In this exercise, you'll be organizing races between various types of remote controlled cars. Each car has its own speed and battery drain characteristics.
 
 Cars start with full (100%) batteries. Each time you drive the car using the remote control, it covers the car's speed in meters and decreases the remaining battery percentage by its battery drain.
 
@@ -49,11 +55,11 @@ If a car's battery is below its battery drain percentage, you can't drive the ca
 
 Each race track has its own distance. Cars are tested by checking if they can finish the track without running out of battery.
 
-You have six tasks, each of which will work with remote controller car instances.
+You have six tasks, each of which will work with remote controlled car instances.
 
 ## 1. Creating a remote controlled car
 
-Allow creating a remote controller car by defining a constructor for the `NeedForSpeed` class that takes the speed of the car in meters and the battery drain percentage as its two parameters (both of type `int`):
+Allow creating a remote controlled car by defining a constructor for the `NeedForSpeed` class that takes the speed of the car in meters and the battery drain percentage as its two parameters (both of type `int`):
 
 ```java
 int speed = 5;
@@ -72,7 +78,7 @@ var raceTrack = new RaceTrack(distance);
 
 ## 3. Drive the car
 
-Implement the `NeedForSpeed.drive()` method that updates the number of meters driven based on the car's speed. Also implement the `NeedForSpeed.distanceDriven()` method to return the number of meters driven by the car:
+Implement the `NeedForSpeed.drive()` method that updates the number of meters driven based on the car's speed. Also, implement the `NeedForSpeed.distanceDriven()` method to return the number of meters driven by the car:
 
 ```java
 int speed = 5;
@@ -86,7 +92,7 @@ car.distanceDriven();
 
 ## 4. Check for a drained battery
 
-Update the `NeedForSpeed.drive()` method to drain the battery based on the car's battery drain. Also implement the `NeedForSpeed.batteryDrained()` method that indicates if the battery is drained:
+Update the `NeedForSpeed.drive()` method to drain the battery based on the car's battery drain. Also, implement the `NeedForSpeed.batteryDrained()` method that indicates if the battery is drained:
 
 ```java
 int speed = 5;
@@ -111,24 +117,25 @@ car.distanceDriven();
 
 ## 6. Check if a remote control car can finish a race
 
-To finish a race, a car has to be able to drive the race's distance. This means not draining its battery before having crossed the finish line. Implement the `RaceTrack.tryFinishTrack()` method that takes a `NeedForSpeed` instance as its parameter and returns `true` if the car can finish the race; otherwise, return `false`. To see if the car can finish the race, you should try to drive the car until either you reach the end of the track or the battery drains:
+To finish a race, a car has to be able to drive the race's distance. This means not draining its battery before having crossed the finish line. Implement the `RaceTrack.canFinishRace()` method that takes a `NeedForSpeed` instance as its parameter and returns `true` if the car can finish the race; otherwise, return `false`:
 
 ```java
 int speed = 5;
 int batteryDrain = 2;
 var car = new NeedForSpeed(speed, batteryDrain);
 
-int distance = 100;
-var race = new RaceTrack(distance);
+int distance1 = 100;
+var race1 = new RaceTrack(distance1);
 
-car.distanceDriven()
-// => 0
+int distance2 = 300;
+var race2 = new RaceTrack(distance2);
 
-race.tryFinishTrack(car);
+race1.canFinishRace(car);
 // => true
 
-car.distanceDriven()
-// => 100
+race2.canFinishRace(car);
+// => false
+```
 
 ## Source
 
