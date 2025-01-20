@@ -8,13 +8,13 @@ public class ElonsToyCar {
   }
 
   public String distanceDisplay() {
-    return String.format("Driven %s meters", driveCount * 20);
+    return "Driven %s meters".formatted(driveCount * 20);
   }
 
   public String batteryDisplay() {
     return (driveCount == MAX_DRIVE_COUNT)
         ? "Battery empty"
-        : String.format("Battery at %d%%", MAX_DRIVE_COUNT - driveCount);
+        : "Battery at %d%%".formatted(MAX_DRIVE_COUNT - driveCount);
   }
 
   public void drive() {
