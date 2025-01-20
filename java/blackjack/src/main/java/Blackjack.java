@@ -56,10 +56,8 @@ public class Blackjack {
     int handScore = parseCard(card1) + parseCard(card2);
     int dealerScore = parseCard(dealerCard);
 
-    if (20 < handScore) {
-      return largeHand(isBlackjack(card1, card2), dealerScore);
-    } else {
-      return smallHand(handScore, dealerScore);
-    }
+    return (handScore > 20)
+        ? largeHand(isBlackjack(card1, card2), dealerScore)
+        : smallHand(handScore, dealerScore);
   }
 }
