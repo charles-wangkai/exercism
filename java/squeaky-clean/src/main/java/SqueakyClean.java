@@ -10,18 +10,30 @@ class SqueakyClean {
               if (c == ' ') {
                 return "_";
               }
-              if (Character.isISOControl(c)) {
-                return "CTRL";
-              }
               if (i != 0 && identifier.charAt(i - 1) == '-') {
                 return String.valueOf(Character.toUpperCase(c));
+              }
+              if (c == '4') {
+                return "a";
+              }
+              if (c == '3') {
+                return "e";
+              }
+              if (c == '0') {
+                return "o";
+              }
+              if (c == '1') {
+                return "l";
+              }
+              if (c == '7') {
+                return "t";
               }
 
               return String.valueOf(c);
             })
         .collect(Collectors.joining())
         .chars()
-        .filter(c -> (c == '_' || Character.isLetter(c)) && !(c >= 'α' && c <= 'ω'))
+        .filter(c -> c == '_' || Character.isLetter(c))
         .mapToObj(c -> (char) c)
         .map(String::valueOf)
         .collect(Collectors.joining());
