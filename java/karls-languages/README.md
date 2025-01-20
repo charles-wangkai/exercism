@@ -62,7 +62,7 @@ stringContainer.set(42);
 ## Lists
 
 **Lists** are the ordered sequence collection in Java.
-Unlike arrays, a [`List`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html) can grow in size to accomodate any number of items.
+Unlike arrays, a [`List`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html) can grow in size to accommodate any number of items.
 One standard implementation is the `ArrayList` which is backed by a re-sizable array.
 Another standard implementation is the `LinkedList` class which is backed by a doubly-linked list.
 
@@ -74,7 +74,7 @@ For example:
 List<String> emptyListOfStrings = List.of();
 List<Integer> singleInteger = List.of(1);
 List<Boolean> threeBooleans = List.of(true, false, true);
-List<Object> listWithMulitipleTypes = List.of("hello", 1, true);
+List<Object> listWithMultipleTypes = List.of("hello", 1, true);
 ```
 
 `List`s have various helpful methods to add, remove, get, and check for an element to be present:
@@ -96,7 +96,7 @@ It would be very exciting if Karl wants to learn Java or Kotlin!
 
 ## 1. Define a function to check if the language list is empty
 
-Karl needs to know if his list of languages ever becomes empty so he can go find more to learn!
+Karl needs to know if his list of languages ever becomes empty, so he can go find more to learn!
 Define a method called `isEmpty` which returns `true` if there are no languages in the list.
 
 ```java

@@ -17,7 +17,7 @@ public class LanguageList {
   }
 
   public String firstLanguage() {
-    return languages.get(0);
+    return languages.getFirst();
   }
 
   public int count() {
