@@ -1,13 +1,13 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TwoferTest {
 
   private Twofer twofer;
 
-  @Before
+  @BeforeEach
   public void setup() {
     twofer = new Twofer();
   }
