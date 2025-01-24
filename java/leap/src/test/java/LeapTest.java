@@ -1,60 +1,59 @@
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LeapTest {
 
   private Leap leap;
 
-  @Before
+  @BeforeEach
   public void setup() {
     leap = new Leap();
   }
 
   @Test
   public void testYearNotDivBy4InCommonYear() {
-    assertFalse(leap.isLeapYear(2015));
+    assertThat(leap.isLeapYear(2015)).isFalse();
   }
 
   @Test
   public void testYearDivBy2NotDivBy4InCommonYear() {
-    assertFalse(leap.isLeapYear(1970));
+    assertThat(leap.isLeapYear(1970)).isFalse();
   }
 
   @Test
   public void testYearDivBy4NotDivBy100InLeapYear() {
-    assertTrue(leap.isLeapYear(1996));
+    assertThat(leap.isLeapYear(1996)).isTrue();
   }
 
   @Test
   public void testYearDivBy4And5InLeapYear() {
-    assertTrue(leap.isLeapYear(1960));
+    assertThat(leap.isLeapYear(1960)).isTrue();
   }
 
   @Test
   public void testYearDivBy100NotDivBy400InCommonYear() {
-    assertFalse(leap.isLeapYear(2100));
+    assertThat(leap.isLeapYear(2100)).isFalse();
   }
 
   @Test
   public void testYearDivBy100NotDivBy3IsNotLeapYear() {
-    assertFalse(leap.isLeapYear(1900));
+    assertThat(leap.isLeapYear(1900)).isFalse();
   }
 
   @Test
   public void testYearDivBy400InLeapYear() {
-    assertTrue(leap.isLeapYear(2000));
+    assertThat(leap.isLeapYear(2000)).isTrue();
   }
 
   @Test
   public void testYearDivBy400NotDivBy125IsLeapYear() {
-    assertTrue(leap.isLeapYear(2400));
+    assertThat(leap.isLeapYear(2400)).isTrue();
   }
 
   @Test
   public void testYearDivBy200NotDivBy400InCommonYear() {
-    assertFalse(leap.isLeapYear(1800));
+    assertThat(leap.isLeapYear(1800)).isFalse();
   }
 }
