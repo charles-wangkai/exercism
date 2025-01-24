@@ -1,13 +1,13 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ArmstrongNumbersTest {
 
   private ArmstrongNumbers armstrongNumbers;
 
-  @Before
+  @BeforeEach
   public void setup() {
     armstrongNumbers = new ArmstrongNumbers();
   }

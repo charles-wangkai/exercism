@@ -1,5 +1,3 @@
-import java.util.stream.IntStream;
-
 class ArmstrongNumbers {
   boolean isArmstrongNumber(int numberToCheck) {
     return numberToCheck
@@ -10,6 +8,11 @@ class ArmstrongNumbers {
   }
 
   int pow(int base, int exponent) {
-    return IntStream.range(0, exponent).reduce(1, (acc, i) -> acc * base);
+    int result = 1;
+    for (int i = 0; i < exponent; ++i) {
+      result *= base;
+    }
+
+    return result;
   }
 }
