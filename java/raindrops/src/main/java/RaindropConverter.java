@@ -10,7 +10,7 @@ class RaindropConverter {
     if (number % 7 == 0) {
       result.append("Plong");
     }
-    if (result.length() == 0) {
+    if (result.isEmpty()) {
       result.append(number);
     }
 
