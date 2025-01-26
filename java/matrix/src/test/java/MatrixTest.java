@@ -1,6 +1,6 @@
-import static org.junit.Assert.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MatrixTest {
 
@@ -12,7 +12,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedRow, matrix.getRow(rowIndex));
+    assertThat(matrix.getRow(rowIndex)).isEqualTo(expectedRow);
   }
 
   @Test
@@ -23,7 +23,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedRow, matrix.getRow(rowIndex));
+    assertThat(matrix.getRow(rowIndex)).isEqualTo(expectedRow);
   }
 
   @Test
@@ -34,7 +34,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedRow, matrix.getRow(rowIndex));
+    assertThat(matrix.getRow(rowIndex)).isEqualTo(expectedRow);
   }
 
   @Test
@@ -45,7 +45,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedRow, matrix.getRow(rowIndex));
+    assertThat(matrix.getRow(rowIndex)).isEqualTo(expectedRow);
   }
 
   @Test
@@ -56,7 +56,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
+    assertThat(matrix.getColumn(columnIndex)).isEqualTo(expectedColumn);
   }
 
   @Test
@@ -67,7 +67,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
+    assertThat(matrix.getColumn(columnIndex)).isEqualTo(expectedColumn);
   }
 
   @Test
@@ -78,7 +78,7 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
+    assertThat(matrix.getColumn(columnIndex)).isEqualTo(expectedColumn);
   }
 
   @Test
@@ -89,6 +89,6 @@ public class MatrixTest {
 
     Matrix matrix = new Matrix(matrixAsString);
 
-    assertArrayEquals(expectedColumn, matrix.getColumn(columnIndex));
+    assertThat(matrix.getColumn(columnIndex)).isEqualTo(expectedColumn);
   }
 }
