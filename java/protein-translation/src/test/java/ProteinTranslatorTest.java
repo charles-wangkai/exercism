@@ -1,154 +1,181 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ProteinTranslatorTest {
 
   private ProteinTranslator proteinTranslator;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     proteinTranslator = new ProteinTranslator();
   }
 
   @Test
+  public void testEmptyRnaSequenceResultInNoproteins() {
+    assertThat(proteinTranslator.translate("")).isEmpty();
+  }
+
+  @Test
   public void testMethionineRnaSequence() {
-    List<String> expected = Arrays.asList("Methionine");
-    assertEquals(expected, proteinTranslator.translate("AUG"));
+    assertThat(proteinTranslator.translate("AUG")).containsExactly("Methionine");
   }
 
   @Test
   public void testPhenylalanineRnaSequence1() {
-    List<String> expected = Arrays.asList("Phenylalanine");
-    assertEquals(expected, proteinTranslator.translate("UUU"));
+    assertThat(proteinTranslator.translate("UUU")).containsExactly("Phenylalanine");
   }
 
   @Test
   public void testPhenylalanineRnaSequence2() {
-    List<String> expected = Arrays.asList("Phenylalanine");
-    assertEquals(expected, proteinTranslator.translate("UUC"));
+    assertThat(proteinTranslator.translate("UUC")).containsExactly("Phenylalanine");
   }
 
   @Test
   public void testLeucineRnaSequence1() {
-    List<String> expected = Arrays.asList("Leucine");
-    assertEquals(expected, proteinTranslator.translate("UUA"));
+    assertThat(proteinTranslator.translate("UUA")).containsExactly("Leucine");
   }
 
   @Test
   public void testLeucineRnaSequence2() {
-    List<String> expected = Arrays.asList("Leucine");
-    assertEquals(expected, proteinTranslator.translate("UUG"));
+    assertThat(proteinTranslator.translate("UUG")).containsExactly("Leucine");
   }
 
   @Test
   public void testSerineRnaSequence1() {
-    List<String> expected = Arrays.asList("Serine");
-    assertEquals(expected, proteinTranslator.translate("UCU"));
+    assertThat(proteinTranslator.translate("UCU")).containsExactly("Serine");
   }
 
   @Test
   public void testSerineRnaSequence2() {
-    List<String> expected = Arrays.asList("Serine");
-    assertEquals(expected, proteinTranslator.translate("UCC"));
+    assertThat(proteinTranslator.translate("UCC")).containsExactly("Serine");
   }
 
   @Test
   public void testSerineRnaSequence3() {
-    List<String> expected = Arrays.asList("Serine");
-    assertEquals(expected, proteinTranslator.translate("UCA"));
+    assertThat(proteinTranslator.translate("UCA")).containsExactly("Serine");
   }
 
   @Test
   public void testSerineRnaSequence4() {
-    List<String> expected = Arrays.asList("Serine");
-    assertEquals(expected, proteinTranslator.translate("UCG"));
+    assertThat(proteinTranslator.translate("UCG")).containsExactly("Serine");
   }
 
   @Test
   public void testTyrosineRnaSequence1() {
-    List<String> expected = Arrays.asList("Tyrosine");
-    assertEquals(expected, proteinTranslator.translate("UAU"));
+    assertThat(proteinTranslator.translate("UAU")).containsExactly("Tyrosine");
   }
 
   @Test
   public void testTyrosineRnaSequence2() {
-    List<String> expected = Arrays.asList("Tyrosine");
-    assertEquals(expected, proteinTranslator.translate("UAC"));
+    assertThat(proteinTranslator.translate("UAC")).containsExactly("Tyrosine");
   }
 
   @Test
   public void testCysteineRnaSequence1() {
-    List<String> expected = Arrays.asList("Cysteine");
-    assertEquals(expected, proteinTranslator.translate("UGU"));
+    assertThat(proteinTranslator.translate("UGU")).containsExactly("Cysteine");
   }
 
   @Test
   public void testCysteineRnaSequence2() {
-    List<String> expected = Arrays.asList("Cysteine");
-    assertEquals(expected, proteinTranslator.translate("UGC"));
+    assertThat(proteinTranslator.translate("UGC")).containsExactly("Cysteine");
   }
 
   @Test
   public void testTryptophanRnaSequence1() {
-    List<String> expected = Arrays.asList("Tryptophan");
-    assertEquals(expected, proteinTranslator.translate("UGG"));
+    assertThat(proteinTranslator.translate("UGG")).containsExactly("Tryptophan");
   }
 
   @Test
   public void testStopRnaSequence1() {
-    List<String> expected = Arrays.asList();
-    assertEquals(expected, proteinTranslator.translate("UAA"));
+    assertThat(proteinTranslator.translate("UAA")).isEmpty();
   }
 
   @Test
   public void testStopRnaSequence2() {
-    List<String> expected = Arrays.asList();
-    assertEquals(expected, proteinTranslator.translate("UAG"));
+    assertThat(proteinTranslator.translate("UAG")).isEmpty();
   }
 
   @Test
   public void testStopRnaSequence3() {
-    List<String> expected = Arrays.asList();
-    assertEquals(expected, proteinTranslator.translate("UGA"));
+    assertThat(proteinTranslator.translate("UGA")).isEmpty();
+  }
+
+  @Test
+  public void testSequenceOfTwoProteinCodonsTranslatesIntoProteins() {
+    assertThat(proteinTranslator.translate("UUUUUU"))
+        .containsExactly("Phenylalanine", "Phenylalanine");
+  }
+
+  @Test
+  public void testSequenceOfTwoDifferentProteinCodonsTranslatesIntoProteins() {
+    assertThat(proteinTranslator.translate("UUAUUG")).containsExactly("Leucine", "Leucine");
   }
 
   @Test
   public void testTranslationOfRnaToProteinList() {
-    List<String> expected = Arrays.asList("Methionine", "Phenylalanine", "Tryptophan");
-    assertEquals(expected, proteinTranslator.translate("AUGUUUUGG"));
+    assertThat(proteinTranslator.translate("AUGUUUUGG"))
+        .containsExactly("Methionine", "Phenylalanine", "Tryptophan");
   }
 
   @Test
   public void testTranslationStopsIfStopCodonAtBeginning() {
-    List<String> expected = Arrays.asList();
-    assertEquals(expected, proteinTranslator.translate("UAGUGG"));
+    assertThat(proteinTranslator.translate("UAGUGG")).isEmpty();
   }
 
   @Test
   public void testTranslationStopsIfStopCodonAtEnd1() {
-    List<String> expected = Arrays.asList("Tryptophan");
-    assertEquals(expected, proteinTranslator.translate("UGGUAG"));
+    assertThat(proteinTranslator.translate("UGGUAG")).containsExactly("Tryptophan");
   }
 
   @Test
   public void testTranslationStopsIfStopCodonAtEnd2() {
-    List<String> expected = Arrays.asList("Methionine", "Phenylalanine");
-    assertEquals(expected, proteinTranslator.translate("AUGUUUUAA"));
+    assertThat(proteinTranslator.translate("AUGUUUUAA"))
+        .containsExactly("Methionine", "Phenylalanine");
   }
 
   @Test
   public void testTranslationStopsIfStopCodonInMiddle1() {
-    List<String> expected = Arrays.asList("Tryptophan");
-    assertEquals(expected, proteinTranslator.translate("UGGUAGUGG"));
+    assertThat(proteinTranslator.translate("UGGUAGUGG")).containsExactly("Tryptophan");
   }
 
   @Test
   public void testTranslationStopsIfStopCodonInMiddle2() {
-    List<String> expected = Arrays.asList("Tryptophan", "Cysteine", "Tyrosine");
-    assertEquals(expected, proteinTranslator.translate("UGGUGUUAUUAAUGGUUU"));
+    assertThat(proteinTranslator.translate("UGGUGUUAUUAAUGGUUU"))
+        .containsExactly("Tryptophan", "Cysteine", "Tyrosine");
+  }
+
+  @Test
+  public void testSequenceOfTwoNonStopCodonsDoNotTranslateToAStopCodon() {
+    assertThat(proteinTranslator.translate("AUGAUG")).containsExactly("Methionine", "Methionine");
+  }
+
+  @Test
+  public void testNonExistingCodonCantTranslate() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> proteinTranslator.translate("AAA"))
+        .withMessage("Invalid codon");
+  }
+
+  @Test
+  public void testUnknownAminoAcidsNotPartOfACodonCantTranslate() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> proteinTranslator.translate("XYZ"))
+        .withMessage("Invalid codon");
+  }
+
+  @Test
+  public void testIncompleteRnaSequenceCantTranslate() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> proteinTranslator.translate("AUGU"))
+        .withMessage("Invalid codon");
+  }
+
+  @Test
+  public void testIncompleteRnaSequenceCanTranslateIfValidUntilAStopCodon() {
+    assertThat(proteinTranslator.translate("UUCUUCUAAUGGU"))
+        .containsExactly("Phenylalanine", "Phenylalanine");
   }
 }

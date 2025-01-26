@@ -29,7 +29,12 @@ class ProteinTranslator {
   List<String> translate(String rnaSequence) {
     List<String> proteins = new ArrayList<>();
     for (int i = 0; i < rnaSequence.length(); i += CODON_LENGTH) {
-      String protein = CODON_TO_PROTEIN.get(rnaSequence.substring(i, i + CODON_LENGTH));
+      String codon = rnaSequence.substring(i, Math.min(rnaSequence.length(), i + CODON_LENGTH));
+      if (!CODON_TO_PROTEIN.containsKey(codon)) {
+        throw new IllegalArgumentException("Invalid codon");
+      }
+
+      String protein = CODON_TO_PROTEIN.get(codon);
       if (protein.equals("STOP")) {
         break;
       }
