@@ -11,16 +11,16 @@ public class Matrix {
   }
 
   public Set<MatrixCoordinate> getSaddlePoints() {
-    Set<MatrixCoordinate> saddlePoints = new HashSet<>();
+    Set<MatrixCoordinate> result = new HashSet<>();
     for (int r = 0; r < getNumberOfRows(); ++r) {
       for (int c = 0; c < getNumberOfColumns(); ++c) {
         if (isSaddlePoint(r, c)) {
-          saddlePoints.add(new MatrixCoordinate(r + 1, c + 1));
+          result.add(new MatrixCoordinate(r + 1, c + 1));
         }
       }
     }
 
-    return saddlePoints;
+    return result;
   }
 
   private int getNumberOfRows() {
