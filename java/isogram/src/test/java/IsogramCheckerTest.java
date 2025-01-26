@@ -1,12 +1,12 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class IsogramCheckerTest {
   private IsogramChecker isogramChecker;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     isogramChecker = new IsogramChecker();
   }
@@ -42,7 +42,7 @@ public class IsogramCheckerTest {
   }
 
   @Test
-  public void testDuplicatMixedCase() {
+  public void testDuplicateMixedCase() {
     assertThat(isogramChecker.isIsogram("alphAbet")).isFalse();
   }
 
@@ -74,5 +74,10 @@ public class IsogramCheckerTest {
   @Test
   public void testSameFirstAndLast() {
     assertThat(new IsogramChecker().isIsogram("angola")).isFalse();
+  }
+
+  @Test
+  public void testDuplicatedCharacterAndTwoHyphens() {
+    assertThat(new IsogramChecker().isIsogram("up-to-date")).isFalse();
   }
 }
