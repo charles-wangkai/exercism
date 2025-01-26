@@ -1,8 +1,7 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DnDCharacterTest {
 
@@ -10,117 +9,122 @@ public class DnDCharacterTest {
 
   @Test
   public void testAbilityModifierForScore3IsNegative4() {
-    assertEquals(-4, dndCharacter.modifier(3));
+    assertThat(dndCharacter.modifier(3)).isEqualTo(-4);
   }
 
   @Test
   public void testAbilityModifierForScore4IsNegative3() {
-    assertEquals(-3, dndCharacter.modifier(4));
+    assertThat(dndCharacter.modifier(4)).isEqualTo(-3);
   }
 
   @Test
   public void testAbilityModifierForScore5IsNegative3() {
-    assertEquals(-3, dndCharacter.modifier(5));
+    assertThat(dndCharacter.modifier(5)).isEqualTo(-3);
   }
 
   @Test
   public void testAbilityModifierForScore6IsNegative2() {
-    assertEquals(-2, dndCharacter.modifier(6));
+    assertThat(dndCharacter.modifier(6)).isEqualTo(-2);
   }
 
   @Test
   public void testAbilityModifierForScore7IsNegative2() {
-    assertEquals(-2, dndCharacter.modifier(7));
+    assertThat(dndCharacter.modifier(7)).isEqualTo(-2);
   }
 
   @Test
   public void testAbilityModifierForScore8IsNegative1() {
-    assertEquals(-1, dndCharacter.modifier(8));
+    assertThat(dndCharacter.modifier(8)).isEqualTo(-1);
   }
 
   @Test
   public void testAbilityModifierForScore9IsNegative1() {
-    assertEquals(-1, dndCharacter.modifier(9));
+    assertThat(dndCharacter.modifier(9)).isEqualTo(-1);
   }
 
   @Test
   public void testAbilityModifierForScore10Is0() {
-    assertEquals(0, dndCharacter.modifier(10));
+    assertThat(dndCharacter.modifier(10)).isEqualTo(0);
   }
 
   @Test
   public void testAbilityModifierForScore11Is0() {
-    assertEquals(0, dndCharacter.modifier(11));
+    assertThat(dndCharacter.modifier(11)).isEqualTo(0);
   }
 
   @Test
   public void testAbilityModifierForScore12Is1() {
-    assertEquals(1, dndCharacter.modifier(12));
+    assertThat(dndCharacter.modifier(12)).isEqualTo(1);
   }
 
   @Test
   public void testAbilityModifierForScore13Is1() {
-    assertEquals(1, dndCharacter.modifier(13));
+    assertThat(dndCharacter.modifier(13)).isEqualTo(1);
   }
 
   @Test
   public void testAbilityModifierForScore14Is2() {
-    assertEquals(2, dndCharacter.modifier(14));
+    assertThat(dndCharacter.modifier(14)).isEqualTo(2);
   }
 
   @Test
   public void testAbilityModifierForScore15Is2() {
-    assertEquals(2, dndCharacter.modifier(15));
+    assertThat(dndCharacter.modifier(15)).isEqualTo(2);
   }
 
   @Test
   public void testAbilityModifierForScore16Is3() {
-    assertEquals(3, dndCharacter.modifier(16));
+    assertThat(dndCharacter.modifier(16)).isEqualTo(3);
   }
 
   @Test
   public void testAbilityModifierForScore17Is3() {
-    assertEquals(3, dndCharacter.modifier(17));
+    assertThat(dndCharacter.modifier(17)).isEqualTo(3);
   }
 
   @Test
   public void testAbilityModifierForScore18Is4() {
-    assertEquals(4, dndCharacter.modifier(18));
+    assertThat(dndCharacter.modifier(18)).isEqualTo(4);
   }
 
   @Test
   public void test4DiceWereUsedForRollingScores() {
-    assertEquals(4, dndCharacter.rollDice().size());
+    assertThat(dndCharacter.rollDice().size()).isEqualTo(4);
   }
 
   @Test
   public void testDiceValuesBetween1And6() {
-    assertTrue(dndCharacter.rollDice().stream().allMatch(d -> d >= 1 && d <= 6));
+    assertThat(dndCharacter.rollDice()).allMatch(d -> d >= 1 && d <= 6);
   }
 
   @Test
   public void testAbilityCalculationsUses3LargestNumbersFromScoresInDescendingOrder() {
-    assertEquals(9, dndCharacter.ability(List.of(4, 3, 2, 1)));
+    assertThat(dndCharacter.ability(List.of(4, 3, 2, 1))).isEqualTo(9);
   }
 
   @Test
   public void testAbilityCalculationsUses3LargestNumbersFromFromScoresInAscendingOrder() {
-    assertEquals(9, dndCharacter.ability(List.of(1, 2, 3, 4)));
+    assertThat(dndCharacter.ability(List.of(1, 2, 3, 4))).isEqualTo(9);
   }
 
   @Test
   public void testAbilityCalculationsUses3LargestNumbersFromScoresInRandomOrder() {
-    assertEquals(9, dndCharacter.ability(List.of(2, 4, 3, 1)));
+    assertThat(dndCharacter.ability(List.of(2, 4, 3, 1))).isEqualTo(9);
   }
 
   @Test
   public void testAbilityCalculationsWithLowestEqualNumbers() {
-    assertEquals(3, dndCharacter.ability(List.of(1, 1, 1, 1)));
+    assertThat(dndCharacter.ability(List.of(1, 1, 1, 1))).isEqualTo(3);
   }
 
   @Test
   public void testAbilityCalculationsWithHighestEqualNumbers() {
-    assertEquals(18, dndCharacter.ability(List.of(6, 6, 6, 6)));
+    assertThat(dndCharacter.ability(List.of(6, 6, 6, 6))).isEqualTo(18);
+  }
+
+  @Test
+  public void testAbilityCalculationsWithTwoLowestNumbers() {
+    assertThat(dndCharacter.ability(List.of(3, 5, 3, 4))).isEqualTo(12);
   }
 
   @Test
@@ -128,27 +132,33 @@ public class DnDCharacterTest {
     List<Integer> scores = List.of(1, 2, 3, 4);
     dndCharacter.ability(scores);
 
-    assertEquals(4, scores.size());
-    assertEquals(scores, List.of(1, 2, 3, 4));
+    assertThat(scores.size()).isEqualTo(4);
+    assertThat(scores).containsExactly(1, 2, 3, 4);
   }
 
   @Test
   public void testRandomCharacterIsValid() {
     for (int i = 0; i < 1000; i++) {
       DnDCharacter character = new DnDCharacter();
-      assertTrue(character.getStrength() > 2 && character.getStrength() < 19);
-      assertTrue(character.getDexterity() > 2 && character.getDexterity() < 19);
-      assertTrue(character.getConstitution() > 2 && character.getConstitution() < 19);
-      assertTrue(character.getIntelligence() > 2 && character.getIntelligence() < 19);
-      assertTrue(character.getWisdom() > 2 && character.getWisdom() < 19);
-      assertTrue(character.getCharisma() > 2 && character.getCharisma() < 19);
-      assertEquals(10 + character.modifier(character.getConstitution()), character.getHitpoints());
+      assertThat(character.getStrength()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getDexterity()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getConstitution()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getIntelligence()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getWisdom()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getCharisma()).isGreaterThan(2).isLessThan(19);
+      assertThat(character.getHitpoints())
+          .isEqualTo(10 + character.modifier(character.getConstitution()));
     }
   }
 
   @Test
   public void testEachAbilityIsOnlyCalculatedOnce() {
-    assertEquals(dndCharacter.getStrength(), dndCharacter.getStrength());
+    assertThat(dndCharacter.getStrength()).isEqualTo(dndCharacter.getStrength());
+    assertThat(dndCharacter.getDexterity()).isEqualTo(dndCharacter.getDexterity());
+    assertThat(dndCharacter.getConstitution()).isEqualTo(dndCharacter.getConstitution());
+    assertThat(dndCharacter.getIntelligence()).isEqualTo(dndCharacter.getIntelligence());
+    assertThat(dndCharacter.getWisdom()).isEqualTo(dndCharacter.getWisdom());
+    assertThat(dndCharacter.getCharisma()).isEqualTo(dndCharacter.getCharisma());
   }
 
   @Test
@@ -164,7 +174,7 @@ public class DnDCharacterTest {
               || dnDCharacter.getWisdom() != uniqueDnDCharacter.getWisdom()
               || dnDCharacter.getCharisma() != uniqueDnDCharacter.getCharisma()
               || dnDCharacter.getHitpoints() != uniqueDnDCharacter.getHitpoints();
-      assertTrue(dnDCharactersHaveDifferentAttributes);
+      assertThat(dnDCharactersHaveDifferentAttributes).isTrue();
     }
   }
 }
