@@ -13,7 +13,7 @@ class HighScores {
   }
 
   Integer latest() {
-    return highScores.get(highScores.size() - 1);
+    return highScores.getLast();
   }
 
   Integer personalBest() {
