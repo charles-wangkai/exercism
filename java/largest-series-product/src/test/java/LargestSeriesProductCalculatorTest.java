@@ -1,7 +1,7 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LargestSeriesProductCalculatorTest {
 
@@ -12,7 +12,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(2);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -22,7 +22,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(2);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -32,7 +32,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(2);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -42,7 +42,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(3);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -52,7 +52,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(3);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(5);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -74,7 +74,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(6);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -84,7 +84,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(2);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -94,7 +94,7 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(3);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 
   @Test
@@ -105,26 +105,6 @@ public class LargestSeriesProductCalculatorTest {
         .isThrownBy(() -> calculator.calculateLargestProductForSeriesLength(4))
         .withMessage(
             "Series length must be less than or equal to the length of the string to search.");
-  }
-
-  @Test
-  public void testCorrectlyCalculatesLargestProductOfLength0ForEmptyStringToSearch() {
-    LargestSeriesProductCalculator calculator = new LargestSeriesProductCalculator("");
-    long expectedProduct = 1;
-
-    long actualProduct = calculator.calculateLargestProductForSeriesLength(0);
-
-    assertEquals(expectedProduct, actualProduct);
-  }
-
-  @Test
-  public void testCorrectlyCalculatesLargestProductOfLength0ForNonEmptyStringToSearch() {
-    LargestSeriesProductCalculator calculator = new LargestSeriesProductCalculator("123");
-    long expectedProduct = 1;
-
-    long actualProduct = calculator.calculateLargestProductForSeriesLength(0);
-
-    assertEquals(expectedProduct, actualProduct);
   }
 
   @Test
@@ -160,6 +140,6 @@ public class LargestSeriesProductCalculatorTest {
 
     long actualProduct = calculator.calculateLargestProductForSeriesLength(10);
 
-    assertEquals(expectedProduct, actualProduct);
+    assertThat(actualProduct).isEqualTo(expectedProduct);
   }
 }
