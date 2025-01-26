@@ -1,7 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PrimeCalculatorTest {
 
@@ -29,6 +29,7 @@ public class PrimeCalculatorTest {
 
   @Test
   public void testUndefinedPrime() {
-    assertThrows(IllegalArgumentException.class, () -> primeCalculator.nth(0));
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> primeCalculator.nth(0));
   }
 }
