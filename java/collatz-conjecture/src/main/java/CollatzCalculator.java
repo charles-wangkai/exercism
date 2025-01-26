@@ -1,7 +1,7 @@
 public class CollatzCalculator {
   int computeStepCount(int n) {
     if (n <= 0) {
-      throw new IllegalArgumentException("Only natural numbers are allowed");
+      throw new IllegalArgumentException("Only positive integers are allowed");
     }
 
     int step = 0;

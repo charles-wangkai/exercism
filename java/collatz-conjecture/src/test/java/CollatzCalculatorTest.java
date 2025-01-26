@@ -1,7 +1,7 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CollatzCalculatorTest {
 
@@ -9,35 +9,35 @@ public class CollatzCalculatorTest {
 
   @Test
   public void testZeroStepsRequiredWhenStartingFrom1() {
-    assertEquals(0, collatzCalculator.computeStepCount(1));
+    assertThat(collatzCalculator.computeStepCount(1)).isEqualTo(0);
   }
 
   @Test
   public void testCorrectNumberOfStepsWhenAllStepsAreDivisions() {
-    assertEquals(4, collatzCalculator.computeStepCount(16));
+    assertThat(collatzCalculator.computeStepCount(16)).isEqualTo(4);
   }
 
   @Test
   public void testCorrectNumberOfStepsWhenBothStepTypesAreNeeded() {
-    assertEquals(9, collatzCalculator.computeStepCount(12));
+    assertThat(collatzCalculator.computeStepCount(12)).isEqualTo(9);
   }
 
   @Test
   public void testAVeryLargeInput() {
-    assertEquals(152, collatzCalculator.computeStepCount(1000000));
+    assertThat(collatzCalculator.computeStepCount(1000000)).isEqualTo(152);
   }
 
   @Test
   public void testZeroIsConsideredInvalidInput() {
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() -> collatzCalculator.computeStepCount(0))
-        .withMessage("Only natural numbers are allowed");
+        .withMessage("Only positive integers are allowed");
   }
 
   @Test
   public void testNegativeIntegerIsConsideredInvalidInput() {
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() -> collatzCalculator.computeStepCount(-15))
-        .withMessage("Only natural numbers are allowed");
+        .withMessage("Only positive integers are allowed");
   }
 }
