@@ -1,32 +1,38 @@
+import java.util.stream.DoubleStream;
+
 class Triangle {
-  private double side1;
-  private double side2;
-  private double side3;
+  private static double EPSILON = 1e-9;
+
+  private double[] sides;
 
   Triangle(double side1, double side2, double side3) throws TriangleException {
-    if (side1 <= 0
-        || side2 <= 0
-        || side3 <= 0
-        || side1 + side2 <= side3
-        || side2 + side3 <= side1
-        || side3 + side1 <= side2) {
+    sides = DoubleStream.of(side1, side2, side3).sorted().toArray();
+
+    if (compareDouble(sides[0], 0) <= 0 || compareDouble(sides[0] + sides[1], sides[2]) <= 0) {
       throw new TriangleException();
     }
-
-    this.side1 = side1;
-    this.side2 = side2;
-    this.side3 = side3;
   }
 
   boolean isEquilateral() {
-    return side1 == side2 && side2 == side3;
+    return compareDouble(sides[0], sides[2]) == 0;
   }
 
   boolean isIsosceles() {
-    return side1 == side2 || side2 == side3 || side3 == side1;
+    return compareDouble(sides[0], sides[1]) == 0 || compareDouble(sides[1], sides[2]) == 0;
   }
 
   boolean isScalene() {
     return !isEquilateral() && !isIsosceles();
+  }
+
+  int compareDouble(double value1, double value2) {
+    if (value1 < value2 - EPSILON) {
+      return -1;
+    }
+    if (value1 > value2 + EPSILON) {
+      return 1;
+    }
+
+    return 0;
   }
 }
