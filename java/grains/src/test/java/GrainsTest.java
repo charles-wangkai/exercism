@@ -1,8 +1,8 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GrainsTest {
 
@@ -11,43 +11,43 @@ public class GrainsTest {
   @Test
   public void countAtSquare1() {
     BigInteger result = grains.grainsOnSquare(1);
-    assertEquals(new BigInteger("1"), result);
+    assertThat(result).isEqualTo(new BigInteger("1"));
   }
 
   @Test
   public void countAtSquare2() {
     BigInteger result = grains.grainsOnSquare(2);
-    assertEquals(new BigInteger("2"), result);
+    assertThat(result).isEqualTo(new BigInteger("2"));
   }
 
   @Test
   public void countAtSquare3() {
     BigInteger result = grains.grainsOnSquare(3);
-    assertEquals(new BigInteger("4"), result);
+    assertThat(result).isEqualTo(new BigInteger("4"));
   }
 
   @Test
   public void countAtSquare4() {
     BigInteger result = grains.grainsOnSquare(4);
-    assertEquals(new BigInteger("8"), result);
+    assertThat(result).isEqualTo(new BigInteger("8"));
   }
 
   @Test
   public void countAtSquare16() {
     BigInteger result = grains.grainsOnSquare(16);
-    assertEquals(new BigInteger("32768"), result);
+    assertThat(result).isEqualTo(new BigInteger("32768"));
   }
 
   @Test
   public void countAtSquare32() {
     BigInteger result = grains.grainsOnSquare(32);
-    assertEquals(new BigInteger("2147483648"), result);
+    assertThat(result).isEqualTo(new BigInteger("2147483648"));
   }
 
   @Test
   public void countAtSquare64() {
     BigInteger result = grains.grainsOnSquare(64);
-    assertEquals(new BigInteger("9223372036854775808"), result);
+    assertThat(result).isEqualTo(new BigInteger("9223372036854775808"));
   }
 
   @Test
@@ -74,6 +74,6 @@ public class GrainsTest {
   @Test
   public void totalNumberOfGrainsOnABoard() {
     BigInteger total = grains.grainsOnBoard();
-    assertEquals(new BigInteger("18446744073709551615"), total);
+    assertThat(total).isEqualTo(new BigInteger("18446744073709551615"));
   }
 }
