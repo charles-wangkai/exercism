@@ -34,23 +34,18 @@ public class Say {
       return "zero";
     }
 
-    String s = String.valueOf(number);
+    List<Integer> values = new ArrayList<>();
+    while (number != 0) {
+      values.add((int) (number % 1000));
+      number /= 1000;
+    }
 
-    int[] values =
-        IntStream.iterate(0, beginIndex -> beginIndex < s.length(), beginIndex -> beginIndex + 3)
-            .map(
-                beginIndex ->
-                    Integer.parseInt(
-                        reverse(
-                            reverse(s)
-                                .substring(beginIndex, Math.min(s.length(), beginIndex + 3)))))
-            .toArray();
     String[] parts =
-        IntStream.range(0, values.length)
-            .filter(i -> values[i] != 0)
+        IntStream.range(0, values.size())
+            .filter(i -> values.get(i) != 0)
             .mapToObj(
                 i ->
-                    sayWithinThousand(values[i])
+                    sayWithinThousand(values.get(i))
                         + (CHUNK_NAMES[i].isEmpty() ? "" : " ")
                         + CHUNK_NAMES[i])
             .toArray(String[]::new);
@@ -94,9 +89,5 @@ public class Say {
     }
 
     return String.join(" ", parts);
-  }
-
-  String reverse(String s) {
-    return new StringBuilder(s).reverse().toString();
   }
 }

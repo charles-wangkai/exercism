@@ -1,6 +1,6 @@
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SayTest {
 
@@ -32,6 +32,16 @@ public class SayTest {
   }
 
   @Test
+  public void thirty() {
+    assertThat(say.say(30)).isEqualTo("thirty");
+  }
+
+  @Test
+  public void ninetyNine() {
+    assertThat(say.say(99)).isEqualTo("ninety-nine");
+  }
+
+  @Test
   public void oneHundred() {
     assertThat(say.say(100)).isEqualTo("one hundred");
   }
@@ -39,6 +49,16 @@ public class SayTest {
   @Test
   public void oneHundredTwentyThree() {
     assertThat(say.say(123)).isEqualTo("one hundred twenty-three");
+  }
+
+  @Test
+  public void twoHundred() {
+    assertThat(say.say(200)).isEqualTo("two hundred");
+  }
+
+  @Test
+  public void nineHundredNinetyNine() {
+    assertThat(say.say(999)).isEqualTo("nine hundred ninety-nine");
   }
 
   @Test
@@ -75,13 +95,14 @@ public class SayTest {
                 + " three hundred twenty-one thousand one hundred twenty-three");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void illegalNegativeNumber() {
-    say.say(-1);
+    assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> say.say(-1));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void illegalTooBigNumber() {
-    say.say(1_000_000_000_000L);
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> say.say(1_000_000_000_000L));
   }
 }
