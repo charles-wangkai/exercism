@@ -1,12 +1,12 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class IsbnVerifierTest {
   private IsbnVerifier isbnVerifier;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     isbnVerifier = new IsbnVerifier();
   }
@@ -34,6 +34,11 @@ public class IsbnVerifierTest {
   @Test
   public void checkDigitIsACharacterOtherThanX() {
     assertThat(isbnVerifier.isValid("3-598-21507-A")).isFalse();
+  }
+
+  @Test
+  public void invalidCheckDigitInIsbn() {
+    assertThat(isbnVerifier.isValid("4-598-21507-B")).isFalse();
   }
 
   @Test
@@ -92,8 +97,13 @@ public class IsbnVerifierTest {
   }
 
   @Test
-  public void invalidCharactersAreNotIgnored() {
+  public void invalidCharactersAreNotIgnoredAfterCheckingLength() {
     assertThat(isbnVerifier.isValid("3132P34035")).isFalse();
+  }
+
+  @Test
+  public void invalidCharactersAreNotIgnoredBeforeCheckingLength() {
+    assertThat(isbnVerifier.isValid("3598P215088")).isFalse();
   }
 
   @Test
