@@ -39,6 +39,6 @@ class Scrabble {
   }
 
   int getScore() {
-    return word.chars().map(Character::toUpperCase).map(c -> LETTER_TO_VALUE.get((char) c)).sum();
+    return word.toUpperCase().chars().map(c -> LETTER_TO_VALUE.get((char) c)).sum();
   }
 }
