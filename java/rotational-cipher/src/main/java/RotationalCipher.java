@@ -1,8 +1,6 @@
 import java.util.stream.Collectors;
 
 public class RotationalCipher {
-  private static final int ALPHABET_SIZE = 26;
-
   private int key;
 
   public RotationalCipher(int key) {
@@ -18,10 +16,10 @@ public class RotationalCipher {
 
   private char rotate(char c) {
     if (Character.isLowerCase(c)) {
-      return (char) ((c - 'a' + key) % ALPHABET_SIZE + 'a');
+      return (char) ((c - 'a' + key) % 26 + 'a');
     }
     if (Character.isUpperCase(c)) {
-      return (char) ((c - 'A' + key) % ALPHABET_SIZE + 'A');
+      return (char) ((c - 'A' + key) % 26 + 'A');
     }
 
     return (char) c;
