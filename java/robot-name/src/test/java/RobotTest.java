@@ -2,15 +2,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RobotTest {
 
   private static final String EXPECTED_ROBOT_NAME_PATTERN = "[A-Z]{2}\\d{3}";
   private Robot robot;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     robot = new Robot();
   }

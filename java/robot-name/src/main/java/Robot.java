@@ -12,13 +12,13 @@ public class Robot {
     if (name == null) {
       while (true) {
         name =
-            String.format(
-                "%c%c%d%d%d",
-                generateLetter(),
-                generateLetter(),
-                generateDigit(),
-                generateDigit(),
-                generateDigit());
+            "%c%c%d%d%d"
+                .formatted(
+                    generateLetter(),
+                    generateLetter(),
+                    generateDigit(),
+                    generateDigit(),
+                    generateDigit());
         if (!names.contains(name)) {
           names.add(name);
 
