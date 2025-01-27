@@ -29,7 +29,7 @@ public class RunLengthEncoding {
     int index = 0;
     while (index != s.length()) {
       int endIndex = index;
-      while (endIndex != s.length() && Character.isDigit(s.charAt(endIndex))) {
+      while (Character.isDigit(s.charAt(endIndex))) {
         ++endIndex;
       }
 
