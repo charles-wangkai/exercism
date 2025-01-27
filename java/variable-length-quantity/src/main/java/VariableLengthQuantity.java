@@ -24,7 +24,7 @@ class VariableLengthQuantity {
   }
 
   List<String> decode(List<Long> bytes) {
-    if (bytes.get(bytes.size() - 1) >= 1 << 7) {
+    if (bytes.getLast() >= 1 << 7) {
       throw new IllegalArgumentException("Invalid variable-length quantity encoding");
     }
 
