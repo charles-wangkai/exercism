@@ -36,8 +36,8 @@ class TwelveDays {
   String verse(int verseNumber) {
     StringBuilder result =
         new StringBuilder(
-            String.format(
-                "On the %s day of Christmas my true love gave to me: ", SEQUENCES[verseNumber]));
+            "On the %s day of Christmas my true love gave to me: "
+                .formatted(SEQUENCES[verseNumber]));
     for (int i = verseNumber; i >= 1; --i) {
       if (i < verseNumber) {
         result.append(", ");
