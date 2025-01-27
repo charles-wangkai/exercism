@@ -21,10 +21,10 @@ public class PhoneNumber {
             .map(String::valueOf)
             .collect(Collectors.joining());
     if (digits.length() > 11) {
-      throw new IllegalArgumentException("more than 11 digits");
+      throw new IllegalArgumentException("must not be greater than 11 digits");
     }
-    if (digits.length() != 10 && digits.length() != 11) {
-      throw new IllegalArgumentException("incorrect number of digits");
+    if (digits.length() < 10) {
+      throw new IllegalArgumentException("must not be fewer than 10 digits");
     }
     if (digits.length() == 11 && digits.charAt(0) != '1') {
       throw new IllegalArgumentException("11 digits must start with 1");
