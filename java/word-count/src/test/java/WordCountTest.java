@@ -1,9 +1,9 @@
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class WordCountTest {
 
@@ -11,7 +11,7 @@ public class WordCountTest {
   private Map<String, Integer> actualWordCount;
   private Map<String, Integer> expectedWordCount;
 
-  @Before
+  @BeforeEach
   public void setup() {
     wordCount = new WordCount();
     expectedWordCount = new HashMap<>();
@@ -22,7 +22,7 @@ public class WordCountTest {
     expectedWordCount.put("word", 1);
 
     actualWordCount = wordCount.phrase("word");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -32,7 +32,7 @@ public class WordCountTest {
     expectedWordCount.put("each", 1);
 
     actualWordCount = wordCount.phrase("one of each");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -44,7 +44,7 @@ public class WordCountTest {
     expectedWordCount.put("blue", 1);
 
     actualWordCount = wordCount.phrase("one fish two fish red fish blue fish");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -54,7 +54,7 @@ public class WordCountTest {
     expectedWordCount.put("three", 1);
 
     actualWordCount = wordCount.phrase("one,two,three");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -64,7 +64,7 @@ public class WordCountTest {
     expectedWordCount.put("three", 1);
 
     actualWordCount = wordCount.phrase("one,\ntwo,\nthree");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -76,7 +76,7 @@ public class WordCountTest {
     expectedWordCount.put("javascript", 1);
 
     actualWordCount = wordCount.phrase("car : carpet as java : javascript!!&@$%^&");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class WordCountTest {
     expectedWordCount.put("2", 1);
 
     actualWordCount = wordCount.phrase("testing, 1, 2 testing");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -95,7 +95,7 @@ public class WordCountTest {
     expectedWordCount.put("stop", 2);
 
     actualWordCount = wordCount.phrase("go Go GO Stop stop");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -105,9 +105,12 @@ public class WordCountTest {
     expectedWordCount.put("laugh", 1);
     expectedWordCount.put("then", 1);
     expectedWordCount.put("cry", 1);
+    expectedWordCount.put("you're", 1);
+    expectedWordCount.put("getting", 1);
+    expectedWordCount.put("it", 1);
 
-    actualWordCount = wordCount.phrase("First: don't laugh. Then: don't cry.");
-    assertEquals(expectedWordCount, actualWordCount);
+    actualWordCount = wordCount.phrase("'First: don't laugh. Then: don't cry. You're getting it.'");
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -122,7 +125,7 @@ public class WordCountTest {
     expectedWordCount.put("a", 1);
 
     actualWordCount = wordCount.phrase("Joe can't tell between app, apple and a.");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -135,7 +138,7 @@ public class WordCountTest {
     expectedWordCount.put("and", 1);
 
     actualWordCount = wordCount.phrase("Joe can't tell between 'large' and large.");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -144,7 +147,7 @@ public class WordCountTest {
     expectedWordCount.put("whitespaces", 1);
 
     actualWordCount = wordCount.phrase(" multiple   whitespaces");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 
   @Test
@@ -154,6 +157,15 @@ public class WordCountTest {
     expectedWordCount.put("three", 1);
 
     actualWordCount = wordCount.phrase(",\n,one,\n ,two \n 'three'");
-    assertEquals(expectedWordCount, actualWordCount);
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
+  }
+
+  @Test
+  public void quotationForWordWithApostrophe() {
+    expectedWordCount.put("can", 1);
+    expectedWordCount.put("can't", 2);
+
+    actualWordCount = wordCount.phrase("can, can't, 'can't'");
+    assertThat(actualWordCount).isEqualTo(expectedWordCount);
   }
 }
