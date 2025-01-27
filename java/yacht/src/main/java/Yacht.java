@@ -55,7 +55,7 @@ class Yacht {
     return dice[0] == dice[1]
         && dice[3] == dice[4]
         && dice[0] != dice[4]
-        && (dice[2] == dice[1] || dice[2] == dice[3]);
+        && (dice[1] == dice[2] || dice[2] == dice[3]);
   }
 
   boolean isFourOfAKind() {
