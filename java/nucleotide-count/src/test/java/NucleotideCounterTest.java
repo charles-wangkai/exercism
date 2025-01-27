@@ -1,8 +1,8 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NucleotideCounterTest {
 
@@ -42,6 +42,7 @@ public class NucleotideCounterTest {
 
   @Test
   public void testDnaStringHasInvalidNucleotides() {
-    assertThrows(IllegalArgumentException.class, () -> new NucleotideCounter("AGXXACT"));
+    assertThatThrownBy(() -> new NucleotideCounter("AGXXACT"))
+        .isInstanceOf(IllegalArgumentException.class);
   }
 }
