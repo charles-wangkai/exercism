@@ -1,6 +1,6 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AllergiesTest {
 
@@ -386,5 +386,12 @@ public class AllergiesTest {
             Allergen.CHOCOLATE,
             Allergen.POLLEN,
             Allergen.CATS);
+  }
+
+  @Test
+  public void listNoAllergenScorePartsWithoutHighestValidScore() {
+    Allergies allergies = new Allergies(257);
+
+    assertThat(allergies.getList()).containsExactly(Allergen.EGGS);
   }
 }
