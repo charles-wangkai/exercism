@@ -37,7 +37,7 @@ public class PigLatinTranslator {
     }
 
     int yIndex = word.indexOf('y');
-    if (yIndex > 0 && IntStream.range(0, yIndex).allMatch(i -> !isSingleVowel(word.charAt(i)))) {
+    if (yIndex >= 1 && IntStream.range(0, yIndex).allMatch(i -> !isSingleVowel(word.charAt(i)))) {
       return word.substring(0, yIndex);
     }
 

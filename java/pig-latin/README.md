@@ -3,83 +3,61 @@
 Welcome to Pig Latin on Exercism's Java Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+Your parents have challenged you and your sibling to a game of two-on-two basketball.
+Confident they'll win, they let you score the first couple of points, but then start taking over the game.
+Needing a little boost, you start speaking in [Pig Latin][pig-latin], which is a made-up children's language that's difficult for non-children to understand.
+This will give you the edge to prevail over your parents!
+
+[pig-latin]: https://en.wikipedia.org/wiki/Pig_latin
+
 ## Instructions
 
-Implement a program that translates from English to Pig Latin.
+Your task is to translate text from English to Pig Latin.
+The translation is defined using four rules, which look at the pattern of vowels and consonants at the beginning of a word.
+These rules look at each word's use of vowels and consonants:
 
-Pig Latin is a made-up children's language that's intended to be
-confusing. It obeys a few simple rules (below), but when it's spoken
-quickly it's really difficult for non-children (and non-native speakers)
-to understand.
+- vowels: the letters `a`, `e`, `i`, `o`, and `u`
+- consonants: the other 21 letters of the English alphabet
 
-- **Rule 1**: If a word begins with a vowel sound, add an "ay" sound to the end of the word. Please note that "xr" and "yt" at the beginning of a word make vowel sounds (e.g. "xray" -> "xrayay", "yttria" -> "yttriaay").
-- **Rule 2**: If a word begins with a consonant sound, move it to the end of the word and then add an "ay" sound to the end of the word. Consonant sounds can be made up of multiple consonants, a.k.a. a consonant cluster (e.g. "chair" -> "airchay").
-- **Rule 3**: If a word starts with a consonant sound followed by "qu", move it to the end of the word, and then add an "ay" sound to the end of the word (e.g. "square" -> "aresquay").
-- **Rule 4**: If a word contains a "y" after a consonant cluster or as the second letter in a two letter word it makes a vowel sound (e.g. "rhythm" -> "ythmrhay", "my" -> "ymay").
+## Rule 1
 
-There are a few more rules for edge cases, and there are regional
-variants too.
+If a word begins with a vowel, or starts with `"xr"` or `"yt"`, add an `"ay"` sound to the end of the word.
 
-See <http://en.wikipedia.org/wiki/Pig_latin> for more details.
+For example:
 
-Since this exercise has difficulty 5 it doesn't come with any starter implementation.
-This is so that you get to practice creating classes and methods which is an important part of programming in Java.
-It does mean that when you first try to run the tests, they won't compile.
-They will give you an error similar to:
-```
- path-to-exercism-dir\exercism\java\name-of-exercise\src\test\java\ExerciseClassNameTest.java:14: error: cannot find symbol
-        ExerciseClassName exerciseClassName = new ExerciseClassName();
-        ^
- symbol:   class ExerciseClassName
- location: class ExerciseClassNameTest
-```
-This error occurs because the test refers to a class that hasn't been created yet (`ExerciseClassName`).
-To resolve the error you need to add a file matching the class name in the error to the `src/main/java` directory.
-For example, for the error above you would add a file called `ExerciseClassName.java`.
+- `"apple"` -> `"appleay"` (starts with vowel)
+- `"xray"` -> `"xrayay"` (starts with `"xr"`)
+- `"yttria"` -> `"yttriaay"` (starts with `"yt"`)
 
-When you try to run the tests again you will get slightly different errors.
-You might get an error similar to:
-```
-  constructor ExerciseClassName in class ExerciseClassName cannot be applied to given types;
-        ExerciseClassName exerciseClassName = new ExerciseClassName("some argument");
-                                              ^
-  required: no arguments
-  found: String
-  reason: actual and formal argument lists differ in length
-```
-This error means that you need to add a [constructor](https://docs.oracle.com/javase/tutorial/java/javaOO/constructors.html) to your new class.
-If you don't add a constructor, Java will add a default one for you.
-This default constructor takes no arguments.
-So if the tests expect your class to have a constructor which takes arguments, then you need to create this constructor yourself.
-In the example above you could add:
-```
-ExerciseClassName(String input) {
+## Rule 2
 
-}
-```
-That should make the error go away, though you might need to add some more code to your constructor to make the test pass!
+If a word begins with one or more consonants, first move those consonants to the end of the word and then add an `"ay"` sound to the end of the word.
 
-You might also get an error similar to:
-```
-  error: cannot find symbol
-        assertEquals(expectedOutput, exerciseClassName.someMethod());
-                                                       ^
-  symbol:   method someMethod()
-  location: variable exerciseClassName of type ExerciseClassName
-```
-This error means that you need to add a method called `someMethod` to your new class.
-In the example above you would add:
-```
-String someMethod() {
-  return "";
-}
-```
-Make sure the return type matches what the test is expecting.
-You can find out which return type it should have by looking at the type of object it's being compared to in the tests.
-Or you could set your method to return some random type (e.g. `void`), and run the tests again.
-The new error should tell you which type it's expecting.
+For example:
 
-After having resolved these errors you should be ready to start making the tests pass!
+- `"pig"` -> `"igp"` -> `"igpay"` (starts with single consonant)
+- `"chair"` -> `"airch"` -> `"airchay"` (starts with multiple consonants)
+- `"thrush"` -> `"ushthr"` -> `"ushthray"` (starts with multiple consonants)
+
+## Rule 3
+
+If a word starts with zero or more consonants followed by `"qu"`, first move those consonants (if any) and the `"qu"` part to the end of the word, and then add an `"ay"` sound to the end of the word.
+
+For example:
+
+- `"quick"` -> `"ickqu"` -> `"ickquay"` (starts with `"qu"`, no preceding consonants)
+- `"square"` -> `"aresqu"` -> `"aresquay"` (starts with one consonant followed by `"qu`")
+
+## Rule 4
+
+If a word starts with one or more consonants followed by `"y"`, first move the consonants preceding the `"y"`to the end of the word, and then add an `"ay"` sound to the end of the word.
+
+Some examples:
+
+- `"my"` -> `"ym"` -> `"ymay"` (starts with single consonant followed by `"y"`)
+- `"rhythm"` -> `"ythmrh"` -> `"ythmrhay"` (starts with multiple consonants followed by `"y"`)
 
 ## Source
 
@@ -88,6 +66,7 @@ After having resolved these errors you should be ready to start making the tests
 - @aadityakulkarni
 - @FridaTveit
 - @jackattack24
+- @jagdish-15
 - @jmrunkle
 - @jtigger
 - @Kyle-Pu
