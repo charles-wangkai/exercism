@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 public class AffineCipher {
   static final int M = 26;
 
@@ -27,7 +29,7 @@ public class AffineCipher {
       if (Character.isLetterOrDigit(c)) {
         char decoded =
             Character.isLetter(c)
-                ? (char) (multiplyMod(modInverse(a), ((c - 'a') - b) % M + M) % M + 'a')
+                ? (char) (multiplyMod(modInverse(a), Math.floorMod((c - 'a') - b, M)) + 'a')
                 : c;
 
         result.append(decoded);
@@ -38,11 +40,7 @@ public class AffineCipher {
   }
 
   int modInverse(int x) {
-    for (int i = 1; ; ++i) {
-      if (multiplyMod(x, i) == 1) {
-        return i;
-      }
-    }
+    return BigInteger.valueOf(x).modInverse(BigInteger.valueOf(M)).intValue();
   }
 
   int multiplyMod(int x, int y) {
