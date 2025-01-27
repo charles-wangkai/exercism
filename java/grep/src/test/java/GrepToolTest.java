@@ -1,4 +1,4 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -8,14 +8,14 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GrepToolTest {
   private GrepTool grepTool;
 
-  @Before
+  @BeforeEach
   public void setUp() throws IOException {
     List<String> iliadText =
         Arrays.asList(
@@ -56,7 +56,7 @@ public class GrepToolTest {
     grepTool = new GrepTool();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws IOException {
     deleteFile("iliad.txt");
     deleteFile("midsummer-night.txt");
@@ -70,7 +70,7 @@ public class GrepToolTest {
     String actual =
         grepTool.grep("Agamemnon", Collections.emptyList(), Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -83,7 +83,7 @@ public class GrepToolTest {
             Collections.singletonList("-n"),
             Collections.singletonList("paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -96,7 +96,7 @@ public class GrepToolTest {
             Collections.singletonList("-i"),
             Collections.singletonList("paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -109,7 +109,7 @@ public class GrepToolTest {
             Collections.singletonList("-l"),
             Collections.singletonList("paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -122,7 +122,7 @@ public class GrepToolTest {
             Collections.singletonList("-x"),
             Collections.singletonList("paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -135,7 +135,7 @@ public class GrepToolTest {
             Arrays.asList("-n", "-i", "-x"),
             Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -149,7 +149,7 @@ public class GrepToolTest {
         grepTool.grep(
             "may", Collections.emptyList(), Collections.singletonList("midsummer-night.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -165,7 +165,7 @@ public class GrepToolTest {
             Collections.singletonList("-n"),
             Collections.singletonList("midsummer-night.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -178,7 +178,7 @@ public class GrepToolTest {
             Collections.singletonList("-x"),
             Collections.singletonList("midsummer-night.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -190,7 +190,7 @@ public class GrepToolTest {
         grepTool.grep(
             "ACHILLES", Collections.singletonList("-i"), Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -206,7 +206,7 @@ public class GrepToolTest {
         grepTool.grep(
             "Of", Collections.singletonList("-v"), Collections.singletonList("paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -219,7 +219,7 @@ public class GrepToolTest {
             Arrays.asList("-n", "-l", "-x", "-i"),
             Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -229,7 +229,7 @@ public class GrepToolTest {
     String actual =
         grepTool.grep("ten", Arrays.asList("-n", "-l"), Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -250,7 +250,7 @@ public class GrepToolTest {
             Arrays.asList("-x", "-v"),
             Collections.singletonList("iliad.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -263,7 +263,7 @@ public class GrepToolTest {
             Collections.emptyList(),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -279,7 +279,7 @@ public class GrepToolTest {
             Collections.emptyList(),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -296,7 +296,7 @@ public class GrepToolTest {
             Collections.singletonList("-n"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -309,7 +309,7 @@ public class GrepToolTest {
             Collections.singletonList("-l"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -332,7 +332,7 @@ public class GrepToolTest {
             Collections.singletonList("-i"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -348,7 +348,7 @@ public class GrepToolTest {
             Collections.singletonList("-v"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -361,7 +361,7 @@ public class GrepToolTest {
             Collections.singletonList("-x"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -374,7 +374,7 @@ public class GrepToolTest {
             Arrays.asList("-n", "-i", "-x"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -387,7 +387,7 @@ public class GrepToolTest {
             Arrays.asList("-n", "-l", "-x", "-i"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -400,7 +400,7 @@ public class GrepToolTest {
             Arrays.asList("-n", "-l"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -436,7 +436,7 @@ public class GrepToolTest {
             Arrays.asList("-x", "-v"),
             Arrays.asList("iliad.txt", "midsummer-night.txt", "paradise-lost.txt"));
 
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   private void writeToFile(String filename, List<String> contents) throws IOException {
