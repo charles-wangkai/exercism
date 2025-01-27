@@ -13,7 +13,7 @@ public class Ledger {
   private static final Map<String, String> CURRENCY_TO_SYMBOL =
       Map.ofEntries(entry("USD", "$"), entry("EUR", "€"));
 
-  public LedgerEntry createLedgerEntry(String dateStr, String description, double change) {
+  public LedgerEntry createLedgerEntry(String dateStr, String description, int change) {
     return new LedgerEntry(LocalDate.parse(dateStr), description, change);
   }
 
@@ -38,24 +38,23 @@ public class Ledger {
   }
 
   private String generateHeaderRow(Locale locale) {
-    return String.format(
-        "%-10s | %-25s | %-13s",
-        locale.headerDateStr, locale.headerDescriptionStr, locale.headerChangeStr);
+    return "%-10s | %-25s | %-13s"
+        .formatted(locale.headerDateStr, locale.headerDescriptionStr, locale.headerChangeStr);
   }
 
   private String generateEntryRow(LedgerEntry entry, Locale locale, String currency) {
-    return String.format(
-        "%s | %-25s | %13s",
-        locale.generateDateStr(entry.date),
-        generateDescriptionStr(entry.description),
-        locale.generateChangeStr(entry.change, CURRENCY_TO_SYMBOL.get(currency)));
+    return "%s | %-25s | %13s"
+        .formatted(
+            locale.generateDateStr(entry.date),
+            generateDescriptionStr(entry.description),
+            locale.generateChangeStr(entry.change, CURRENCY_TO_SYMBOL.get(currency)));
   }
 
   private String generateDescriptionStr(String description) {
     return (description.length() <= 25) ? description : (description.substring(0, 22) + "...");
   }
 
-  public static record LedgerEntry(LocalDate date, String description, double change) {}
+  public static record LedgerEntry(LocalDate date, String description, int change) {}
 }
 
 abstract class Locale {
@@ -80,24 +79,25 @@ abstract class Locale {
 
   abstract String generateDateStr(LocalDate date);
 
-  String generateChangeStr(double change, String symbol) {
-    return ((change < 0) ? "-" : "")
-        + symbol
-        + String.format("%,.2f", Math.abs(change))
-            .chars()
-            .mapToObj(
-                c -> {
-                  if (c == '.') {
-                    return decimalPoint;
-                  }
-                  if (c == ',') {
-                    return thousandsSeparator;
-                  }
+  abstract String generateChangeStr(int change, String symbol);
 
-                  return (char) c;
-                })
-            .map(String::valueOf)
-            .collect(Collectors.joining());
+  String generateAbsChangeStr(int change) {
+    return "%,.2f"
+        .formatted(Math.abs(change / 100.0))
+        .chars()
+        .mapToObj(
+            c -> {
+              if (c == '.') {
+                return decimalPoint;
+              }
+              if (c == ',') {
+                return thousandsSeparator;
+              }
+
+              return (char) c;
+            })
+        .map(String::valueOf)
+        .collect(Collectors.joining());
   }
 }
 
@@ -110,6 +110,11 @@ class EnUSLocale extends Locale {
   String generateDateStr(LocalDate date) {
     return date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
   }
+
+  @Override
+  String generateChangeStr(int change, String symbol) {
+    return ((change >= 0) ? "%s%s " : "(%s%s)").formatted(symbol, generateAbsChangeStr(change));
+  }
 }
 
 class NlNLLocale extends Locale {
@@ -120,5 +125,10 @@ class NlNLLocale extends Locale {
   @Override
   String generateDateStr(LocalDate date) {
     return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+  }
+
+  @Override
+  String generateChangeStr(int change, String symbol) {
+    return ((change >= 0) ? "%s %s " : "%s -%s ").formatted(symbol, generateAbsChangeStr(change));
   }
 }
