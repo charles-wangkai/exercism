@@ -16,7 +16,7 @@ public class Alphametics {
   Map<Character, Integer> solve() throws UnsolvablePuzzleException {
     int[] digits = IntStream.range(0, 10).toArray();
 
-    Map<Character, Integer> letterToDigit = search(letters, digits, 0);
+    Map<Character, Integer> letterToDigit = search(digits, 0);
     if (letterToDigit == null) {
       throw new UnsolvablePuzzleException();
     }
@@ -24,12 +24,12 @@ public class Alphametics {
     return letterToDigit;
   }
 
-  Map<Character, Integer> search(List<Character> letters, int[] digits, int index) {
+  Map<Character, Integer> search(int[] digits, int index) {
     if (index == letters.size()) {
       Map<Character, Integer> letterToDigit =
           IntStream.range(0, letters.size())
               .boxed()
-              .collect(Collectors.toMap(i -> letters.get(i), i -> digits[i]));
+              .collect(Collectors.toMap(letters::get, i -> digits[i]));
 
       return check(letterToDigit) ? letterToDigit : null;
     }
@@ -37,7 +37,7 @@ public class Alphametics {
     for (int i = index; i < digits.length; ++i) {
       swap(digits, i, index);
 
-      Map<Character, Integer> letterToDigit = search(letters, digits, index + 1);
+      Map<Character, Integer> letterToDigit = search(digits, index + 1);
       if (letterToDigit != null) {
         return letterToDigit;
       }
