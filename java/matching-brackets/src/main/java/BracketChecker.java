@@ -1,5 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class BracketChecker {
   String s;
@@ -10,12 +11,13 @@ public class BracketChecker {
 
   boolean areBracketsMatchedAndNestedCorrectly() {
     List<Character> brackets =
-        s.chars().filter(c -> "()[]{}".indexOf(c) >= 0).mapToObj(c -> (char) c).toList();
-    Stack<Character> stack = new Stack<>();
+        s.chars().filter(c -> "()[]{}".indexOf(c) != -1).mapToObj(c -> (char) c).toList();
+
+    Deque<Character> stack = new ArrayDeque<>();
     for (char bracket : brackets) {
       if (bracket == '(' || bracket == '[' || bracket == '{') {
         stack.push(bracket);
-      } else if (stack.empty()
+      } else if (stack.isEmpty()
           || (bracket == ')' && stack.peek() != '(')
           || (bracket == ']' && stack.peek() != '[')
           || (bracket == '}' && stack.peek() != '{')) {
@@ -25,6 +27,6 @@ public class BracketChecker {
       }
     }
 
-    return stack.empty();
+    return stack.isEmpty();
   }
 }
