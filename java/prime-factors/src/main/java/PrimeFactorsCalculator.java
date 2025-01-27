@@ -3,17 +3,17 @@ import java.util.List;
 
 public class PrimeFactorsCalculator {
   List<Long> calculatePrimeFactorsOf(long n) {
-    List<Long> primeFactors = new ArrayList<>();
+    List<Long> result = new ArrayList<>();
     for (int i = 2; (long) i * i <= n; ++i) {
       while (n % i == 0) {
-        primeFactors.add((long) i);
+        result.add((long) i);
         n /= i;
       }
     }
     if (n != 1) {
-      primeFactors.add(n);
+      result.add(n);
     }
 
-    return primeFactors;
+    return result;
   }
 }
