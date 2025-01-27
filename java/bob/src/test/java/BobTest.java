@@ -1,12 +1,12 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BobTest {
   private Bob bob;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     bob = new Bob();
   }
@@ -113,12 +113,6 @@ public class BobTest {
   }
 
   @Test
-  public void multipleLineQuestion() {
-    assertThat(bob.hey("\nDoes this cryogenic chamber make me look fat?\nNo."))
-        .isEqualTo("Whatever.");
-  }
-
-  @Test
   public void startingWithWhitespace() {
     assertThat(bob.hey("         hmmmmmmm...")).isEqualTo("Whatever.");
   }
@@ -136,5 +130,10 @@ public class BobTest {
   @Test
   public void nonQuestionEndingWithWhiteSpace() {
     assertThat(bob.hey("This is a statement ending with whitespace      ")).isEqualTo("Whatever.");
+  }
+
+  @Test
+  public void multipleLineQuestion() {
+    assertThat(bob.hey("\nDoes this cryogenic chamber make\n me look fat?")).isEqualTo("Sure.");
   }
 }
