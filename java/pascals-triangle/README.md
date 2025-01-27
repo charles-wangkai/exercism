@@ -3,12 +3,46 @@
 Welcome to Pascal's Triangle on Exercism's Java Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+With the weather being great, you're not looking forward to spending an hour in a classroom.
+Annoyed, you enter the class room, where you notice a strangely satisfying triangle shape on the blackboard.
+Whilst waiting for your math teacher to arrive, you can't help but notice some patterns in the triangle: the outer values are all ones, each subsequent row has one more value than its previous row and the triangle is symmetrical.
+Weird!
+
+Not long after you sit down, your teacher enters the room and explains that this triangle is the famous [Pascal's triangle][wikipedia].
+
+Over the next hour, your teacher reveals some amazing things hidden in this triangle:
+
+- It can be used to compute how many ways you can pick K elements from N values.
+- It contains the Fibonacci sequence.
+- If you color odd and even numbers differently, you get a beautiful pattern called the [Sierpiński triangle][wikipedia-sierpinski-triangle].
+
+The teacher implores you and your classmates to look up other uses, and assures you that there are lots more!
+At that moment, the school bell rings.
+You realize that for the past hour, you were completely absorbed in learning about Pascal's triangle.
+You quickly grab your laptop from your bag and go outside, ready to enjoy both the sunshine _and_ the wonders of Pascal's triangle.
+
+[wikipedia]: https://en.wikipedia.org/wiki/Pascal%27s_triangle
+[wikipedia-sierpinski-triangle]: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle
+
 ## Instructions
 
-Compute Pascal's triangle up to a given number of rows.
+Your task is to output the first N rows of Pascal's triangle.
 
-In Pascal's Triangle each number is computed by adding the numbers to
-the right and left of the current position in the previous row.
+[Pascal's triangle][wikipedia] is a triangular array of positive integers.
+
+In Pascal's triangle, the number of values in a row is equal to its row number (which starts at one).
+Therefore, the first row has one value, the second row has two values, and so on.
+
+The first (topmost) row has a single value: `1`.
+Subsequent rows' values are computed by adding the numbers directly to the right and left of the current position in the previous row.
+
+If the previous row does _not_ have a value to the left or right of the current position (which only happens for the leftmost and rightmost positions), treat that position's value as zero (effectively "ignoring" it in the summation).
+
+## Example
+
+Let's look at the first 5 rows of Pascal's Triangle:
 
 ```text
     1
@@ -16,67 +50,17 @@ the right and left of the current position in the previous row.
   1 2 1
  1 3 3 1
 1 4 6 4 1
-# ... etc
 ```
 
-Since this exercise has difficulty 5 it doesn't come with any starter implementation.
-This is so that you get to practice creating classes and methods which is an important part of programming in Java.
-It does mean that when you first try to run the tests, they won't compile.
-They will give you an error similar to:
-```
- path-to-exercism-dir\exercism\java\name-of-exercise\src\test\java\ExerciseClassNameTest.java:14: error: cannot find symbol
-        ExerciseClassName exerciseClassName = new ExerciseClassName();
-        ^
- symbol:   class ExerciseClassName
- location: class ExerciseClassNameTest
-```
-This error occurs because the test refers to a class that hasn't been created yet (`ExerciseClassName`).
-To resolve the error you need to add a file matching the class name in the error to the `src/main/java` directory.
-For example, for the error above you would add a file called `ExerciseClassName.java`.
+The topmost row has one value, which is `1`.
 
-When you try to run the tests again you will get slightly different errors.
-You might get an error similar to:
-```
-  constructor ExerciseClassName in class ExerciseClassName cannot be applied to given types;
-        ExerciseClassName exerciseClassName = new ExerciseClassName("some argument");
-                                              ^
-  required: no arguments
-  found: String
-  reason: actual and formal argument lists differ in length
-```
-This error means that you need to add a [constructor](https://docs.oracle.com/javase/tutorial/java/javaOO/constructors.html) to your new class.
-If you don't add a constructor, Java will add a default one for you.
-This default constructor takes no arguments.
-So if the tests expect your class to have a constructor which takes arguments, then you need to create this constructor yourself.
-In the example above you could add:
-```
-ExerciseClassName(String input) {
+The leftmost and rightmost values have only one preceding position to consider, which is the position to its right respectively to its left.
+With the topmost value being `1`, it follows from this that all the leftmost and rightmost values are also `1`.
 
-}
-``` 
-That should make the error go away, though you might need to add some more code to your constructor to make the test pass!
+The other values all have two positions to consider.
+For example, the fifth row's (`1 4 6 4 1`) middle value is `6`, as the values to its left and right in the preceding row are `3` and `3`:
 
-You might also get an error similar to:
-```
-  error: cannot find symbol
-        assertEquals(expectedOutput, exerciseClassName.someMethod());
-                                                       ^
-  symbol:   method someMethod()
-  location: variable exerciseClassName of type ExerciseClassName
-```
-This error means that you need to add a method called `someMethod` to your new class.
-In the example above you would add:
-```
-String someMethod() {
-  return "";
-}
-```
-Make sure the return type matches what the test is expecting.
-You can find out which return type it should have by looking at the type of object it's being compared to in the tests.
-Or you could set your method to return some random type (e.g. `void`), and run the tests again.
-The new error should tell you which type it's expecting.
-
-After having resolved these errors you should be ready to start making the tests pass!
+[wikipedia]: https://en.wikipedia.org/wiki/Pascal%27s_triangle
 
 ## Source
 
@@ -110,4 +94,4 @@ After having resolved these errors you should be ready to start making the tests
 
 ### Based on
 
-Pascal's Triangle at Wolfram Math World - http://mathworld.wolfram.com/PascalsTriangle.html
+Pascal's Triangle at Wolfram Math World - https://www.wolframalpha.com/input/?i=Pascal%27s+triangle
