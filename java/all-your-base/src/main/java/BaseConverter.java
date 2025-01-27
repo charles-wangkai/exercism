@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.Collections;
+import java.util.List;
 
 public class BaseConverter {
   int base;
@@ -27,21 +29,17 @@ public class BaseConverter {
       value = value * base + digit;
     }
 
-    Stack<Integer> targetDigits = new Stack<>();
+    List<Integer> targetDigits = new ArrayList<>();
     while (value != 0) {
-      targetDigits.push(value % targetBase);
+      targetDigits.add(value % targetBase);
       value /= targetBase;
     }
-    if (targetDigits.empty()) {
-      targetDigits.push(0);
+    if (targetDigits.isEmpty()) {
+      targetDigits.add(0);
     }
+    Collections.reverse(targetDigits);
 
-    int[] result = new int[targetDigits.size()];
-    for (int i = 0; i < result.length; ++i) {
-      result[i] = targetDigits.pop();
-    }
-
-    return result;
+    return targetDigits.stream().mapToInt(Integer::intValue).toArray();
   }
 
   void checkBase(int b) {
