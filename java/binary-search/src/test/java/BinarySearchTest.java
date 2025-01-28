@@ -3,9 +3,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class BinarySearchTest {
 
   @Test
@@ -86,7 +85,7 @@ public class BinarySearchTest {
   }
 
   @Test
-  public void aValueLargerThanTheArraysSmallestValueIsNotFound() throws ValueNotFoundException {
+  public void aValueLargerThanTheArraysLargestValueIsNotFound() throws ValueNotFoundException {
     List<Integer> sortedList = List.of(1, 3, 4, 6, 8, 9, 11);
 
     BinarySearch search = new BinarySearch(sortedList);
