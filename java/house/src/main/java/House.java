@@ -18,11 +18,11 @@ public class House {
   };
 
   String verse(int verse) {
-    return String.format(
-        "This is %s",
-        IntStream.range(0, verse)
-            .mapToObj(i -> PARTS[verse - 1 - i])
-            .collect(Collectors.joining()));
+    return "This is %s"
+        .formatted(
+            IntStream.range(0, verse)
+                .mapToObj(i -> PARTS[verse - 1 - i])
+                .collect(Collectors.joining()));
   }
 
   String verses(int startVerse, int endVerse) {
