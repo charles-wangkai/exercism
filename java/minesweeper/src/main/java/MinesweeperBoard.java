@@ -2,9 +2,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MinesweeperBoard {
-  static final int[] R_OFFSETS = {-1, -1, 0, 1, 1, 1, 0, -1};
-  static final int[] C_OFFSETS = {0, 1, 1, 1, 0, -1, -1, -1};
-
   List<String> inputBoard;
 
   MinesweeperBoard(List<String> inputBoard) {
@@ -38,15 +35,17 @@ public class MinesweeperBoard {
     }
 
     int count = 0;
-    for (int i = 0; i < R_OFFSETS.length; ++i) {
-      int adjR = r + R_OFFSETS[i];
-      int adjC = c + C_OFFSETS[i];
-      if (adjR >= 0
-          && adjR < row
-          && adjC >= 0
-          && adjC < col
-          && inputBoard.get(adjR).charAt(adjC) == '*') {
-        ++count;
+    for (int dr = -1; dr <= 1; ++dr) {
+      for (int dc = -1; dc <= 1; ++dc) {
+        int adjR = r + dr;
+        int adjC = c + dc;
+        if (adjR >= 0
+            && adjR < row
+            && adjC >= 0
+            && adjC < col
+            && inputBoard.get(adjR).charAt(adjC) == '*') {
+          ++count;
+        }
       }
     }
 
