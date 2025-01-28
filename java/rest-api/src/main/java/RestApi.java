@@ -89,13 +89,13 @@ public class RestApi {
             "owes",
             new JSONObject(
                 ledger.keySet().stream()
-                    .filter(other -> ledger.get(other) < 0)
+                    .filter(other -> ledger.get(other) < -EPSILON)
                     .collect(Collectors.toMap(Function.identity(), other -> -ledger.get(other)))))
         .put(
             "owedBy",
             new JSONObject(
                 ledger.keySet().stream()
-                    .filter(other -> ledger.get(other) > 0)
+                    .filter(other -> ledger.get(other) > EPSILON)
                     .collect(Collectors.toMap(Function.identity(), other -> ledger.get(other)))))
         .put("balance", ledger.values().stream().mapToDouble(Double::doubleValue).sum());
   }
