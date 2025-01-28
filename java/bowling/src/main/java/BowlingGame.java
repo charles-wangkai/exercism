@@ -68,10 +68,10 @@ public class BowlingGame {
       result += frame.getScore();
 
       if (frame.getFrameType() == FrameType.SPARE) {
-        result += frames.get(i + 1).roll1;
+        result += frames.get(i + 1).roll1();
       } else if (frame.getFrameType() == FrameType.STRIKE) {
-        int nextRoll = frames.get(i + 1).roll1;
-        int nextNextRoll = (nextRoll == 10) ? frames.get(i + 2).roll1 : frames.get(i + 1).roll2;
+        int nextRoll = frames.get(i + 1).roll1();
+        int nextNextRoll = (nextRoll == 10) ? frames.get(i + 2).roll1() : frames.get(i + 1).roll2();
 
         result += nextRoll + nextNextRoll;
       }
@@ -126,15 +126,7 @@ public class BowlingGame {
   }
 }
 
-class Frame {
-  int roll1;
-  int roll2;
-
-  Frame(int roll1, int roll2) {
-    this.roll1 = roll1;
-    this.roll2 = roll2;
-  }
-
+record Frame(int roll1, int roll2) {
   int getScore() {
     return roll1 + roll2;
   }

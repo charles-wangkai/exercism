@@ -1,7 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BowlingGameTest {
   private BowlingGame game = new BowlingGame();
@@ -106,6 +106,14 @@ public class BowlingGameTest {
 
     playGame(rolls);
     assertThat(game.score()).isEqualTo(30);
+  }
+
+  @Test
+  public void lastTwoStrikesFollowedByOnlyLastBonusWithNonStrikePoints() {
+    int[] rolls = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 1};
+
+    playGame(rolls);
+    assertThat(game.score()).isEqualTo(31);
   }
 
   @Test
