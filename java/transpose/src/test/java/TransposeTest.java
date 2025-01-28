@@ -1,12 +1,12 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TransposeTest {
   private Transpose transpose;
 
-  @Before
+  @BeforeEach
   public void setup() {
     transpose = new Transpose();
   }
@@ -82,5 +82,11 @@ public class TransposeTest {
   public void triangle() {
     assertThat(transpose.transpose("T\n" + "EE\n" + "AAA\n" + "SSSS\n" + "EEEEE\n" + "RRRRRR"))
         .isEqualTo("TEASER\n" + " EASER\n" + "  ASER\n" + "   SER\n" + "    ER\n" + "     R");
+  }
+
+  @Test
+  public void jaggedTriangle() {
+    assertThat(transpose.transpose("11\n" + "2\n" + "3333\n" + "444\n" + "555555\n" + "66666"))
+        .isEqualTo("123456\n" + "1 3456\n" + "  3456\n" + "  3 56\n" + "    56\n" + "    5");
   }
 }
