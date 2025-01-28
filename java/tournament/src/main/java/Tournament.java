@@ -7,22 +7,24 @@ public class Tournament {
   Map<String, Team> nameToTeam = new HashMap<>();
 
   String printTable() {
-    return String.format(
-        "Team                           | MP |  W |  D |  L |  P\n%s",
-        nameToTeam.values().stream()
-            .sorted(
-                Comparator.comparing(Team::getPoint).reversed().thenComparing(team -> team.name))
-            .map(
-                team ->
-                    String.format(
-                        "%-30s | %2d | %2d | %2d | %2d | %2d\n",
-                        team.name,
-                        team.winCount + team.drawCount + team.lossCount,
-                        team.winCount,
-                        team.drawCount,
-                        team.lossCount,
-                        team.getPoint()))
-            .collect(Collectors.joining()));
+    return "Team                           | MP |  W |  D |  L |  P\n%s"
+        .formatted(
+            nameToTeam.values().stream()
+                .sorted(
+                    Comparator.comparing(Team::getPoint)
+                        .reversed()
+                        .thenComparing(team -> team.name))
+                .map(
+                    team ->
+                        "%-30s | %2d | %2d | %2d | %2d | %2d\n"
+                            .formatted(
+                                team.name,
+                                team.winCount + team.drawCount + team.lossCount,
+                                team.winCount,
+                                team.drawCount,
+                                team.lossCount,
+                                team.getPoint()))
+                .collect(Collectors.joining()));
   }
 
   void applyResults(String results) {
