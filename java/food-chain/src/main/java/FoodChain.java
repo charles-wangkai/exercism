@@ -28,7 +28,7 @@ public class FoodChain {
 
   String verse(int verse) {
     StringBuilder result =
-        new StringBuilder(String.format("I know an old lady who swallowed a %s.", ANIMALS[verse]));
+        new StringBuilder("I know an old lady who swallowed a %s.".formatted(ANIMALS[verse]));
     if (verse != 1 && verse != 8) {
       result.append("\n").append(COMMENTS[verse]);
     }

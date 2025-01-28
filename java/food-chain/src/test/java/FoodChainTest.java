@@ -1,12 +1,12 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FoodChainTest {
   private FoodChain foodChain;
 
-  @Before
+  @BeforeEach
   public void setup() {
     foodChain = new FoodChain();
   }
@@ -18,7 +18,7 @@ public class FoodChainTest {
         "I know an old lady who swallowed a fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -30,7 +30,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -44,7 +44,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -59,7 +59,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -75,7 +75,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -92,7 +92,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -110,7 +110,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -118,7 +118,7 @@ public class FoodChainTest {
     int verse = 8;
     String expected = "I know an old lady who swallowed a horse.\n" + "She's dead, of course!";
 
-    assertEquals(expected, foodChain.verse(verse));
+    assertThat(foodChain.verse(verse)).isEqualTo(expected);
   }
 
   @Test
@@ -141,7 +141,7 @@ public class FoodChainTest {
             + "She swallowed the spider to catch the fly.\n"
             + "I don't know why she swallowed the fly. Perhaps she'll die.";
 
-    assertEquals(expected, foodChain.verses(startVerse, endVerse));
+    assertThat(foodChain.verses(startVerse, endVerse)).isEqualTo(expected);
   }
 
   @Test
@@ -205,6 +205,6 @@ public class FoodChainTest {
             + "I know an old lady who swallowed a horse.\n"
             + "She's dead, of course!";
 
-    assertEquals(expected, foodChain.verses(startVerse, endVerse));
+    assertThat(foodChain.verses(startVerse, endVerse)).isEqualTo(expected);
   }
 }
