@@ -1,12 +1,16 @@
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Random;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
-  private BankAccount bankAccount = new BankAccount();
+  private BankAccount bankAccount;
+
+  @BeforeEach
+  public void setUp() {
+    bankAccount = new BankAccount();
+  }
 
   @Test
   public void newlyOpenedAccountHasEmptyBalance() throws BankAccountActionInvalidException {
@@ -16,124 +20,147 @@ public class BankAccountTest {
   }
 
   @Test
-  public void canDepositMoney() throws BankAccountActionInvalidException {
+  public void singleDeposit() throws BankAccountActionInvalidException {
     bankAccount.open();
+    bankAccount.deposit(100);
 
-    bankAccount.deposit(10);
-
-    assertThat(bankAccount.getBalance()).isEqualTo(10);
+    assertThat(bankAccount.getBalance()).isEqualTo(100);
   }
 
   @Test
-  public void canDepositMoneySequentially() throws BankAccountActionInvalidException {
+  public void multipleDeposits() throws BankAccountActionInvalidException {
     bankAccount.open();
+    bankAccount.deposit(100);
+    bankAccount.deposit(50);
 
-    bankAccount.deposit(5);
-    bankAccount.deposit(23);
-
-    assertThat(bankAccount.getBalance()).isEqualTo(28);
+    assertThat(bankAccount.getBalance()).isEqualTo(150);
   }
 
   @Test
-  public void canWithdrawMoney() throws BankAccountActionInvalidException {
+  public void withdrawOnce() throws BankAccountActionInvalidException {
     bankAccount.open();
-    bankAccount.deposit(10);
+    bankAccount.deposit(100);
+    bankAccount.withdraw(75);
 
-    bankAccount.withdraw(5);
-
-    assertThat(bankAccount.getBalance()).isEqualTo(5);
+    assertThat(bankAccount.getBalance()).isEqualTo(25);
   }
 
   @Test
-  public void canWithdrawMoneySequentially() throws BankAccountActionInvalidException {
+  public void withdrawTwice() throws BankAccountActionInvalidException {
     bankAccount.open();
-    bankAccount.deposit(23);
-
-    bankAccount.withdraw(10);
-    bankAccount.withdraw(13);
+    bankAccount.deposit(100);
+    bankAccount.withdraw(80);
+    bankAccount.withdraw(20);
 
     assertThat(bankAccount.getBalance()).isEqualTo(0);
   }
 
   @Test
-  public void cannotWithdrawMoneyFromEmptyAccount() {
+  public void canDoMultipleOperationsSequentially() throws BankAccountActionInvalidException {
     bankAccount.open();
+    bankAccount.deposit(100);
+    bankAccount.deposit(110);
+    bankAccount.withdraw(200);
+    bankAccount.deposit(60);
+    bankAccount.withdraw(50);
 
-    assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.withdraw(5))
-        .withMessage("Cannot withdraw money from an empty account");
+    assertThat(bankAccount.getBalance()).isEqualTo(20);
   }
 
   @Test
-  public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException {
+  public void cannotCheckBalanceOfClosedAccount() throws BankAccountActionInvalidException {
     bankAccount.open();
-    bankAccount.deposit(6);
+    bankAccount.close();
 
     assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.withdraw(7))
+        .isThrownBy(bankAccount::getBalance)
+        .withMessage("Account closed");
+  }
+
+  @Test
+  public void cannotDepositIntoClosedAccount() throws BankAccountActionInvalidException {
+    bankAccount.open();
+    bankAccount.close();
+
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(() -> bankAccount.deposit(50))
+        .withMessage("Account closed");
+  }
+
+  @Test
+  public void cannotDepositIntoUnopenedAccount() {
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(() -> bankAccount.deposit(50))
+        .withMessage("Account closed");
+  }
+
+  @Test
+  public void cannotWithdrawFromClosedAccount() throws BankAccountActionInvalidException {
+    bankAccount.open();
+    bankAccount.close();
+
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(() -> bankAccount.withdraw(50))
+        .withMessage("Account closed");
+  }
+
+  @Test
+  public void cannotCloseAnAccountThatWasNotOpened() {
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(bankAccount::close)
+        .withMessage("Account not open");
+  }
+
+  @Test
+  public void cannotOpenAnAlreadyOpenedAccount() throws BankAccountActionInvalidException {
+    bankAccount.open();
+
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(bankAccount::open)
+        .withMessage("Account already open");
+  }
+
+  @Test
+  public void reopenedAccountDoesNotRetainBalance() throws BankAccountActionInvalidException {
+    bankAccount.open();
+    bankAccount.deposit(50);
+    bankAccount.close();
+    bankAccount.open();
+
+    assertThat(bankAccount.getBalance()).isEqualTo(0);
+  }
+
+  @Test
+  public void cannotWithdrawMoreThanWasDeposited() throws BankAccountActionInvalidException {
+    bankAccount.open();
+    bankAccount.deposit(25);
+
+    assertThatExceptionOfType(BankAccountActionInvalidException.class)
+        .isThrownBy(() -> bankAccount.withdraw(50))
         .withMessage("Cannot withdraw more money than is currently in the account");
-  }
-
-  @Test
-  public void cannotDepositNegativeAmount() {
-    bankAccount.open();
-
-    assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.deposit(-1))
-        .withMessage("Cannot deposit or withdraw negative amount");
   }
 
   @Test
   public void cannotWithdrawNegativeAmount() throws BankAccountActionInvalidException {
     bankAccount.open();
-    bankAccount.deposit(105);
+    bankAccount.deposit(100);
 
     assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.withdraw(-5))
+        .isThrownBy(() -> bankAccount.withdraw(-50))
         .withMessage("Cannot deposit or withdraw negative amount");
   }
 
   @Test
-  public void cannotGetBalanceOfClosedAccount() throws BankAccountActionInvalidException {
+  public void cannotDepositNegativeAmount() throws BankAccountActionInvalidException {
     bankAccount.open();
-    bankAccount.deposit(10);
-    bankAccount.close();
 
     assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(bankAccount::getBalance)
-        .withMessage("Account closed");
+        .isThrownBy(() -> bankAccount.deposit(-50))
+        .withMessage("Cannot deposit or withdraw negative amount");
   }
 
   @Test
-  public void cannotDepositMoneyIntoClosedAccount() {
-    bankAccount.open();
-    bankAccount.close();
-
-    assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.deposit(5))
-        .withMessage("Account closed");
-  }
-
-  @Test
-  public void cannotWithdrawMoneyFromClosedAccount() throws BankAccountActionInvalidException {
-    bankAccount.open();
-    bankAccount.deposit(20);
-    bankAccount.close();
-
-    assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(() -> bankAccount.withdraw(5))
-        .withMessage("Account closed");
-  }
-
-  @Test
-  public void bankAccountIsClosedBeforeItIsOpened() {
-    assertThatExceptionOfType(BankAccountActionInvalidException.class)
-        .isThrownBy(bankAccount::getBalance)
-        .withMessage("Account closed");
-  }
-
-  @Test
-  public void canAdjustBalanceConcurrently()
+  public void canHandleConcurrentTransactions()
       throws BankAccountActionInvalidException, InterruptedException {
     bankAccount.open();
     bankAccount.deposit(1000);
@@ -144,8 +171,7 @@ public class BankAccountTest {
     }
   }
 
-  private void adjustBalanceConcurrently()
-      throws BankAccountActionInvalidException, InterruptedException {
+  private void adjustBalanceConcurrently() throws InterruptedException {
     Random random = new Random();
 
     Thread[] threads = new Thread[1000];

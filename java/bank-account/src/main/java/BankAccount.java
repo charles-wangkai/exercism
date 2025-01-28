@@ -2,7 +2,11 @@ public class BankAccount {
   int balance;
   boolean enabled;
 
-  void open() {
+  void open() throws BankAccountActionInvalidException {
+    if (enabled) {
+      throw new BankAccountActionInvalidException("Account already open");
+    }
+
     enabled = true;
   }
 
@@ -46,7 +50,12 @@ public class BankAccount {
     }
   }
 
-  void close() {
+  void close() throws BankAccountActionInvalidException {
+    if (!enabled) {
+      throw new BankAccountActionInvalidException("Account not open");
+    }
+
     enabled = false;
+    balance = 0;
   }
 }
