@@ -1,7 +1,11 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.*;
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
 
 public class EtlTest {
   private final Etl etl = new Etl();
@@ -24,7 +28,7 @@ public class EtlTest {
         };
     expected = Collections.unmodifiableMap(expected);
 
-    assertEquals(expected, etl.transform(old));
+    assertThat(etl.transform(old)).isEqualTo(expected);
   }
 
   @Test
@@ -49,7 +53,7 @@ public class EtlTest {
         };
     expected = Collections.unmodifiableMap(expected);
 
-    assertEquals(expected, etl.transform(old));
+    assertThat(etl.transform(old)).isEqualTo(expected);
   }
 
   @Test
@@ -74,7 +78,7 @@ public class EtlTest {
         };
     expected = Collections.unmodifiableMap(expected);
 
-    assertEquals(expected, etl.transform(old));
+    assertThat(etl.transform(old)).isEqualTo(expected);
   }
 
   @Test
@@ -126,6 +130,6 @@ public class EtlTest {
         };
     expected = Collections.unmodifiableMap(expected);
 
-    assertEquals(expected, etl.transform(old));
+    assertThat(etl.transform(old)).isEqualTo(expected);
   }
 }
