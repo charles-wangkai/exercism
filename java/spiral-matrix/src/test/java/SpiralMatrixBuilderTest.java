@@ -1,29 +1,27 @@
-import static org.junit.Assert.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SpiralMatrixBuilderTest {
 
   private SpiralMatrixBuilder spiralMatrixBuilder;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     spiralMatrixBuilder = new SpiralMatrixBuilder();
   }
 
   @Test
   public void testEmptySpiral() {
-    int[][] expected = {};
-
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(0));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(0)).isEmpty();
   }
 
   @Test
   public void testTrivialSpiral() {
     int[][] expected = {{1}};
 
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(1));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(1)).isEqualTo(expected);
   }
 
   @Test
@@ -33,7 +31,7 @@ public class SpiralMatrixBuilderTest {
       {4, 3}
     };
 
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(2));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(2)).isEqualTo(expected);
   }
 
   @Test
@@ -44,7 +42,7 @@ public class SpiralMatrixBuilderTest {
       {7, 6, 5}
     };
 
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(3));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(3)).isEqualTo(expected);
   }
 
   @Test
@@ -56,7 +54,7 @@ public class SpiralMatrixBuilderTest {
       {10, 9, 8, 7}
     };
 
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(4));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(4)).isEqualTo(expected);
   }
 
   @Test
@@ -69,6 +67,6 @@ public class SpiralMatrixBuilderTest {
       {13, 12, 11, 10, 9}
     };
 
-    assertArrayEquals(expected, spiralMatrixBuilder.buildMatrixOfSize(5));
+    assertThat(spiralMatrixBuilder.buildMatrixOfSize(5)).isEqualTo(expected);
   }
 }
