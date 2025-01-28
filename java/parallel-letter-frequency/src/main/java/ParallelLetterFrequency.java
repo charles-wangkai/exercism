@@ -1,20 +1,20 @@
+import java.util.Arrays;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ParallelLetterFrequency {
-  String s;
+  String[] strs;
 
-  ParallelLetterFrequency(String s) {
-    this.s = s;
+  ParallelLetterFrequency(String[] strs) {
+    this.strs = strs;
   }
 
-  Map<Integer, Integer> letterCounts() {
-    return s.toLowerCase()
-        .chars()
+  Map<Character, Integer> countLetters() {
+    return Arrays.stream(strs)
         .parallel()
+        .flatMapToInt(s -> s.toLowerCase().chars())
         .filter(Character::isAlphabetic)
         .boxed()
-        .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(c -> 1)));
+        .collect(Collectors.groupingBy(c -> (char) c.intValue(), Collectors.summingInt(c -> 1)));
   }
 }
