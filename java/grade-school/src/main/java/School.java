@@ -6,8 +6,14 @@ import java.util.Map;
 public class School {
   Map<String, Integer> nameToGrade = new HashMap<>();
 
-  void add(String name, int grade) {
+  boolean add(String name, int grade) {
+    if (nameToGrade.containsKey(name)) {
+      return false;
+    }
+
     nameToGrade.put(name, grade);
+
+    return true;
   }
 
   List<String> grade(int grade) {
@@ -19,9 +25,7 @@ public class School {
 
   List<String> roster() {
     return nameToGrade.keySet().stream()
-        .sorted(
-            Comparator.comparing((String name) -> nameToGrade.get(name))
-                .thenComparing(name -> name))
+        .sorted(Comparator.<String, Integer>comparing(nameToGrade::get).thenComparing(name -> name))
         .toList();
   }
 }
