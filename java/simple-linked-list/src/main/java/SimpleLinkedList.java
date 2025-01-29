@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 public class SimpleLinkedList<T> {
@@ -47,14 +48,14 @@ public class SimpleLinkedList<T> {
 
   @SuppressWarnings("unchecked")
   <E> E[] asArray(Class<E> c) {
-    Object[] result = new Object[size()];
+    E[] result = (E[]) Array.newInstance(c, size());
     Node<T> node = head;
     for (int i = 0; i < result.length; ++i) {
-      result[i] = node.value;
+      result[i] = (E) node.value;
       node = node.next;
     }
 
-    return (E[]) result;
+    return result;
   }
 }
 
