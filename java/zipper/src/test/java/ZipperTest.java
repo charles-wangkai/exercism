@@ -1,14 +1,14 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ZipperTest {
 
   Zipper zipper;
   BinaryTree binaryTree;
 
-  @Before
+  @BeforeEach
   public void setup() {
     zipper = new Zipper(1);
     binaryTree = new BinaryTree(zipper);
@@ -21,37 +21,43 @@ public class ZipperTest {
 
   @Test
   public void testToTree() {
-    assertEquals(binaryTree, zipper.toTree());
+    assertThat(zipper.toTree()).isEqualTo(binaryTree);
   }
 
   @Test
   public void testLeftRightAndValue() {
     zipper = binaryTree.getRoot();
-    assertEquals(3, zipper.left.right.getValue());
+    assertThat(zipper.left.right.getValue()).isEqualTo(3);
   }
 
   @Test
   public void testDeadEnd() {
     zipper = binaryTree.getRoot();
-    assertEquals(null, zipper.left.left);
+    assertThat(zipper.left.left).isNull();
   }
 
   @Test
   public void testToTreeFromDeepFocus() {
     zipper = binaryTree.getRoot();
-    assertEquals(binaryTree, zipper.left.right.toTree());
+    assertThat(zipper.left.right.toTree()).isEqualTo(binaryTree);
   }
 
   @Test
   public void testTraversingUpFromTop() {
     zipper = binaryTree.getRoot();
-    assertEquals(null, zipper.up);
+    assertThat(zipper.up).isNull();
   }
 
   @Test
   public void testLeftRightAndUp() {
     zipper = binaryTree.getRoot();
-    assertEquals(3, zipper.left.up.right.up.left.right.getValue());
+    assertThat(zipper.left.up.right.up.left.right.getValue()).isEqualTo(3);
+  }
+
+  @Test
+  public void testAbilityToReturnAfterMultipleLevelDescend() {
+    zipper = binaryTree.getRoot();
+    assertThat(zipper.left.right.up.up.getValue()).isEqualTo(1);
   }
 
   @Test
@@ -72,7 +78,7 @@ public class ZipperTest {
             + "value: 4, "
             + "left: null, "
             + "right: null }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
@@ -93,7 +99,7 @@ public class ZipperTest {
             + "value: 4, "
             + "left: null, "
             + "right: null }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
@@ -117,7 +123,7 @@ public class ZipperTest {
             + "value: 4, "
             + "left: null, "
             + "right: null }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
@@ -129,7 +135,7 @@ public class ZipperTest {
         "value: 1, "
             + "left: { value: 2, left: null, right: null }, "
             + "right: { value: 4, left: null, right: null }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
@@ -158,7 +164,7 @@ public class ZipperTest {
             + "value: 8, "
             + "left: null, "
             + "right: null } }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
@@ -179,13 +185,13 @@ public class ZipperTest {
             + "value: 4, "
             + "left: null, "
             + "right: null }";
-    assertEquals(expected, zipper.toTree().printTree());
+    assertThat(zipper.toTree().printTree()).isEqualTo(expected);
   }
 
   @Test
   public void differentPathToSameZipper() {
     Zipper zipper1 = binaryTree.getRoot().left.up.right;
     Zipper zipper2 = binaryTree.getRoot().right;
-    assertEquals(zipper2, zipper1);
+    assertThat(zipper1).isEqualTo(zipper2);
   }
 }
