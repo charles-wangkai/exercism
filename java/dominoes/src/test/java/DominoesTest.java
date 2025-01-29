@@ -1,11 +1,11 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DominoesTest {
 
@@ -17,7 +17,7 @@ public class DominoesTest {
 
     List<Domino> chain = dominoes.formChain(dominoesList);
 
-    assertEquals("The output list should be empty.", 0, chain.size());
+    assertThat(chain).withFailMessage("The output list should be empty.").hasSize(0);
   }
 
   @Test
@@ -175,7 +175,7 @@ public class DominoesTest {
   }
 
   @Test
-  public void seperateThreeDominoLoopsTest() {
+  public void separateThreeDominoLoopsTest() {
     Dominoes dominoes = new Dominoes();
 
     Domino[] dominoesArray = {
@@ -209,7 +209,9 @@ public class DominoesTest {
             + rightValueOfLastDomino
             + ").";
 
-    assertEquals(errorMessage, leftValueOfFirstDomino, rightValueOfLastDomino);
+    assertThat(leftValueOfFirstDomino)
+        .withFailMessage(errorMessage)
+        .isEqualTo(rightValueOfLastDomino);
   }
 
   private void assertSameDominoes(List<Domino> inputDominoes, List<Domino> outputDominoes) {
@@ -220,7 +222,7 @@ public class DominoesTest {
             + outputDominoes.size()
             + ")";
 
-    assertEquals(errorMessage, inputDominoes.size(), outputDominoes.size());
+    assertThat(inputDominoes).withFailMessage(errorMessage).hasSameSizeAs(outputDominoes);
 
     for (Domino domino : inputDominoes) {
       int inputFrequency = Collections.frequency(inputDominoes, domino);
@@ -238,7 +240,7 @@ public class DominoesTest {
               + outputFrequency
               + ") in the output.";
 
-      assertEquals(frequencyErrorMessage, inputFrequency, outputFrequency);
+      assertThat(inputFrequency).withFailMessage(frequencyErrorMessage).isEqualTo(outputFrequency);
     }
   }
 
@@ -258,7 +260,9 @@ public class DominoesTest {
               + leftValueOfNextDomino
               + ").";
 
-      assertEquals(errorMessage, dominoes.get(i).getRight(), dominoes.get(i + 1).getLeft());
+      assertThat(dominoes.get(i).getRight())
+          .withFailMessage(errorMessage)
+          .isEqualTo(dominoes.get(i + 1).getLeft());
     }
   }
 }

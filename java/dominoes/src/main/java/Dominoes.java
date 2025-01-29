@@ -21,9 +21,9 @@ public class Dominoes {
   }
 
   void search(List<Domino> dominoes, int index) {
-    solution = new ArrayList<>();
-
     if (index == dominoes.size()) {
+      solution = new ArrayList<>();
+
       Domino firstDomino = dominoes.get(0);
       int lastPrev = firstDomino.getLeft();
       int prev = firstDomino.getRight();
