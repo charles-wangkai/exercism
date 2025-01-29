@@ -2,7 +2,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BeerSong {
-  String verse(int verse) {
+  private String verse(int verse) {
     if (verse == 0) {
       return """
       No more bottles of beer on the wall, no more bottles of beer.
@@ -26,14 +26,14 @@ public class BeerSong {
         .formatted(verse, verse, verse - 1, (verse == 2) ? "" : "s");
   }
 
-  String sing(int startVerse, int verseNum) {
+  public String sing(int startVerse, int verseNum) {
     return IntStream.range(0, verseNum)
         .map(i -> startVerse - i)
         .mapToObj(this::verse)
         .collect(Collectors.joining(""));
   }
 
-  String singSong() {
+  public String singSong() {
     return sing(99, 100);
   }
 }
