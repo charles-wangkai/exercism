@@ -1,14 +1,17 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.*;
-import org.junit.Before;
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class WordSearcherTest {
 
   private WordSearcher wordSearcher;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     wordSearcher = new WordSearcher();
   }
@@ -24,7 +27,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'j', 'e', 'f', 'b', 'l', 'p', 'e', 'p', 'r', 'e'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -38,7 +41,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -52,7 +55,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'m', 't', 'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -66,7 +69,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'c', 'o', 'f', 'f', 'e', 'e', 'l', 'p', 'l', 'x'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -80,7 +83,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'x', 'c', 'o', 'f', 'f', 'e', 'e', 'z', 'l', 'p'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -98,7 +101,7 @@ public class WordSearcherTest {
               {'t', 'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -117,7 +120,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -144,7 +147,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -170,7 +173,7 @@ public class WordSearcherTest {
               {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -196,7 +199,7 @@ public class WordSearcherTest {
               {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -224,7 +227,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -238,7 +241,7 @@ public class WordSearcherTest {
         wordSearcher.search(
             searchWords, new char[][] {{'r', 'i', 'x', 'i', 'l', 'e', 'l', 'h', 'r', 's'}});
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -266,7 +269,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -296,7 +299,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -327,7 +330,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -359,7 +362,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -392,7 +395,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -426,7 +429,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -461,7 +464,7 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 
   @Test
@@ -497,6 +500,73 @@ public class WordSearcherTest {
               {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}
             });
 
-    assertEquals(expectedLocations, actualLocations);
+    assertThat(actualLocations).isEqualTo(expectedLocations);
+  }
+
+  @Test
+  public void testFailToLocateWordsThatAreNotOnHorizontalVerticalOrDiagonalLines() {
+    Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
+    expectedLocations.put("aef", Optional.empty());
+    expectedLocations.put("ced", Optional.empty());
+    expectedLocations.put("abf", Optional.empty());
+    expectedLocations.put("cbd", Optional.empty());
+
+    Set<String> searchWords = expectedLocations.keySet();
+
+    Map<String, Optional<WordLocation>> actualLocations =
+        wordSearcher.search(
+            searchWords,
+            new char[][] {
+              {'j', 'e', 'f'},
+              {'c', 'a', 'm'}
+            });
+
+    assertThat(actualLocations).isEqualTo(expectedLocations);
+  }
+
+  @Test
+  public void testNotConcatenateDifferentLinesToFindAHorizontalWord() {
+    Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
+    expectedLocations.put("elixir", Optional.empty());
+
+    Set<String> searchWords = expectedLocations.keySet();
+
+    Map<String, Optional<WordLocation>> actualLocations =
+        wordSearcher.search(
+            searchWords,
+            new char[][] {
+              {'a', 'b', 'c', 'e', 'l', 'i'},
+              {'x', 'i', 'r', 'd', 'f', 'g'}
+            });
+
+    assertThat(actualLocations).isEqualTo(expectedLocations);
+  }
+
+  @Test
+  public void testNotWrapAroundHorizontallyToFindAWord() {
+    Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
+    expectedLocations.put("lisp", Optional.empty());
+
+    Set<String> searchWords = expectedLocations.keySet();
+
+    Map<String, Optional<WordLocation>> actualLocations =
+        wordSearcher.search(
+            searchWords, new char[][] {{'s', 'i', 'l', 'a', 'b', 'c', 'd', 'e', 'f', 'p'}});
+
+    assertThat(actualLocations).isEqualTo(expectedLocations);
+  }
+
+  @Test
+  public void testNotWrapAroundVerticallyToFindAWord() {
+    Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
+    expectedLocations.put("rust", Optional.empty());
+
+    Set<String> searchWords = expectedLocations.keySet();
+
+    Map<String, Optional<WordLocation>> actualLocations =
+        wordSearcher.search(
+            searchWords, new char[][] {{'s'}, {'u'}, {'r'}, {'a'}, {'b'}, {'c'}, {'t'}});
+
+    assertThat(actualLocations).isEqualTo(expectedLocations);
   }
 }
