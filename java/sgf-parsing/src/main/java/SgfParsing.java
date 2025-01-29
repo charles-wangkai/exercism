@@ -35,7 +35,7 @@ public class SgfParsing {
       properties.put(propertyId, new ArrayList<>());
       while (beginIndex < s.length() && s.charAt(beginIndex) == '[') {
         int endIndex = find(s, "]", beginIndex);
-        properties.get(propertyId).add(s.substring(beginIndex + 1, endIndex).replace("\\", ""));
+        properties.get(propertyId).add(escape(s.substring(beginIndex + 1, endIndex)));
 
         beginIndex = endIndex + 1;
       }
@@ -62,6 +62,32 @@ public class SgfParsing {
     }
 
     return new SgfNode(properties, children);
+  }
+
+  String escape(String s) {
+    StringBuilder result = new StringBuilder();
+    int index = 0;
+    while (index < s.length()) {
+      if (s.startsWith("\\\\", index)) {
+        result.append("\\");
+        index += 2;
+      } else if (s.startsWith("\t", index)) {
+        result.append(" ");
+        ++index;
+      } else if (s.startsWith("\\\t", index)) {
+        result.append(" ");
+        index += 2;
+      } else if (s.startsWith("\\\n", index)) {
+        index += 2;
+      } else if (s.startsWith("\\", index)) {
+        ++index;
+      } else {
+        result.append(s.charAt(index));
+        ++index;
+      }
+    }
+
+    return result.toString();
   }
 
   int find(String s, String target, int offset) {
