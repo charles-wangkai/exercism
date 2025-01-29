@@ -1,11 +1,11 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GoCountingTest {
 
@@ -20,8 +20,8 @@ public class GoCountingTest {
     territory.add(new Point(0, 1));
     territory.add(new Point(1, 0));
 
-    assertEquals(Player.BLACK, gocounting.getTerritoryOwner(0, 1));
-    assertEquals(territory, gocounting.getTerritory(0, 1));
+    assertThat(gocounting.getTerritoryOwner(0, 1)).isEqualTo(Player.BLACK);
+    assertThat(gocounting.getTerritory(0, 1)).isEqualTo(territory);
   }
 
   @Test
@@ -31,8 +31,8 @@ public class GoCountingTest {
     Set<Point> territory = new HashSet<>();
     territory.add(new Point(2, 3));
 
-    assertEquals(Player.WHITE, gocounting.getTerritoryOwner(2, 3));
-    assertEquals(territory, gocounting.getTerritory(2, 3));
+    assertThat(gocounting.getTerritoryOwner(2, 3)).isEqualTo(Player.WHITE);
+    assertThat(gocounting.getTerritory(2, 3)).isEqualTo(territory);
   }
 
   @Test
@@ -44,8 +44,8 @@ public class GoCountingTest {
     territory.add(new Point(0, 4));
     territory.add(new Point(1, 4));
 
-    assertEquals(Player.NONE, gocounting.getTerritoryOwner(1, 4));
-    assertEquals(territory, gocounting.getTerritory(1, 4));
+    assertThat(gocounting.getTerritoryOwner(1, 4)).isEqualTo(Player.NONE);
+    assertThat(gocounting.getTerritory(1, 4)).isEqualTo(territory);
   }
 
   @Test
@@ -54,8 +54,8 @@ public class GoCountingTest {
 
     Set<Point> territory = new HashSet<>();
 
-    assertEquals(Player.NONE, gocounting.getTerritoryOwner(1, 1));
-    assertEquals(territory, gocounting.getTerritory(1, 1));
+    assertThat(gocounting.getTerritoryOwner(1, 1)).isEqualTo(Player.NONE);
+    assertThat(gocounting.getTerritory(1, 1)).isEqualTo(territory);
   }
 
   @Test
@@ -108,7 +108,7 @@ public class GoCountingTest {
     territories.put(Player.WHITE, whiteTerritory);
     territories.put(Player.NONE, noneTerritory);
 
-    assertEquals(territories, gocounting.getTerritories());
+    assertThat(gocounting.getTerritories()).isEqualTo(territories);
   }
 
   @Test
@@ -130,7 +130,7 @@ public class GoCountingTest {
     territories.put(Player.WHITE, whiteTerritory);
     territories.put(Player.NONE, noneTerritory);
 
-    assertEquals(territories, gocounting.getTerritories());
+    assertThat(gocounting.getTerritories()).isEqualTo(territories);
   }
 
   @Test
@@ -148,6 +148,6 @@ public class GoCountingTest {
     territories.put(Player.WHITE, whiteTerritory);
     territories.put(Player.NONE, noneTerritory);
 
-    assertEquals(territories, gocounting.getTerritories());
+    assertThat(gocounting.getTerritories()).isEqualTo(territories);
   }
 }

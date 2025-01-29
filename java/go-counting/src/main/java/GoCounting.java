@@ -22,13 +22,13 @@ public class GoCounting {
       throw new IllegalArgumentException("Invalid coordinate");
     }
 
-    Outcome outcome = new Outcome();
+    Outcome outcome = new Outcome(new HashSet<>(), new HashSet<>());
 
     if (board[y].charAt(x) != ' ') {
       return outcome;
     }
 
-    search(outcome.territory, outcome.stones, new Point(x, y));
+    search(outcome.territory(), outcome.stones(), new Point(x, y));
 
     return outcome;
   }
@@ -56,13 +56,13 @@ public class GoCounting {
   }
 
   Player getTerritoryOwner(int x, int y) {
-    Set<Player> stones = spread(x, y).stones;
+    Set<Player> stones = spread(x, y).stones();
 
     return (stones.size() == 1) ? stones.iterator().next() : Player.NONE;
   }
 
   Set<Point> getTerritory(int x, int y) {
-    return spread(x, y).territory;
+    return spread(x, y).territory();
   }
 
   Map<Player, Set<Point>> getTerritories() {
@@ -98,7 +98,4 @@ public class GoCounting {
   }
 }
 
-class Outcome {
-  Set<Point> territory = new HashSet<>();
-  Set<Player> stones = new HashSet<>();
-}
+record Outcome(Set<Point> territory, Set<Player> stones) {}
