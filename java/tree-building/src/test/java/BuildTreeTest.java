@@ -1,9 +1,8 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BuildTreeTest {
 
@@ -12,7 +11,7 @@ public class BuildTreeTest {
     ArrayList<Record> records = new ArrayList<>();
 
     TreeNode root = new BuildTree().buildTree(records);
-    assertNull(root);
+    assertThat(root).isNull();
   }
 
   @Test
@@ -22,7 +21,7 @@ public class BuildTreeTest {
     records.add(record);
 
     TreeNode root = new BuildTree().buildTree(records);
-    assertEquals(root.getNodeId(), 0);
+    assertThat(root.getNodeId()).isEqualTo(0);
     assertNodeIsLeaf(root);
   }
 
@@ -38,9 +37,9 @@ public class BuildTreeTest {
     assertNodeIsLeaf(root.getChildren().get(0));
     assertNodeIsLeaf(root.getChildren().get(1));
 
-    assertEquals(root.getNodeId(), 0);
-    assertEquals(root.getChildren().get(0).getNodeId(), 1);
-    assertEquals(root.getChildren().get(1).getNodeId(), 2);
+    assertThat(root.getNodeId()).isEqualTo(0);
+    assertThat(root.getChildren().get(0).getNodeId()).isEqualTo(1);
+    assertThat(root.getChildren().get(1).getNodeId()).isEqualTo(2);
   }
 
   @Test
@@ -55,9 +54,9 @@ public class BuildTreeTest {
     assertNodeIsLeaf(root.getChildren().get(0));
     assertNodeIsLeaf(root.getChildren().get(1));
 
-    assertEquals(root.getNodeId(), 0);
-    assertEquals(root.getChildren().get(0).getNodeId(), 1);
-    assertEquals(root.getChildren().get(1).getNodeId(), 2);
+    assertThat(root.getNodeId()).isEqualTo(0);
+    assertThat(root.getChildren().get(0).getNodeId()).isEqualTo(1);
+    assertThat(root.getChildren().get(1).getNodeId()).isEqualTo(2);
   }
 
   @Test
@@ -74,10 +73,10 @@ public class BuildTreeTest {
     assertNodeIsLeaf(root.getChildren().get(1));
     assertNodeIsLeaf(root.getChildren().get(2));
 
-    assertEquals(root.getNodeId(), 0);
-    assertEquals(root.getChildren().get(0).getNodeId(), 1);
-    assertEquals(root.getChildren().get(1).getNodeId(), 2);
-    assertEquals(root.getChildren().get(2).getNodeId(), 3);
+    assertThat(root.getNodeId()).isEqualTo(0);
+    assertThat(root.getChildren().get(0).getNodeId()).isEqualTo(1);
+    assertThat(root.getChildren().get(1).getNodeId()).isEqualTo(2);
+    assertThat(root.getChildren().get(2).getNodeId()).isEqualTo(3);
   }
 
   @Test
@@ -101,13 +100,13 @@ public class BuildTreeTest {
     assertNodeIsLeaf(root.getChildren().get(1).getChildren().get(0));
     assertNodeIsLeaf(root.getChildren().get(1).getChildren().get(1));
 
-    assertEquals(root.getNodeId(), 0);
-    assertEquals(root.getChildren().get(0).getNodeId(), 1);
-    assertEquals(root.getChildren().get(1).getNodeId(), 2);
-    assertEquals(root.getChildren().get(0).getChildren().get(0).getNodeId(), 3);
-    assertEquals(root.getChildren().get(0).getChildren().get(1).getNodeId(), 4);
-    assertEquals(root.getChildren().get(1).getChildren().get(0).getNodeId(), 5);
-    assertEquals(root.getChildren().get(1).getChildren().get(1).getNodeId(), 6);
+    assertThat(root.getNodeId()).isEqualTo(0);
+    assertThat(root.getChildren().get(0).getNodeId()).isEqualTo(1);
+    assertThat(root.getChildren().get(1).getNodeId()).isEqualTo(2);
+    assertThat(root.getChildren().get(0).getChildren().get(0).getNodeId()).isEqualTo(3);
+    assertThat(root.getChildren().get(0).getChildren().get(1).getNodeId()).isEqualTo(4);
+    assertThat(root.getChildren().get(1).getChildren().get(0).getNodeId()).isEqualTo(5);
+    assertThat(root.getChildren().get(1).getChildren().get(1).getNodeId()).isEqualTo(6);
   }
 
   @Test
@@ -130,13 +129,13 @@ public class BuildTreeTest {
     assertNodeIsLeaf(root.getChildren().get(0).getChildren().get(2));
     assertNodeIsLeaf(root.getChildren().get(1).getChildren().get(0));
 
-    assertEquals(root.getNodeId(), 0);
-    assertEquals(root.getChildren().get(0).getNodeId(), 1);
-    assertEquals(root.getChildren().get(1).getNodeId(), 2);
-    assertEquals(root.getChildren().get(0).getChildren().get(0).getNodeId(), 3);
-    assertEquals(root.getChildren().get(0).getChildren().get(1).getNodeId(), 4);
-    assertEquals(root.getChildren().get(0).getChildren().get(2).getNodeId(), 5);
-    assertEquals(root.getChildren().get(1).getChildren().get(0).getNodeId(), 6);
+    assertThat(root.getNodeId()).isEqualTo(0);
+    assertThat(root.getChildren().get(0).getNodeId()).isEqualTo(1);
+    assertThat(root.getChildren().get(1).getNodeId()).isEqualTo(2);
+    assertThat(root.getChildren().get(0).getChildren().get(0).getNodeId()).isEqualTo(3);
+    assertThat(root.getChildren().get(0).getChildren().get(1).getNodeId()).isEqualTo(4);
+    assertThat(root.getChildren().get(0).getChildren().get(2).getNodeId()).isEqualTo(5);
+    assertThat(root.getChildren().get(1).getChildren().get(0).getNodeId()).isEqualTo(6);
   }
 
   @Test
@@ -199,10 +198,10 @@ public class BuildTreeTest {
   }
 
   private void assertNodeIsLeaf(TreeNode node) {
-    assertEquals(node.getChildren().size(), 0);
+    assertThat(node.getChildren().size()).isEqualTo(0);
   }
 
   private void assertNodeIsBranchWithNNumberOfChildren(TreeNode node, int childrenCount) {
-    assertEquals(node.getChildren().size(), childrenCount);
+    assertThat(node.getChildren().size()).isEqualTo(childrenCount);
   }
 }
