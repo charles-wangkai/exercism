@@ -1,18 +1,18 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ZebraPuzzleTest {
 
   @Test
   public void residentWhoDrinksWater() {
     ZebraPuzzle zebraPuzzle = new ZebraPuzzle();
-    assertEquals("Norwegian", zebraPuzzle.getWaterDrinker());
+    assertThat(zebraPuzzle.getWaterDrinker()).isEqualTo("Norwegian");
   }
 
   @Test
   public void residentWhoOwnsZebra() {
     ZebraPuzzle zebraPuzzle = new ZebraPuzzle();
-    assertEquals("Japanese", zebraPuzzle.getZebraOwner());
+    assertThat(zebraPuzzle.getZebraOwner()).isEqualTo("Japanese");
   }
 }
