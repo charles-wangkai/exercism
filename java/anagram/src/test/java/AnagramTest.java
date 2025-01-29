@@ -2,7 +2,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AnagramTest {
 
@@ -14,11 +14,11 @@ public class AnagramTest {
   }
 
   @Test
-  public void testDetectMultipleAnagrams() {
-    Anagram detector = new Anagram("master");
+  public void testDetectsTwoAnagrams() {
+    Anagram detector = new Anagram("solemn");
 
-    assertThat(detector.match(Arrays.asList("stream", "pigeon", "maters")))
-        .containsExactlyInAnyOrder("maters", "stream");
+    assertThat(detector.match(Arrays.asList("lemons", "cherry", "melons")))
+        .containsExactlyInAnyOrder("lemons", "melons");
   }
 
   @Test
@@ -88,7 +88,7 @@ public class AnagramTest {
   public void testIdenticalWordRepeatedIsNotAnagram() {
     Anagram detector = new Anagram("go");
 
-    assertThat(detector.match(Collections.singletonList("go Go GO"))).isEmpty();
+    assertThat(detector.match(Collections.singletonList("goGoGO"))).isEmpty();
   }
 
   @Test
@@ -102,14 +102,43 @@ public class AnagramTest {
   public void testWordsAreNotAnagramsOfThemselvesCaseInsensitive() {
     Anagram detector = new Anagram("BANANA");
 
-    assertThat(detector.match(Arrays.asList("BANANA", "Banana", "banana"))).isEmpty();
+    assertThat(detector.match(Collections.singletonList("BANANA"))).isEmpty();
+  }
+
+  @Test
+  public void testWordsAreNotAnagramsOfThemselvesEvenIfLetterCaseIsPartiallyDifferent() {
+    Anagram detector = new Anagram("BANANA");
+
+    assertThat(detector.match(Collections.singletonList("Banana"))).isEmpty();
+  }
+
+  @Test
+  public void testWordsAreNotAnagramsOfThemselvesEvenIfLetterCaseIsCompletelyDifferent() {
+    Anagram detector = new Anagram("BANANA");
+
+    assertThat(detector.match(Collections.singletonList("banana"))).isEmpty();
   }
 
   @Test
   public void testWordsOtherThanThemselvesCanBeAnagrams() {
     Anagram detector = new Anagram("LISTEN");
 
-    assertThat(detector.match(Arrays.asList("Listen", "Silent", "LISTEN")))
+    assertThat(detector.match(Arrays.asList("LISTEN", "Silent")))
         .containsExactlyInAnyOrder("Silent");
+  }
+
+  @Test
+  public void testHandlesCaseOfGreekLetters() {
+    Anagram detector = new Anagram("ΑΒΓ");
+
+    assertThat(detector.match(Arrays.asList("ΒΓΑ", "ΒΓΔ", "γβα", "αβγ")))
+        .containsExactlyInAnyOrder("ΒΓΑ", "γβα");
+  }
+
+  @Test
+  public void testDifferentCharactersWithSameBytes() {
+    Anagram detector = new Anagram("a⬂");
+
+    assertThat(detector.match(Collections.singletonList("€a"))).isEmpty();
   }
 }
