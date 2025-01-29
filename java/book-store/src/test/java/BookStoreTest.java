@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BookStoreTest {
 
@@ -15,7 +15,7 @@ public class BookStoreTest {
 
   private BookStore bookStore;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     bookStore = new BookStore();
   }
@@ -123,5 +123,27 @@ public class BookStoreTest {
     List<Integer> books = Arrays.asList(1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5);
     assertThat(bookStore.calculateBasketCost(books))
         .isCloseTo(102.4, Assertions.offset(EQUALITY_TOLERANCE));
+  }
+
+  @Test
+  public void groupsOfFourAreCreatedEvenWhenThereAreMoreGroupsOfThreeThanGroupsOfFive() {
+    List<Integer> books =
+        Arrays.asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5);
+    assertThat(bookStore.calculateBasketCost(books))
+        .isCloseTo(145.6, Assertions.offset(EQUALITY_TOLERANCE));
+  }
+
+  @Test
+  public void oneGroupOfOneAndFourIsCheaperThanOneGroupOfTwoAndThree() {
+    List<Integer> books = Arrays.asList(1, 1, 2, 3, 4);
+    assertThat(bookStore.calculateBasketCost(books))
+        .isCloseTo(33.6, Assertions.offset(EQUALITY_TOLERANCE));
+  }
+
+  @Test
+  public void oneGroupOfOneAndTwoPlusThreeGroupsOfFourIsCheaperThanOneGroupOfEachSize() {
+    List<Integer> books = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5);
+    assertThat(bookStore.calculateBasketCost(books))
+        .isCloseTo(100.0, Assertions.offset(EQUALITY_TOLERANCE));
   }
 }
