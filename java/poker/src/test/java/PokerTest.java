@@ -1,15 +1,14 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PokerTest {
   @Test
   public void oneHand() {
     String hand = "4S 5S 7H 8D JC";
-    assertEquals(
-        Collections.singletonList(hand), new Poker(Collections.singletonList(hand)).getBestHands());
+    assertThat(new Poker(Collections.singletonList(hand)).getBestHands()).containsExactly(hand);
   }
 
   @Test
@@ -17,9 +16,8 @@ public class PokerTest {
     String highest8 = "4D 5S 6S 8D 3C";
     String highest10 = "2S 4C 7S 9H 10H";
     String highestJ = "3S 4S 5D 6H JH";
-    assertEquals(
-        Collections.singletonList(highestJ),
-        new Poker(Arrays.asList(highest8, highest10, highestJ)).getBestHands());
+    assertThat(new Poker(Arrays.asList(highest8, highest10, highestJ)).getBestHands())
+        .containsExactly(highestJ);
   }
 
   @Test
@@ -28,232 +26,272 @@ public class PokerTest {
     String highest10 = "2S 4C 7S 9H 10H";
     String highestJh = "3S 4S 5D 6H JH";
     String highestJd = "3H 4H 5C 6C JD";
-    assertEquals(
-        Arrays.asList(highestJh, highestJd),
-        new Poker(Arrays.asList(highest8, highest10, highestJh, highestJd)).getBestHands());
+    assertThat(new Poker(Arrays.asList(highest8, highest10, highestJh, highestJd)).getBestHands())
+        .containsExactly(highestJh, highestJd);
   }
 
   @Test
   public void sameHighCards() {
     String nextHighest3 = "3S 5H 6S 8D 7H";
     String nextHighest2 = "2S 5D 6D 8C 7S";
-    assertEquals(
-        Collections.singletonList(nextHighest3),
-        new Poker(Arrays.asList(nextHighest3, nextHighest2)).getBestHands());
+    assertThat(new Poker(Arrays.asList(nextHighest3, nextHighest2)).getBestHands())
+        .containsExactly(nextHighest3);
+  }
+
+  @Test
+  public void winningWithLowestCard() {
+    String lowest2 = "2S 5H 6S 8D 7H";
+    String lowest3 = "3S 4D 6D 8C 7S";
+    assertThat(new Poker(Arrays.asList(lowest2, lowest3)).getBestHands()).containsExactly(lowest2);
   }
 
   @Test
   public void nothingVsOnePair() {
     String nothing = "4S 5H 6C 8D KH";
     String pairOf4 = "2S 4H 6S 4D JH";
-    assertEquals(
-        Collections.singletonList(pairOf4),
-        new Poker(Arrays.asList(nothing, pairOf4)).getBestHands());
+    assertThat(new Poker(Arrays.asList(nothing, pairOf4)).getBestHands()).containsExactly(pairOf4);
   }
 
   @Test
   public void twoPairs() {
     String pairOf2 = "4S 2H 6S 2D JH";
     String pairOf4 = "2S 4H 6C 4D JD";
-    assertEquals(
-        Collections.singletonList(pairOf4),
-        new Poker(Arrays.asList(pairOf2, pairOf4)).getBestHands());
+    assertThat(new Poker(Arrays.asList(pairOf2, pairOf4)).getBestHands()).containsExactly(pairOf4);
+  }
+
+  @Test
+  public void samePair() {
+    String pairOf4Lower = "4H 4S AH JC 3D";
+    String pairOf4Higher = "4C 4D AS 5D 6C";
+    assertThat(new Poker(Arrays.asList(pairOf4Lower, pairOf4Higher)).getBestHands())
+        .containsExactly(pairOf4Lower);
   }
 
   @Test
   public void onePairVsDoublePair() {
     String pairOf8 = "2S 8H 6S 8D JH";
     String doublePair = "4S 5H 4C 8C 5C";
-    assertEquals(
-        Collections.singletonList(doublePair),
-        new Poker(Arrays.asList(pairOf8, doublePair)).getBestHands());
+    assertThat(new Poker(Arrays.asList(pairOf8, doublePair)).getBestHands())
+        .containsExactly(doublePair);
   }
 
   @Test
   public void twoDoublePairs() {
     String doublePair2And8 = "2S 8H 2D 8D 3H";
     String doublePair4And5 = "4S 5H 4C 8S 5D";
-    assertEquals(
-        Collections.singletonList(doublePair2And8),
-        new Poker(Arrays.asList(doublePair2And8, doublePair4And5)).getBestHands());
+    assertThat(new Poker(Arrays.asList(doublePair2And8, doublePair4And5)).getBestHands())
+        .containsExactly(doublePair2And8);
   }
 
   @Test
   public void sameHighestPair() {
     String doublePair2AndQ = "2S QS 2C QD JH";
     String doublePairJAndQ = "JD QH JS 8D QC";
-    assertEquals(
-        Collections.singletonList(doublePairJAndQ),
-        new Poker(Arrays.asList(doublePairJAndQ, doublePair2AndQ)).getBestHands());
+    assertThat(new Poker(Arrays.asList(doublePairJAndQ, doublePair2AndQ)).getBestHands())
+        .containsExactly(doublePairJAndQ);
   }
 
   @Test
   public void identicallyRankedPairs() {
     String kicker8 = "JD QH JS 8D QC";
     String kicker2 = "JS QS JC 2D QD";
-    assertEquals(
-        Collections.singletonList(kicker8),
-        new Poker(Arrays.asList(kicker8, kicker2)).getBestHands());
+    assertThat(new Poker(Arrays.asList(kicker8, kicker2)).getBestHands()).containsExactly(kicker8);
+  }
+
+  @Test
+  public void twoPairsAddingToSameValue() {
+    String doublePair6And3 = "6S 6H 3S 3H AS";
+    String doublePair7And2 = "7H 7S 2H 2S AC";
+    assertThat(new Poker(Arrays.asList(doublePair6And3, doublePair7And2)).getBestHands())
+        .containsExactly(doublePair7And2);
+  }
+
+  @Test
+  public void rankedByLargestPair() {
+    String doublePairs5And4 = "5C 2S 5S 4H 4C";
+    String doublePairs6And2 = "6S 2S 6H 7C 2C";
+    assertThat(new Poker(Arrays.asList(doublePairs5And4, doublePairs6And2)).getBestHands())
+        .containsExactly(doublePairs6And2);
   }
 
   @Test
   public void doublePairVsThree() {
     String doublePair2And8 = "2S 8H 2H 8D JH";
     String threeOf4 = "4S 5H 4C 8S 4H";
-    assertEquals(
-        Collections.singletonList(threeOf4),
-        new Poker(Arrays.asList(doublePair2And8, threeOf4)).getBestHands());
+    assertThat(new Poker(Arrays.asList(doublePair2And8, threeOf4)).getBestHands())
+        .containsExactly(threeOf4);
   }
 
   @Test
   public void twoThrees() {
     String threeOf2 = "2S 2H 2C 8D JH";
     String threeOf1 = "4S AH AS 8C AD";
-    assertEquals(
-        Collections.singletonList(threeOf1),
-        new Poker(Arrays.asList(threeOf2, threeOf1)).getBestHands());
+    assertThat(new Poker(Arrays.asList(threeOf2, threeOf1)).getBestHands())
+        .containsExactly(threeOf1);
   }
 
   @Test
   public void sameThreesMultipleDecks() {
-    String remainingCard7 = "4S AH AS 7C AD";
+    String remainingCard7 = "5S AH AS 7C AD";
     String remainingCard8 = "4S AH AS 8C AD";
-    assertEquals(
-        Collections.singletonList(remainingCard8),
-        new Poker(Arrays.asList(remainingCard7, remainingCard8)).getBestHands());
+    assertThat(new Poker(Arrays.asList(remainingCard7, remainingCard8)).getBestHands())
+        .containsExactly(remainingCard8);
   }
 
   @Test
   public void threeVsStraight() {
     String threeOf4 = "4S 5H 4C 8D 4H";
     String straight = "3S 4D 2S 6D 5C";
-    assertEquals(
-        Collections.singletonList(straight),
-        new Poker(Arrays.asList(threeOf4, straight)).getBestHands());
+    assertThat(new Poker(Arrays.asList(threeOf4, straight)).getBestHands())
+        .containsExactly(straight);
   }
 
   @Test
   public void acesCanEndAStraight() {
     String hand = "4S 5H 4C 8D 4H";
     String straightEndsA = "10D JH QS KD AC";
-    assertEquals(
-        Collections.singletonList(straightEndsA),
-        new Poker(Arrays.asList(hand, straightEndsA)).getBestHands());
+    assertThat(new Poker(Arrays.asList(hand, straightEndsA)).getBestHands())
+        .containsExactly(straightEndsA);
   }
 
   @Test
   public void acesCanStartAStraight() {
     String hand = "4S 5H 4C 8D 4H";
     String straightStartA = "4D AH 3S 2D 5C";
-    assertEquals(
-        Collections.singletonList(straightStartA),
-        new Poker(Arrays.asList(hand, straightStartA)).getBestHands());
+    assertThat(new Poker(Arrays.asList(hand, straightStartA)).getBestHands())
+        .containsExactly(straightStartA);
+  }
+
+  @Test
+  public void acesCannotBeInMiddleOfStraight() {
+    String hand = "2C 3D 7H 5H 2S";
+    String straightMiddleA = "QS KH AC 2D 3S";
+    assertThat(new Poker(Arrays.asList(hand, straightMiddleA)).getBestHands())
+        .containsExactly(hand);
   }
 
   @Test
   public void twoStraights() {
     String straightTo8 = "4S 6C 7S 8D 5H";
     String straightTo9 = "5S 7H 8S 9D 6H";
-    assertEquals(
-        Collections.singletonList(straightTo9),
-        new Poker(Arrays.asList(straightTo8, straightTo9)).getBestHands());
+    assertThat(new Poker(Arrays.asList(straightTo8, straightTo9)).getBestHands())
+        .containsExactly(straightTo9);
   }
 
   @Test
   public void theLowestStraightStartsWithAce() {
     String straight = "2H 3C 4D 5D 6H";
     String straightStartA = "4S AH 3S 2D 5H";
-    assertEquals(
-        Collections.singletonList(straight),
-        new Poker(Arrays.asList(straight, straightStartA)).getBestHands());
+    assertThat(new Poker(Arrays.asList(straight, straightStartA)).getBestHands())
+        .containsExactly(straight);
   }
 
   @Test
   public void straightVsFlush() {
     String straightTo8 = "4C 6H 7D 8D 5H";
     String flushTo7 = "2S 4S 5S 6S 7S";
-    assertEquals(
-        Collections.singletonList(flushTo7),
-        new Poker(Arrays.asList(straightTo8, flushTo7)).getBestHands());
+    assertThat(new Poker(Arrays.asList(straightTo8, flushTo7)).getBestHands())
+        .containsExactly(flushTo7);
   }
 
   @Test
-  public void twoFlushes() {
-    String flushTo8 = "4H 7H 8H 9H 6H";
-    String flushTo7 = "2S 4S 5S 6S 7S";
-    assertEquals(
-        Collections.singletonList(flushTo8),
-        new Poker(Arrays.asList(flushTo8, flushTo7)).getBestHands());
+  public void twoFlushs() {
+    String flushTo9 = "2H 7H 8H 9H 6H";
+    String flushTo7 = "3S 5S 6S 7S 8S";
+    assertThat(new Poker(Arrays.asList(flushTo9, flushTo7)).getBestHands())
+        .containsExactly(flushTo9);
   }
 
   @Test
   public void flushVsFull() {
     String flushTo8 = "3H 6H 7H 8H 5H";
     String full = "4S 5H 4C 5D 4H";
-    assertEquals(
-        Collections.singletonList(full), new Poker(Arrays.asList(full, flushTo8)).getBestHands());
+    assertThat(new Poker(Arrays.asList(full, flushTo8)).getBestHands()).containsExactly(full);
   }
 
   @Test
   public void twoFulls() {
     String fullOf4By9 = "4H 4S 4D 9S 9D";
     String fullOf5By8 = "5H 5S 5D 8S 8D";
-    assertEquals(
-        Collections.singletonList(fullOf5By8),
-        new Poker(Arrays.asList(fullOf4By9, fullOf5By8)).getBestHands());
+    assertThat(new Poker(Arrays.asList(fullOf4By9, fullOf5By8)).getBestHands())
+        .containsExactly(fullOf5By8);
   }
 
   @Test
   public void twoFullssameThripletMultipleDecks() {
     String fullOf5By9 = "5H 5S 5D 9S 9D";
     String fullOf5By8 = "5H 5S 5D 8S 8D";
-    assertEquals(
-        Collections.singletonList(fullOf5By9),
-        new Poker(Arrays.asList(fullOf5By9, fullOf5By8)).getBestHands());
+    assertThat(new Poker(Arrays.asList(fullOf5By9, fullOf5By8)).getBestHands())
+        .containsExactly(fullOf5By9);
   }
 
   @Test
   public void fullVsSquare() {
     String full = "4S 5H 4D 5D 4H";
     String squareOf3 = "3S 3H 2S 3D 3C";
-    assertEquals(
-        Collections.singletonList(squareOf3),
-        new Poker(Arrays.asList(full, squareOf3)).getBestHands());
+    assertThat(new Poker(Arrays.asList(full, squareOf3)).getBestHands()).containsExactly(squareOf3);
   }
 
   @Test
   public void twoSquares() {
     String squareOf2 = "2S 2H 2C 8D 2D";
     String squareOf5 = "4S 5H 5S 5D 5C";
-    assertEquals(
-        Collections.singletonList(squareOf5),
-        new Poker(Arrays.asList(squareOf2, squareOf5)).getBestHands());
+    assertThat(new Poker(Arrays.asList(squareOf2, squareOf5)).getBestHands())
+        .containsExactly(squareOf5);
   }
 
   @Test
   public void sameSquaresMultipleDecks() {
     String kicker2 = "3S 3H 2S 3D 3C";
     String kicker4 = "3S 3H 4S 3D 3C";
-    assertEquals(
-        Collections.singletonList(kicker4),
-        new Poker(Arrays.asList(kicker2, kicker4)).getBestHands());
+    assertThat(new Poker(Arrays.asList(kicker2, kicker4)).getBestHands()).containsExactly(kicker4);
   }
 
   @Test
   public void squareVsStraightFlush() {
     String squareOf5 = "4S 5H 5S 5D 5C";
     String straightFlushTo9 = "7S 8S 9S 6S 10S";
-    assertEquals(
-        Collections.singletonList(straightFlushTo9),
-        new Poker(Arrays.asList(squareOf5, straightFlushTo9)).getBestHands());
+    assertThat(new Poker(Arrays.asList(squareOf5, straightFlushTo9)).getBestHands())
+        .containsExactly(straightFlushTo9);
+  }
+
+  @Test
+  public void acesEndingStraightFlush() {
+    String hand = "KC AH AS AD AC";
+    String straightFlushEndingWithA = "10C JC QC KC AC";
+    assertThat(new Poker(Arrays.asList(hand, straightFlushEndingWithA)).getBestHands())
+        .containsExactly(straightFlushEndingWithA);
+  }
+
+  @Test
+  public void acesStartingStraightFlush() {
+    String straightFlushStartingWithA = "4H AH 3H 2H 5H";
+    String hand = "KS AH AS AD AC";
+    assertThat(new Poker(Arrays.asList(straightFlushStartingWithA, hand)).getBestHands())
+        .containsExactly(straightFlushStartingWithA);
+  }
+
+  @Test
+  public void acesCannotBeInMiddleOfStraightFlush() {
+    String straightFlushWithAInMiddle = "QH KH AH 2H 3H";
+    String hand = "2C AC QC 10C KC";
+    assertThat(new Poker(Arrays.asList(straightFlushWithAInMiddle, hand)).getBestHands())
+        .containsExactly(hand);
   }
 
   @Test
   public void twoStraightFlushes() {
     String straightFlushTo8 = "4H 6H 7H 8H 5H";
     String straightFlushTo9 = "5S 7S 8S 9S 6S";
-    assertEquals(
-        Collections.singletonList(straightFlushTo9),
-        new Poker(Arrays.asList(straightFlushTo8, straightFlushTo9)).getBestHands());
+    assertThat(new Poker(Arrays.asList(straightFlushTo8, straightFlushTo9)).getBestHands())
+        .containsExactly(straightFlushTo9);
+  }
+
+  @Test
+  public void straightFlushTo5IsTheLowestScoring() {
+    String straightFlushTo6 = "2H 3H 4H 5H 6H";
+    String straightFlushTo5 = "4D AD 3D 2D 5D";
+    assertThat(new Poker(Arrays.asList(straightFlushTo6, straightFlushTo5)).getBestHands())
+        .containsExactly(straightFlushTo6);
   }
 }
