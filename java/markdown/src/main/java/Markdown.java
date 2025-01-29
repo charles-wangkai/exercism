@@ -40,7 +40,7 @@ class Markdown {
   }
 
   private boolean isHeader(String line) {
-    return line.startsWith("#");
+    return line.startsWith("#") && !line.startsWith("#".repeat(7));
   }
 
   private String parseHeader(String line) {
@@ -49,7 +49,7 @@ class Markdown {
       ++count;
     }
 
-    return String.format("<h%d>%s</h%d>", count, line.substring(count + 1), count);
+    return "<h%d>%s</h%d>".formatted(count, line.substring(count + 1), count);
   }
 
   private String parseParagraph(String line) {
