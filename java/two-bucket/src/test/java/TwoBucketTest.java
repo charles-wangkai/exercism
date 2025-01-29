@@ -1,66 +1,91 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TwoBucketTest {
 
   @Test
   public void testBucketOneSizeThreeBucketTwoSizeFiveStartWithOne() {
 
-    TwoBucket twoBucket = new TwoBucket(3, 5, 1, "one");
+    Result bucketResult = new TwoBucket(3, 5, 1, "one").getResult();
 
-    assertEquals(4, twoBucket.getTotalMoves());
-    assertEquals("one", twoBucket.getFinalBucket());
-    assertEquals(5, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(4);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("one");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(5);
   }
 
   @Test
   public void testBucketOneSizeThreeBucketTwoSizeFiveStartWithTwo() {
 
-    TwoBucket twoBucket = new TwoBucket(3, 5, 1, "two");
+    Result bucketResult = new TwoBucket(3, 5, 1, "two").getResult();
 
-    assertEquals(8, twoBucket.getTotalMoves());
-    assertEquals("two", twoBucket.getFinalBucket());
-    assertEquals(3, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(8);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("two");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(3);
   }
 
   @Test
   public void testBucketOneSizeSevenBucketTwoSizeElevenStartWithOne() {
 
-    TwoBucket twoBucket = new TwoBucket(7, 11, 2, "one");
+    Result bucketResult = new TwoBucket(7, 11, 2, "one").getResult();
 
-    assertEquals(14, twoBucket.getTotalMoves());
-    assertEquals("one", twoBucket.getFinalBucket());
-    assertEquals(11, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(14);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("one");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(11);
   }
 
   @Test
   public void testBucketOneSizeSevenBucketTwoSizeElevenStartWithTwo() {
 
-    TwoBucket twoBucket = new TwoBucket(7, 11, 2, "two");
+    Result bucketResult = new TwoBucket(7, 11, 2, "two").getResult();
 
-    assertEquals(18, twoBucket.getTotalMoves());
-    assertEquals("two", twoBucket.getFinalBucket());
-    assertEquals(7, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(18);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("two");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(7);
   }
 
   @Test
   public void testBucketOneSizeOneBucketTwoSizeThreeStartWithTwo() {
 
-    TwoBucket twoBucket = new TwoBucket(1, 3, 3, "two");
+    Result bucketResult = new TwoBucket(1, 3, 3, "two").getResult();
 
-    assertEquals(1, twoBucket.getTotalMoves());
-    assertEquals("two", twoBucket.getFinalBucket());
-    assertEquals(0, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(1);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("two");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(0);
   }
 
   @Test
   public void testBucketOneSizeTwoBucketTwoSizeThreeStartWithOne() {
 
-    TwoBucket twoBucket = new TwoBucket(2, 3, 3, "one");
+    Result bucketResult = new TwoBucket(2, 3, 3, "one").getResult();
 
-    assertEquals(2, twoBucket.getTotalMoves());
-    assertEquals("two", twoBucket.getFinalBucket());
-    assertEquals(2, twoBucket.getOtherBucket());
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(2);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("two");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(2);
+  }
+
+  @Test
+  public void testReachingGoalIsImpossible() {
+
+    assertThatExceptionOfType(UnreachableGoalException.class)
+        .isThrownBy(() -> new TwoBucket(6, 15, 5, "one").getResult());
+  }
+
+  @Test
+  public void testBucketOneSizeSixBucketTwoSizeFifteenStartWithOne() {
+
+    Result bucketResult = new TwoBucket(6, 15, 9, "one").getResult();
+
+    assertThat(bucketResult.getTotalMoves()).isEqualTo(10);
+    assertThat(bucketResult.getFinalBucket()).isEqualTo("two");
+    assertThat(bucketResult.getOtherBucket()).isEqualTo(0);
+  }
+
+  @Test
+  public void testGoalLargerThanBothBucketsIsImpossible() {
+
+    assertThatExceptionOfType(UnreachableGoalException.class)
+        .isThrownBy(() -> new TwoBucket(5, 7, 8, "one").getResult());
   }
 }

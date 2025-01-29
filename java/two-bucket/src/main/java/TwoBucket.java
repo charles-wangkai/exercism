@@ -1,9 +1,20 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class TwoBucket {
-  int move;
-  String finalBucket;
-  int otherBucket;
+  int bucketOneCap;
+  int bucketTwoCap;
+  int desiredLiters;
+  String first;
 
   TwoBucket(int bucketOneCap, int bucketTwoCap, int desiredLiters, String first) {
+    this.bucketOneCap = bucketOneCap;
+    this.bucketTwoCap = bucketTwoCap;
+    this.desiredLiters = desiredLiters;
+    this.first = first;
+  }
+
+  Result getResult() {
     Bucket[] buckets = {new Bucket("one", bucketOneCap), new Bucket("two", bucketTwoCap)};
     if (first.equals("two")) {
       Bucket temp = buckets[0];
@@ -11,7 +22,10 @@ public class TwoBucket {
       buckets[1] = temp;
     }
 
-    move = 0;
+    int move = 0;
+    String finalBucket;
+    int otherBucket;
+    Set<State> seen = new HashSet<>();
     while (true) {
       ++move;
 
@@ -39,19 +53,15 @@ public class TwoBucket {
 
         break;
       }
+
+      State state = new State(buckets[0].liter, buckets[1].liter);
+      if (seen.contains(state)) {
+        throw new UnreachableGoalException();
+      }
+      seen.add(state);
     }
-  }
 
-  int getTotalMoves() {
-    return move;
-  }
-
-  String getFinalBucket() {
-    return finalBucket;
-  }
-
-  int getOtherBucket() {
-    return otherBucket;
+    return new Result(move, finalBucket, otherBucket);
   }
 }
 
@@ -65,3 +75,5 @@ class Bucket {
     this.cap = cap;
   }
 }
+
+record State(int liter1, int liter2) {}
