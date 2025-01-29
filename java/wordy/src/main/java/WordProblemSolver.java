@@ -6,7 +6,7 @@ public class WordProblemSolver {
   int solve(String problem) {
     String[] parts =
         Arrays.stream(problem.split("What is|by|\\?| "))
-            .filter(field -> !field.isEmpty())
+            .filter(part -> !part.isEmpty())
             .toArray(String[]::new);
 
     if (parts.length % 2 == 0) {
