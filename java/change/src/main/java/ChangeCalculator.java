@@ -40,6 +40,6 @@ public class ChangeCalculator {
     }
 
     throw new IllegalArgumentException(
-        String.format("The total %d cannot be represented in the given currency.", change));
+        "The total %d cannot be represented in the given currency.".formatted(change));
   }
 }

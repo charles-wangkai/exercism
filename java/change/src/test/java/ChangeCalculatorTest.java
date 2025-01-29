@@ -1,73 +1,80 @@
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ChangeCalculatorTest {
+
+  @Test
+  public void testChangeFor1Cent() {
+    ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 5, 10, 25));
+
+    assertThat(changeCalculator.computeMostEfficientChange(1)).containsExactly(1);
+  }
 
   @Test
   public void testChangeThatCanBeGivenInASingleCoin() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 5, 10, 25, 100));
 
-    assertEquals(singletonList(25), changeCalculator.computeMostEfficientChange(25));
+    assertThat(changeCalculator.computeMostEfficientChange(25)).containsExactly(25);
   }
 
   @Test
   public void testChangeThatMustBeGivenInMultipleCoins() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 5, 10, 25, 100));
 
-    assertEquals(asList(5, 10), changeCalculator.computeMostEfficientChange(15));
+    assertThat(changeCalculator.computeMostEfficientChange(15)).containsExactly(5, 10);
   }
 
   @Test
-  // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
   public void testLilliputianCurrency() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 4, 15, 20, 50));
 
-    assertEquals(asList(4, 4, 15), changeCalculator.computeMostEfficientChange(23));
+    assertThat(changeCalculator.computeMostEfficientChange(23)).containsExactly(4, 4, 15);
   }
 
   @Test
-  // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
   public void testLowerElbonianCurrency() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 5, 10, 21, 25));
 
-    assertEquals(asList(21, 21, 21), changeCalculator.computeMostEfficientChange(63));
+    assertThat(changeCalculator.computeMostEfficientChange(63)).containsExactly(21, 21, 21);
   }
 
   @Test
   public void testLargeAmountOfChange() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 2, 5, 10, 20, 50, 100));
 
-    assertEquals(
-        asList(2, 2, 5, 20, 20, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100),
-        changeCalculator.computeMostEfficientChange(999));
+    assertThat(changeCalculator.computeMostEfficientChange(999))
+        .containsExactly(2, 2, 5, 20, 20, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100);
   }
 
   @Test
-  // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
   public void testPossibleChangeWithoutUnitCoinAvailable() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(2, 5, 10, 20, 50));
 
-    assertEquals(asList(2, 2, 2, 5, 10), changeCalculator.computeMostEfficientChange(21));
+    assertThat(changeCalculator.computeMostEfficientChange(21)).containsExactly(2, 2, 2, 5, 10);
   }
 
   @Test
-  // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
   public void testAnotherPossibleChangeWithoutUnitCoinAvailable() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(4, 5));
 
-    assertEquals(asList(4, 4, 4, 5, 5, 5), changeCalculator.computeMostEfficientChange(27));
+    assertThat(changeCalculator.computeMostEfficientChange(27)).containsExactly(4, 4, 4, 5, 5, 5);
+  }
+
+  @Test
+  public void testAGreedyApproachIsNotOptimal() {
+    ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 10, 11));
+
+    assertThat(changeCalculator.computeMostEfficientChange(20)).containsExactly(10, 10);
   }
 
   @Test
   public void testZeroChange() {
     ChangeCalculator changeCalculator = new ChangeCalculator(asList(1, 5, 10, 21, 25));
 
-    assertEquals(emptyList(), changeCalculator.computeMostEfficientChange(0));
+    assertThat(changeCalculator.computeMostEfficientChange(0)).isEmpty();
   }
 
   @Test
