@@ -35,42 +35,38 @@ public class CryptoSquare {
   }
 
   String getCiphertext() {
-    StringBuilder cipherText = new StringBuilder();
+    StringBuilder result = new StringBuilder();
     int squareSize = getSquareSize();
     List<String> segments = getPlaintextSegments();
     for (int i = 0; i < squareSize; ++i) {
       if (i != 0) {
-        cipherText.append(" ");
+        result.append(" ");
       }
 
       for (String segment : segments) {
-        if (i < segment.length()) {
-          cipherText.append(segment.charAt(i));
-        } else {
-          cipherText.append(" ");
-        }
+        result.append((i < segment.length()) ? segment.charAt(i) : " ");
       }
     }
 
-    return cipherText.toString();
+    return result.toString();
   }
 
   String getNormalizedCipherText() {
-    StringBuilder normalizedCipherText = new StringBuilder();
+    StringBuilder result = new StringBuilder();
     int squareSize = getSquareSize();
     List<String> segments = getPlaintextSegments();
     for (int i = 0; i < squareSize; ++i) {
-      if (!normalizedCipherText.isEmpty()) {
-        normalizedCipherText.append(" ");
+      if (!result.isEmpty()) {
+        result.append(" ");
       }
 
       for (String segment : segments) {
         if (i < segment.length()) {
-          normalizedCipherText.append(segment.charAt(i));
+          result.append(segment.charAt(i));
         }
       }
     }
 
-    return normalizedCipherText.toString();
+    return result.toString();
   }
 }
