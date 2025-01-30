@@ -1,42 +1,42 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ListOpsTest {
 
   @Test
   public void testAppendingEmptyLists() {
-    assertThat(ListOps.append(Collections.emptyList(), Collections.emptyList())).isEmpty();
+    assertThat(ListOps.append(List.of(), List.of())).isEmpty();
   }
 
   @Test
   public void testAppendingListToEmptyList() {
-    assertThat(ListOps.append(Collections.emptyList(), Arrays.asList('1', '2', '3', '4')))
+    assertThat(ListOps.append(List.of(), List.of('1', '2', '3', '4')))
+        .containsExactly('1', '2', '3', '4');
+  }
+
+  @Test
+  public void testAppendingEmptyListToList() {
+    assertThat(ListOps.append(List.of('1', '2', '3', '4'), List.of()))
         .containsExactly('1', '2', '3', '4');
   }
 
   @Test
   public void testAppendingNonEmptyLists() {
-    assertThat(ListOps.append(Arrays.asList("1", "2"), Arrays.asList("2", "3", "4", "5")))
+    assertThat(ListOps.append(List.of("1", "2"), List.of("2", "3", "4", "5")))
         .containsExactly("1", "2", "2", "3", "4", "5");
   }
 
   @Test
   public void testConcatEmptyList() {
-    assertThat(ListOps.concat(Collections.emptyList())).isEmpty();
+    assertThat(ListOps.concat(List.of())).isEmpty();
   }
 
   @Test
   public void testConcatListOfLists() {
     List<List<Character>> listOfLists =
-        Arrays.asList(
-            Arrays.asList('1', '2'),
-            Collections.singletonList('3'),
-            Collections.emptyList(),
-            Arrays.asList('4', '5', '6'));
+        List.of(List.of('1', '2'), List.of('3'), List.of(), List.of('4', '5', '6'));
 
     assertThat(ListOps.concat(listOfLists)).containsExactly('1', '2', '3', '4', '5', '6');
   }
@@ -44,111 +44,97 @@ public class ListOpsTest {
   @Test
   public void testConcatListOfNestedLists() {
     List<List<List<Character>>> listOfNestedLists =
-        Arrays.asList(
-            Arrays.asList(Collections.singletonList('1'), Collections.singletonList('2')),
-            Collections.singletonList(Collections.singletonList('3')),
-            Collections.singletonList(Collections.emptyList()),
-            Collections.singletonList(Arrays.asList('4', '5', '6')));
+        List.of(
+            List.of(List.of('1'), List.of('2')),
+            List.of(List.of('3')),
+            List.of(List.of()),
+            List.of(List.of('4', '5', '6')));
 
     assertThat(ListOps.concat(listOfNestedLists))
         .containsExactly(
-            Collections.singletonList('1'),
-            Collections.singletonList('2'),
-            Collections.singletonList('3'),
-            Collections.emptyList(),
-            Arrays.asList('4', '5', '6'));
+            List.of('1'), List.of('2'), List.of('3'), List.of(), List.of('4', '5', '6'));
   }
 
   @Test
   public void testFilteringEmptyList() {
-    assertThat(ListOps.filter(Collections.<Integer>emptyList(), integer -> integer % 2 == 1))
-        .isEmpty();
+    assertThat(ListOps.filter(List.<Integer>of(), integer -> integer % 2 == 1)).isEmpty();
   }
 
   @Test
   public void testFilteringNonEmptyList() {
-    assertThat(ListOps.filter(Arrays.asList(1, 2, 3, 5), integer -> integer % 2 == 1))
+    assertThat(ListOps.filter(List.of(1, 2, 3, 5), integer -> integer % 2 == 1))
         .containsExactly(1, 3, 5);
   }
 
   @Test
   public void testSizeOfEmptyList() {
-    assertThat(ListOps.size(Collections.emptyList())).isEqualTo(0);
+    assertThat(ListOps.size(List.of())).isEqualTo(0);
   }
 
   @Test
   public void testSizeOfNonEmptyList() {
-    assertThat(ListOps.size(Arrays.asList("one", "two", "three", "four"))).isEqualTo(4);
+    assertThat(ListOps.size(List.of("one", "two", "three", "four"))).isEqualTo(4);
   }
 
   @Test
   public void testTransformingEmptyList() {
-    assertThat(ListOps.map(Collections.<Integer>emptyList(), integer -> integer + 1)).isEmpty();
+    assertThat(ListOps.map(List.<Integer>of(), integer -> integer + 1)).isEmpty();
   }
 
   @Test
   public void testTransformingNonEmptyList() {
-    assertThat(ListOps.map(Arrays.asList(1, 3, 5, 7), integer -> integer + 1))
+    assertThat(ListOps.map(List.of(1, 3, 5, 7), integer -> integer + 1))
         .containsExactly(2, 4, 6, 8);
   }
 
   @Test
   public void testFoldLeftEmptyList() {
-    assertThat(ListOps.foldLeft(Collections.<Double>emptyList(), 2.0, (x, y) -> x * y))
-        .isEqualTo(2.0);
+    assertThat(ListOps.foldLeft(List.<Double>of(), 2.0, (acc, el) -> el * acc)).isEqualTo(2.0);
   }
 
   @Test
   public void testFoldLeftDirectionIndependentFunctionAppliedToNonEmptyList() {
-    assertThat(ListOps.foldLeft(Arrays.asList(1, 2, 3, 4), 5, (x, y) -> x + y)).isEqualTo(15);
+    assertThat(ListOps.foldLeft(List.of(1, 2, 3, 4), 5, (acc, el) -> el + acc)).isEqualTo(15);
   }
 
   @Test
   public void testFoldLeftDirectionDependentFunctionAppliedToNonEmptyList() {
-    assertThat(ListOps.foldLeft(Arrays.asList(2, 5), 5, (x, y) -> x / y)).isEqualTo(0);
+    assertThat(ListOps.foldLeft(List.of(1.0, 2.0, 3.0, 4.0), 24.0, (acc, el) -> el / acc))
+        .isEqualTo(64.0);
   }
 
   @Test
   public void testFoldRightEmptyList() {
-    assertThat(ListOps.foldRight(Collections.<Double>emptyList(), 2.0, (x, y) -> x * y))
-        .isEqualTo(2.0);
+    assertThat(ListOps.foldRight(List.<Double>of(), 2.0, (el, acc) -> acc * el)).isEqualTo(2.0);
   }
 
   @Test
   public void testFoldRightDirectionIndependentFunctionAppliedToNonEmptyList() {
-    assertThat(ListOps.foldRight(Arrays.asList(1, 2, 3, 4), 5, (x, y) -> x + y)).isEqualTo(15);
+    assertThat(ListOps.foldRight(List.of(1, 2, 3, 4), 5, (el, acc) -> acc + el)).isEqualTo(15);
   }
 
   @Test
   public void testFoldRightDirectionDependentFunctionAppliedToNonEmptyList() {
-    assertThat(ListOps.foldRight(Arrays.asList(2, 5), 5, (x, y) -> x / y)).isEqualTo(2);
+    assertThat(ListOps.foldRight(List.of(1.0, 2.0, 3.0, 4.0), 24.0, (el, acc) -> el / acc))
+        .isEqualTo(9.0);
   }
 
   @Test
   public void testReversingEmptyList() {
-    assertThat(ListOps.reverse(Collections.emptyList())).isEmpty();
+    assertThat(ListOps.reverse(List.of())).isEmpty();
   }
 
   @Test
   public void testReversingNonEmptyList() {
-    assertThat(ListOps.reverse(Arrays.asList('1', '3', '5', '7')))
-        .containsExactly('7', '5', '3', '1');
+    assertThat(ListOps.reverse(List.of('1', '3', '5', '7'))).containsExactly('7', '5', '3', '1');
   }
 
   @Test
   public void testReversingListOfListIsNotFlattened() {
     List<List<Character>> listOfLists =
-        Arrays.asList(
-            Arrays.asList('1', '2'),
-            Collections.singletonList('3'),
-            Collections.emptyList(),
-            Arrays.asList('4', '5', '6'));
+        List.of(List.of('1', '2'), List.of('3'), List.of(), List.of('4', '5', '6'));
 
     assertThat(ListOps.reverse(listOfLists))
-        .containsExactly(
-            Arrays.asList('4', '5', '6'),
-            Collections.emptyList(),
-            Collections.singletonList('3'),
-            Arrays.asList('1', '2'));
+        .containsExactly(List.of('4', '5', '6'), List.of(), List.of('3'), List.of('1', '2'));
   }
 }

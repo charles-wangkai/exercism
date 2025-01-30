@@ -11,7 +11,7 @@ class ListOps {
   }
 
   static <T> List<T> concat(List<List<T>> listOfLists) {
-    return listOfLists.stream().flatMap(list -> list.stream()).toList();
+    return listOfLists.stream().flatMap(List<T>::stream).toList();
   }
 
   static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
