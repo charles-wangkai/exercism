@@ -4,21 +4,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.disposables.Disposable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public class HangmanTest {
 
   private Hangman hangman;
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
-
-  @Before
+  @BeforeEach
   public void init() {
     hangman = new Hangman();
   }

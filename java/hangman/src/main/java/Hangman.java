@@ -6,78 +6,65 @@ import java.util.Set;
 
 public class Hangman {
   public Observable<Output> play(Observable<String> words, Observable<String> letters) {
-    State state = new State();
     List<Output> outputs = new ArrayList<>();
+    Throwable throwable = new Throwable();
 
     words.subscribe(
         word -> {
-          state.init(word);
-
-          outputs.add(state.toOutput());
+          outputs.add(
+              new Output(
+                  word, "_".repeat(word.length()), Set.of(), Set.of(), List.of(), Status.PLAYING));
         });
 
     letters.subscribe(
         letter -> {
-          if (state.guess.contains(letter) || state.misses.contains(letter)) {
-            state.errorLetter = letter;
+          Output prev = outputs.getLast();
+
+          if (prev.guess.contains(letter) || prev.misses.contains(letter)) {
+            throw new IllegalArgumentException("Letter %s was already played".formatted(letter));
           }
 
-          if (state.secret.contains(letter)) {
-            for (int i = 0; i < state.secret.length(); ++i) {
-              if (state.secret.charAt(i) == letter.charAt(0)) {
-                state.discovered =
-                    state.discovered.substring(0, i) + letter + state.discovered.substring(i + 1);
+          String secret = prev.secret;
+          String discovered = prev.discovered;
+          Set<String> guess = new HashSet<>(prev.guess);
+          Set<String> misses = new HashSet<>(prev.misses);
+          List<Part> parts = new ArrayList<>(prev.parts);
+          Status status = prev.status;
+
+          if (secret.contains(letter)) {
+            for (int i = 0; i < secret.length(); ++i) {
+              if (secret.charAt(i) == letter.charAt(0)) {
+                discovered = discovered.substring(0, i) + letter + discovered.substring(i + 1);
               }
             }
 
-            state.guess.add(letter);
+            guess.add(letter);
 
-            if (!state.discovered.contains("_")) {
-              state.status = Status.WIN;
+            if (!discovered.contains("_")) {
+              status = Status.WIN;
             }
           } else {
-            state.misses.add(letter);
+            misses.add(letter);
 
-            state.parts.add(Part.values()[state.parts.size()]);
+            parts.add(Part.values()[parts.size()]);
 
-            if (state.parts.size() == Part.values().length) {
-              state.status = Status.LOSS;
+            if (parts.size() == Part.values().length) {
+              status = Status.LOSS;
             }
           }
 
-          outputs.add(state.toOutput());
+          outputs.add(new Output(secret, discovered, guess, misses, parts, status));
+        },
+        error -> {
+          if (throwable.getCause() == null) {
+            throwable.initCause(error);
+          }
         });
 
-    if (state.errorLetter != null) {
-      return Observable.error(
-          new IllegalArgumentException(
-              String.format("Letter %s was already played", state.errorLetter)));
+    if (throwable.getCause() != null) {
+      return Observable.error(throwable.getCause());
     }
 
-    return Observable.fromArray(outputs.toArray(Output[]::new));
-  }
-}
-
-class State {
-  String secret;
-  String discovered;
-  Set<String> guess;
-  Set<String> misses;
-  List<Part> parts;
-  Status status;
-  String errorLetter;
-
-  void init(String word) {
-    secret = word;
-    discovered = "_".repeat(word.length());
-    guess = new HashSet<>();
-    misses = new HashSet<>();
-    parts = new ArrayList<>();
-    status = Status.PLAYING;
-    errorLetter = null;
-  }
-
-  Output toOutput() {
-    return new Output(secret, discovered, guess, misses, parts, status);
+    return Observable.fromIterable(outputs);
   }
 }
