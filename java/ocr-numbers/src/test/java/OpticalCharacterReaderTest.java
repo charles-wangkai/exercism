@@ -1,9 +1,8 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OpticalCharacterReaderTest {
 
@@ -12,7 +11,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "| |", "|_|", "   "));
 
-    assertEquals("0", parsedInput);
+    assertThat(parsedInput).isEqualTo("0");
   }
 
   @Test
@@ -20,7 +19,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList("   ", "  |", "  |", "   "));
 
-    assertEquals("1", parsedInput);
+    assertThat(parsedInput).isEqualTo("1");
   }
 
   @Test
@@ -28,28 +27,24 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList("   ", "  _", "  |", "   "));
 
-    assertEquals("?", parsedInput);
+    assertThat(parsedInput).isEqualTo("?");
   }
 
   @Test
   public void testReaderThrowsExceptionWhenNumberOfInputLinesIsNotAMultipleOf4() {
-    IllegalArgumentException expected =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new OpticalCharacterReader().parse(Arrays.asList(" _ ", "| |", "   ")));
 
-    assertThat(expected).hasMessage("Number of input rows must be a positive multiple of 4");
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> new OpticalCharacterReader().parse(Arrays.asList(" _ ", "| |", "   ")))
+        .withMessage("Number of input rows must be a positive multiple of 4");
   }
 
   @Test
   public void testReaderThrowsExceptionWhenNumberOfInputColumnsIsNotAMultipleOf3() {
-    IllegalArgumentException expected =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new OpticalCharacterReader().parse(Arrays.asList("    ", "   |", "   |", "    ")));
 
-    assertThat(expected).hasMessage("Number of input columns must be a positive multiple of 3");
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(
+            () -> new OpticalCharacterReader().parse(Arrays.asList("    ", "   |", "   |", "    ")))
+        .withMessage("Number of input columns must be a positive multiple of 3");
   }
 
   @Test
@@ -63,7 +58,7 @@ public class OpticalCharacterReaderTest {
                     "  |  ||_|  ||_|  |  ||_||_|",
                     "                           "));
 
-    assertEquals("110101100", parsedInput);
+    assertThat(parsedInput).isEqualTo("110101100");
   }
 
   @Test
@@ -77,7 +72,7 @@ public class OpticalCharacterReaderTest {
                     "  |  | _|  ||_|  |  ||_||_|",
                     "                           "));
 
-    assertEquals("11?10?1?0", parsedInput);
+    assertThat(parsedInput).isEqualTo("11?10?1?0");
   }
 
   @Test
@@ -85,7 +80,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", " _|", "|_ ", "   "));
 
-    assertEquals("2", parsedInput);
+    assertThat(parsedInput).isEqualTo("2");
   }
 
   @Test
@@ -93,7 +88,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", " _|", " _|", "   "));
 
-    assertEquals("3", parsedInput);
+    assertThat(parsedInput).isEqualTo("3");
   }
 
   @Test
@@ -101,7 +96,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList("   ", "|_|", "  |", "   "));
 
-    assertEquals("4", parsedInput);
+    assertThat(parsedInput).isEqualTo("4");
   }
 
   @Test
@@ -109,7 +104,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "|_ ", " _|", "   "));
 
-    assertEquals("5", parsedInput);
+    assertThat(parsedInput).isEqualTo("5");
   }
 
   @Test
@@ -117,7 +112,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "|_ ", "|_|", "   "));
 
-    assertEquals("6", parsedInput);
+    assertThat(parsedInput).isEqualTo("6");
   }
 
   @Test
@@ -125,7 +120,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "  |", "  |", "   "));
 
-    assertEquals("7", parsedInput);
+    assertThat(parsedInput).isEqualTo("7");
   }
 
   @Test
@@ -133,7 +128,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "|_|", "|_|", "   "));
 
-    assertEquals("8", parsedInput);
+    assertThat(parsedInput).isEqualTo("8");
   }
 
   @Test
@@ -141,7 +136,7 @@ public class OpticalCharacterReaderTest {
     String parsedInput =
         new OpticalCharacterReader().parse(Arrays.asList(" _ ", "|_|", " _|", "   "));
 
-    assertEquals("9", parsedInput);
+    assertThat(parsedInput).isEqualTo("9");
   }
 
   @Test
@@ -155,7 +150,7 @@ public class OpticalCharacterReaderTest {
                     "  ||_  _|  | _||_|  ||_| _||_|",
                     "                              "));
 
-    assertEquals("1234567890", parsedInput);
+    assertThat(parsedInput).isEqualTo("1234567890");
   }
 
   @Test
@@ -177,6 +172,6 @@ public class OpticalCharacterReaderTest {
                     "  ||_| _|",
                     "         "));
 
-    assertEquals("123,456,789", parsedInput);
+    assertThat(parsedInput).isEqualTo("123,456,789");
   }
 }
