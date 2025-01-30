@@ -4,11 +4,11 @@ import java.util.Random;
 public class DiffieHellman {
   BigInteger privateKey(BigInteger prime) {
     Random random = new Random();
-    BigInteger limit = prime.subtract(BigInteger.valueOf(2));
+    BigInteger limit = prime.subtract(BigInteger.TWO);
     while (true) {
       BigInteger r = new BigInteger(limit.bitLength(), random);
       if (r.compareTo(limit) < 0) {
-        return r.add(BigInteger.valueOf(2));
+        return r.add(BigInteger.TWO);
       }
     }
   }
