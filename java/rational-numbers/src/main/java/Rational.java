@@ -62,6 +62,6 @@ class Rational {
   }
 
   double exp(double x) {
-    return Math.pow(Math.pow(x, 1.0 / denominator), numerator);
+    return Math.pow(x, (double) numerator / denominator);
   }
 }
