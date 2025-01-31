@@ -42,8 +42,7 @@ class Tree {
 
     return label.equals(other.label)
         && children.size() == other.children.size()
-        && children.containsAll(other.children)
-        && other.children.containsAll(children);
+        && children.containsAll(other.children);
   }
 
   @Override
@@ -53,7 +52,7 @@ class Tree {
 
   @Override
   public String toString() {
-    return "Tree{" + label + ", " + children + "}";
+    return "Tree{%s, %s}".formatted(label, children);
   }
 
   public Tree fromPov(String fromNode) {
@@ -90,7 +89,7 @@ class Tree {
       }
     }
 
-    path.remove(path.size() - 1);
+    path.removeLast();
 
     return false;
   }

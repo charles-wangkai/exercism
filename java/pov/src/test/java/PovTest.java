@@ -1,8 +1,8 @@
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.*;
 
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PovTest {
 
@@ -10,7 +10,7 @@ public class PovTest {
   public void testFromPovGivenSingletonTree() {
     Tree tree = Tree.of("x");
     Tree expected = Tree.of("x");
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -18,7 +18,7 @@ public class PovTest {
     Tree tree = Tree.of("parent", List.of(Tree.of("x"), Tree.of("sibling")));
 
     Tree expected = Tree.of("x", List.of(Tree.of("parent", List.of(Tree.of("sibling")))));
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -28,7 +28,7 @@ public class PovTest {
     Tree expected =
         Tree.of("x", List.of(Tree.of("parent", List.of(Tree.of("a"), Tree.of("b"), Tree.of("c")))));
 
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -53,7 +53,7 @@ public class PovTest {
                             "level-2",
                             List.of(Tree.of("level-1", List.of(Tree.of("level-0")))))))));
 
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -63,7 +63,7 @@ public class PovTest {
 
     Tree expected = Tree.of("x", List.of(Tree.of("kid-0"), Tree.of("kid-1"), Tree.of("parent")));
 
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -98,7 +98,7 @@ public class PovTest {
                                     "uncle",
                                     List.of(Tree.of("cousin-0"), Tree.of("cousin-1")))))))));
 
-    assertEquals(expected, tree.fromPov("x"));
+    assertThat(tree.fromPov("x")).isEqualTo(expected);
   }
 
   @Test
@@ -129,7 +129,7 @@ public class PovTest {
     Tree tree = Tree.of("parent", List.of(Tree.of("x"), Tree.of("sibling")));
 
     List<String> expected = List.of("x", "parent");
-    assertEquals(expected, tree.pathTo("x", "parent"));
+    assertThat(tree.pathTo("x", "parent")).isEqualTo(expected);
   }
 
   @Test
@@ -137,7 +137,7 @@ public class PovTest {
     Tree tree = Tree.of("parent", List.of(Tree.of("a"), Tree.of("x"), Tree.of("b"), Tree.of("c")));
 
     List<String> expected = List.of("x", "parent", "b");
-    assertEquals(expected, tree.pathTo("x", "b"));
+    assertThat(tree.pathTo("x", "b")).isEqualTo(expected);
   }
 
   @Test
@@ -155,7 +155,7 @@ public class PovTest {
                 Tree.of("uncle", List.of(Tree.of("cousin-0"), Tree.of("cousin-1")))));
 
     List<String> expected = List.of("x", "parent", "grandparent", "uncle", "cousin-1");
-    assertEquals(expected, tree.pathTo("x", "cousin-1"));
+    assertThat(tree.pathTo("x", "cousin-1")).isEqualTo(expected);
   }
 
   @Test
@@ -168,7 +168,7 @@ public class PovTest {
                     "parent", List.of(Tree.of("x"), Tree.of("sibling-0"), Tree.of("sibling-1")))));
 
     List<String> expected = List.of("x", "parent", "sibling-1");
-    assertEquals(expected, tree.pathTo("x", "sibling-1"));
+    assertThat(tree.pathTo("x", "sibling-1")).isEqualTo(expected);
   }
 
   @Test
@@ -176,7 +176,7 @@ public class PovTest {
     Tree tree = Tree.of("parent", List.of(Tree.of("a"), Tree.of("x"), Tree.of("b"), Tree.of("c")));
 
     List<String> expected = List.of("a", "parent", "c");
-    assertEquals(expected, tree.pathTo("a", "c"));
+    assertThat(tree.pathTo("a", "c")).isEqualTo(expected);
   }
 
   @Test
