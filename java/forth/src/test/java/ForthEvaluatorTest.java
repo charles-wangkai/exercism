@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ForthEvaluatorTest {
@@ -358,7 +357,6 @@ public class ForthEvaluatorTest {
         .containsExactly(1, 1, 1, 1);
   }
 
-  @Disabled
   @Test
   public void testDefinitionsAreOnlyDefinedLocally() {
     ForthEvaluator firstInstance = new ForthEvaluator();
