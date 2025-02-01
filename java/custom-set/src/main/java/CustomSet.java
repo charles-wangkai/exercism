@@ -15,7 +15,7 @@ public class CustomSet<T> {
     @SuppressWarnings("unchecked")
     CustomSet<T> other = (CustomSet<T>) obj;
 
-    return isSubset(other) && other.isSubset(this);
+    return set.equals(other.set);
   }
 
   boolean isEmpty() {
@@ -39,7 +39,7 @@ public class CustomSet<T> {
   }
 
   CustomSet<T> getIntersection(CustomSet<T> other) {
-    return new CustomSet<>(set.stream().filter(element -> other.set.contains(element)).toList());
+    return new CustomSet<>(set.stream().filter(other.set::contains).toList());
   }
 
   CustomSet<T> getDifference(CustomSet<T> other) {
