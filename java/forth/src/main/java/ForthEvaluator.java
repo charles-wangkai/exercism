@@ -1,13 +1,13 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class ForthEvaluator {
   List<Integer> evaluateProgram(List<String> commands) {
-    Stack<Integer> stack = new Stack<>();
+    List<Integer> stack = new ArrayList<>();
     Map<String, String> nameToDefinition = new HashMap<>();
     for (String command : commands) {
       command = command.toLowerCase();
@@ -26,58 +26,58 @@ public class ForthEvaluator {
         for (String token : tokenize(replace(command, nameToDefinition))) {
           if (isNumber(token)) {
             int number = Integer.parseInt(token);
-            stack.push(number);
+            stack.add(number);
           } else if (token.equals("+")) {
             checkStackSize(stack, "Addition", 2);
 
-            int number1 = stack.pop();
-            int number2 = stack.pop();
-            stack.push(number2 + number1);
+            int operand2 = stack.removeLast();
+            int operand1 = stack.removeLast();
+            stack.add(operand1 + operand2);
           } else if (token.equals("-")) {
             checkStackSize(stack, "Subtraction", 2);
 
-            int number1 = stack.pop();
-            int number2 = stack.pop();
-            stack.push(number2 - number1);
+            int operand2 = stack.removeLast();
+            int operand1 = stack.removeLast();
+            stack.add(operand1 - operand2);
           } else if (token.equals("*")) {
             checkStackSize(stack, "Multiplication", 2);
 
-            int number1 = stack.pop();
-            int number2 = stack.pop();
-            stack.push(number2 * number1);
+            int operand2 = stack.removeLast();
+            int operand1 = stack.removeLast();
+            stack.add(operand1 * operand2);
           } else if (token.equals("/")) {
             checkStackSize(stack, "Division", 2);
 
-            int number1 = stack.pop();
-            int number2 = stack.pop();
+            int operand2 = stack.removeLast();
+            int operand1 = stack.removeLast();
 
-            if (number1 == 0) {
+            if (operand2 == 0) {
               throw new IllegalArgumentException("Division by 0 is not allowed");
             }
 
-            stack.push(number2 / number1);
+            stack.add(operand1 / operand2);
           } else if (token.equals("dup")) {
             checkStackSize(stack, "Duplicating", 1);
 
-            stack.push(stack.peek());
+            stack.add(stack.getLast());
           } else if (token.equals("drop")) {
             checkStackSize(stack, "Dropping", 1);
 
-            stack.pop();
+            stack.removeLast();
           } else if (token.equals("swap")) {
             checkStackSize(stack, "Swapping", 2);
 
-            int number1 = stack.pop();
-            int number2 = stack.pop();
-            stack.push(number1);
-            stack.push(number2);
+            int value2 = stack.removeLast();
+            int value1 = stack.removeLast();
+            stack.add(value2);
+            stack.add(value1);
           } else if (token.equals("over")) {
             checkStackSize(stack, "Overing", 2);
 
-            stack.push(stack.get(stack.size() - 2));
+            stack.add(stack.get(stack.size() - 2));
           } else {
             throw new IllegalArgumentException(
-                String.format("No definition available for operator \"%s\"", token));
+                "No definition available for operator \"%s\"".formatted(token));
           }
         }
       }
@@ -86,12 +86,11 @@ public class ForthEvaluator {
     return stack;
   }
 
-  void checkStackSize(Stack<Integer> stack, String operation, int minSize) {
+  void checkStackSize(List<Integer> stack, String operation, int minSize) {
     if (stack.size() < minSize) {
       throw new IllegalArgumentException(
-          String.format(
-              "%s requires that the stack contain at least %d value%s",
-              operation, minSize, (minSize == 1) ? "" : "s"));
+          "%s requires that the stack contain at least %d value%s"
+              .formatted(operation, minSize, (minSize == 1) ? "" : "s"));
     }
   }
 
