@@ -1,9 +1,9 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PythagoreanTripletTest {
 
@@ -11,7 +11,7 @@ public class PythagoreanTripletTest {
   public void tripletsWhoseSumIs12() {
     List<PythagoreanTriplet> actual = PythagoreanTriplet.makeTripletsList().thatSumTo(12).build();
     List<PythagoreanTriplet> expected = Collections.singletonList(new PythagoreanTriplet(3, 4, 5));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -19,7 +19,7 @@ public class PythagoreanTripletTest {
     List<PythagoreanTriplet> actual = PythagoreanTriplet.makeTripletsList().thatSumTo(108).build();
     List<PythagoreanTriplet> expected =
         Collections.singletonList(new PythagoreanTriplet(27, 36, 45));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -31,14 +31,14 @@ public class PythagoreanTripletTest {
             .build();
     List<PythagoreanTriplet> expected =
         Collections.singletonList(new PythagoreanTriplet(200, 375, 425));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
   public void tripletsWhoseSumIs1001() {
     List<PythagoreanTriplet> actual = PythagoreanTriplet.makeTripletsList().thatSumTo(1001).build();
     List<PythagoreanTriplet> expected = Collections.emptyList();
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -46,7 +46,7 @@ public class PythagoreanTripletTest {
     List<PythagoreanTriplet> actual = PythagoreanTriplet.makeTripletsList().thatSumTo(90).build();
     List<PythagoreanTriplet> expected =
         Arrays.asList(new PythagoreanTriplet(9, 40, 41), new PythagoreanTriplet(15, 36, 39));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class PythagoreanTripletTest {
             new PythagoreanTriplet(168, 315, 357),
             new PythagoreanTriplet(210, 280, 350),
             new PythagoreanTriplet(240, 252, 348));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -79,7 +79,7 @@ public class PythagoreanTripletTest {
             new PythagoreanTriplet(168, 315, 357),
             new PythagoreanTriplet(210, 280, 350),
             new PythagoreanTriplet(240, 252, 348));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -93,7 +93,7 @@ public class PythagoreanTripletTest {
             new PythagoreanTriplet(5000, 12000, 13000),
             new PythagoreanTriplet(6000, 11250, 12750),
             new PythagoreanTriplet(7500, 10000, 12500));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
@@ -104,6 +104,6 @@ public class PythagoreanTripletTest {
             .thatSumTo(30000)
             .build();
     List<PythagoreanTriplet> expected = Arrays.asList(new PythagoreanTriplet(7500, 10000, 12500));
-    assertEquals(expected, actual);
+    assertThat(actual).isEqualTo(expected);
   }
 }
